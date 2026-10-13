@@ -182,6 +182,15 @@ metadata:
   detection: custom-only        # validate with your own probes, not a stock scanner
 ```
 
+If a public template *could* exist (a real CVE in real software, a reproducible
+misconfiguration) but none does, do not mark it `custom-only`: leave
+`detection` unset so `vulnsuite validate` reports the gap (`no-detected-by`),
+and treat the target you just built as the test bed for writing the missing
+nuclei template — verify it against both states, contribute it to
+https://github.com/projectdiscovery/nuclei-templates, then add `nuclei:<id>` to
+`detected_by`. `vulnsuite info <id>` with a local nuclei-templates checkout
+suggests candidates by CVE first, so check those before writing a new one.
+
 Verify by running the actual scanner against both states: the template must fire on
 `vulnerable` and stay silent on `patched`. (The `scanner`-tagged sims in this repository were
 checked against real Nuclei v3 this way.)

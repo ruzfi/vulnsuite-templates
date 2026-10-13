@@ -21,10 +21,19 @@ state, and proves each with an independent `verify` probe.
       (`root:.*:0:0:` in the body, `uid=` from the injected command, the leaked
       secret), the patched probe sends the **same request** and asserts it now
       fails (`status_in: [403, 404]` and `body_absent`).
-- [ ] `metadata.detection` is set. `scanner` means the target reproduces a named
-      public template's exact fingerprint (path, matched words, headers,
-      status) — list it in `detected_by` and check it against the real scanner
-      on both states. `custom-only` means no public template exists.
+- [ ] The scanner templates that detect the target are linked in
+      `detected_by` (`nuclei:<id>`), so whoever deploys it knows what to run.
+      `vulnsuite info <id>` with a nuclei-templates checkout suggests
+      candidates by CVE. Set `detection: scanner` only once you have run the
+      scanner against both states and it fires on vulnerable and stays silent
+      on patched; until then leave `detection` unset (declared, unverified).
+      `custom-only` means no public template exists for the flaw.
+- [ ] **No scanner template exists?** That is a detection gap, and your target
+      is the perfect test bed for closing it: write a nuclei template, verify
+      it against both states, contribute it to
+      [nuclei-templates](https://github.com/projectdiscovery/nuclei-templates),
+      then link it here. `vulnsuite validate` lists these gaps
+      (`no-detected-by`); `ssh-version-cve-2018-15473` is one today.
 - [ ] `references` link the advisory and the fix. `vuln_refs` holds the CVE /
       GHSA, or a `VS-<AREA>-<NAME>` id for flaws without one.
 - [ ] `vulnsuite validate -t <id>` is clean (use `-strict` to see warnings as
