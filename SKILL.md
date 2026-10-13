@@ -144,6 +144,12 @@ Notes:
 
 ---
 
+> For a flaw that needs a multi-step protocol exchange (FTP SITE commands,
+> SMTP, a line protocol), use a `net` verify probe: an ordered list of
+> send/expect steps over one connection. Reproduce the scanner's detectable
+> response (e.g. mod_copy's "Copy successful") on the vulnerable state and the
+> refusal on the patched state.
+
 ## Step 4 — write the verify probes (the one hard rule)
 
 **A verify probe must be independent of the scanner's detection logic.** Do not
