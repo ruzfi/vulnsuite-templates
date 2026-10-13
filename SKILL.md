@@ -59,6 +59,12 @@ no public image reproduces -- the `iot/` targets are the model. A real target
 and a simulated one for the same CVE may coexist (the simulated one as an
 offline/CI fallback).
 
+If the target only runs on a particular host — a specific CPU arch, or
+`/dev/kvm` for a nested VM (e.g. dockur/windows) — declare a `requires` block
+(`arch`, `kvm`, `host_os`, `emulation`) so vulnsuite skips it with a reason on
+hosts that cannot run it instead of hanging, and runs cross-arch images under
+emulation. A `/dev/kvm` device must be matched by `requires.kvm`.
+
 
 Pick the cheapest mechanism that reproduces the flaw. This decides `base.kind`
 and how each state is reached.
