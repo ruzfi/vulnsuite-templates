@@ -1,0 +1,40 @@
+name: validate
+on:
+  push:
+    branches: [main]
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  vulnsuite-validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.24'
+      - name: install vulnsuite
+        run: go install github.com/ruzfi/vulnsuite/cmd/vulnsuite@latest
+      - name: validate every template
+        # -allow-unpinned until every base carries a digest; drop it to enforce pinning.
+        run: vulnsuite -templates . validate -allow-unpinned
+  schema:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install check-jsonschema
+      - name: check contracts against the JSON schema
+        run: |
+          find . -name contract.yaml -not -path './.git/*' -print0 \
+            | xargs -0 check-jsonschema --schemafile schemas/contract.schema.json
+  lint-commits:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: webiny/action-conventional-commits@v1.3.0
