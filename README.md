@@ -35,6 +35,14 @@ schemas/contract.schema.json   the contract schema (mirrored from vulnsuite)
 | `iot` | simulated devices: cameras, routers, UPnP, debug ports, backdoors |
 | `network-services` | non-HTTP services (SSH, ...) |
 
+Each template declares a **fidelity**: `real` runs the genuine affected software
+(the default, and what you should write whenever a public image or buildable
+upstream source exists); `simulated` is a faithful stand-in, reserved for
+bare-OS / device / protocol flaws with no reproducible image (the `iot/` targets,
+and a few exposure/misconfig sims). `vulnsuite list -fidelity real|simulated`
+filters them. Prefer real: stand up the actual software, with its real database
+or dependencies, over simulating it.
+
 Each template's `metadata.detection` says what a stock scanner can do with it:
 
 - `scanner` — the target reproduces a *specific* public scanner template's

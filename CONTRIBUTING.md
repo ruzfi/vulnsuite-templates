@@ -7,6 +7,12 @@ state, and proves each with an independent `verify` probe.
 
 ## Checklist
 
+- [ ] `metadata.fidelity` is set. Use `real` and stand up the genuine software
+      (with its real database/dependencies via `sidecars` and a `seed` that
+      initialises it) whenever a public image or buildable upstream source
+      exists. Reserve `simulated` for bare-OS / device / protocol flaws that no
+      public image reproduces, and add a `-sim` suffix to the id so a real and a
+      simulated target for the same flaw can coexist.
 - [ ] `metadata.id` is unique, lowercase, and names the product + version + CVE
       (`apache-httpd-2.4.49-cve-2021-41773`), or product + flaw for things
       without a CVE (`redis-unauthenticated-access`).

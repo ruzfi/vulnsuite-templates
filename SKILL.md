@@ -49,6 +49,17 @@ Step 4: your verify probe must be written **independently**, not copied.
 
 ## Step 2 — choose the base and the state mechanism
 
+**Prefer the real software (`fidelity: real`).** If a public image or a
+buildable upstream source carries the flaw, run *that* -- with its real
+database or dependencies as `sidecars` and a `seed` step that installs/seeds it
+(e.g. a headless WordPress install + a published page driven with the image's
+own `php`/CLI). Only fall back to a hand-written simulation (`fidelity:
+simulated`, and a `-sim` id suffix) for bare-OS / device / protocol flaws that
+no public image reproduces -- the `iot/` targets are the model. A real target
+and a simulated one for the same CVE may coexist (the simulated one as an
+offline/CI fallback).
+
+
 Pick the cheapest mechanism that reproduces the flaw. This decides `base.kind`
 and how each state is reached.
 
