@@ -14,7 +14,7 @@ jobs:
         with:
           go-version: '1.24'
       - name: install vulnsuite
-        run: go install github.com/ruzfi/vulnsuite/cmd/vulnsuite@latest
+        run: go install github.com/ruzfi/vulnsuite/cmd/vulnsuite@main
       - name: validate every template
         # -allow-unpinned until every base carries a digest; drop it to enforce pinning.
         run: vulnsuite -templates . validate -allow-unpinned
