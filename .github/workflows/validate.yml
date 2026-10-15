@@ -8,11 +8,21 @@ permissions:
 jobs:
   vulnsuite-validate:
     runs-on: ubuntu-latest
+    env:
+      # Read-only PAT with access to the private vulnsuite repo. Unset it once
+      # vulnsuite is public: the fetch then needs no auth and the configure
+      # step below is skipped -- no workflow edit needed when visibility flips.
+      VULNSUITE_RO: ${{ secrets.VULNSUITE_RO }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-go@v5
         with:
           go-version: '1.24'
+      - name: authenticate the private vulnsuite module (only while private)
+        if: env.VULNSUITE_RO != ''
+        run: |
+          echo "GOPRIVATE=github.com/ruzfi/*" >> "$GITHUB_ENV"
+          git config --global url."https://x-access-token:${VULNSUITE_RO}@github.com/".insteadOf "https://github.com/"
       - name: install vulnsuite
         run: go install github.com/ruzfi/vulnsuite/cmd/vulnsuite@main
       - name: validate every template
