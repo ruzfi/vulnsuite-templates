@@ -27,7 +27,13 @@ jobs:
         run: go install github.com/ruzfi/vulnsuite/cmd/vulnsuite@main
       - name: validate every template
         # -allow-unpinned until every base carries a digest; drop it to enforce pinning.
-        run: vulnsuite -templates . validate -allow-unpinned
+        # No-op while the repo ships docs + schema only (no contract.yaml present).
+        run: |
+          if ! find . -name contract.yaml -not -path './.git/*' | grep -q .; then
+            echo "No templates present; skipping vulnsuite validate."
+            exit 0
+          fi
+          vulnsuite -templates . validate -allow-unpinned
   schema:
     runs-on: ubuntu-latest
     steps:
@@ -37,7 +43,12 @@ jobs:
           python-version: '3.12'
       - run: pip install check-jsonschema
       - name: check contracts against the JSON schema
+        # No-op while the repo ships docs + schema only (no contract.yaml present).
         run: |
+          if ! find . -name contract.yaml -not -path './.git/*' | grep -q .; then
+            echo "No templates present; skipping schema validation."
+            exit 0
+          fi
           find . -name contract.yaml -not -path './.git/*' -print0 \
             | xargs -0 check-jsonschema --schemafile schemas/contract.schema.json
   lint-commits:
