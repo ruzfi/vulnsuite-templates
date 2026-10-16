@@ -1,3 +1,5 @@
 .DS_Store
 .vulnsuite-templates-version
 *.tgz.tmp
+__pycache__/
+*.pyc
