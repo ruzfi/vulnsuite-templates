@@ -1,0 +1,32 @@
+name: Target problem
+description: A target fails to build, run, or verify
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Targets are vulnerable **by design** — don't report the CVE itself. Report
+        a target that won't build/run/verify. A template that can affect the host,
+        or ships a working exploit, goes to SECURITY.md (privately), not here.
+  - type: input
+    id: target
+    attributes:
+      label: Target id
+      description: e.g. apache-httpd-2.4.49-cve-2021-41773
+    validations: { required: true }
+  - type: dropdown
+    id: stage
+    attributes:
+      label: Where it fails
+      options: [build, run vulnerable, run patched, verify vulnerable, verify patched, update-templates, other]
+    validations: { required: true }
+  - type: input
+    id: version
+    attributes:
+      label: vulnsuite version
+  - type: textarea
+    id: details
+    attributes:
+      label: What happened
+      render: shell
+    validations: { required: true }
