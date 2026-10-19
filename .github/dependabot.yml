@@ -1,0 +1,8 @@
+version: 2
+updates:
+  # This repo ships contract.yaml templates and docs -- no language manifest to
+  # track, so only the GitHub Actions used by the validate workflow are updated.
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
