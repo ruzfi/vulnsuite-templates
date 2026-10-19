@@ -1,0 +1,33 @@
+name: New target request
+description: Propose a new vulnerable / patched target
+labels: [new-target]
+body:
+  - type: input
+    id: cve
+    attributes:
+      label: CVE / advisory
+      description: CVE id or advisory URL (or a VS-<AREA>-<NAME> id for flaws without a CVE).
+    validations: { required: true }
+  - type: input
+    id: product
+    attributes:
+      label: Product and affected / fixed versions
+    validations: { required: true }
+  - type: dropdown
+    id: fidelity
+    attributes:
+      label: Fidelity
+      options:
+        - "real (a public image or buildable upstream source exists)"
+        - "simulated (no reproducible image — bare-OS / device / protocol flaw)"
+    validations: { required: true }
+  - type: textarea
+    id: detection
+    attributes:
+      label: Detection
+      description: Is there a public scanner template (e.g. nuclei:CVE-...)? If not, it is custom-only.
+  - type: textarea
+    id: notes
+    attributes:
+      label: Notes
+      description: How the flaw is reached, from the advisory. Do NOT include a working exploit.
