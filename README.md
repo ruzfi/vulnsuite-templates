@@ -18,22 +18,69 @@ vulnsuite run -t apache-httpd-2.4.49-cve-2021-41773 -expose host
 ```
 <category>/<id>/
   contract.yaml      the target (required)
-  files/             overlay files, patched sources, configs
+  README.md          optional; only for build/run nuance the contract can't state (no CVE facts)
+  files/
+    common/          overlays shared by both states
+    vulnerable/      overlays applied only to the vulnerable state
+    patched/         overlays applied only to the patched state
   patches/           git patches for source bases
-  src/               Dockerfile + source for build-from-source targets
+  src/               build context that builds the genuine upstream software
+  build/             build context for a minimal harness app on a real stack
 schemas/contract.schema.json   the contract schema (mirrored from vulnsuite)
+CATALOG.md           generated index of every target (never hand-edited)
 ```
+
+The per-state overlay folders are named for the states they feed
+(`states.vulnerable` / `states.patched`), so a glance at `files/` tells you which
+state each overlay belongs to. A target with no overlays needs no `files/` at all.
+
+A `base.kind: build` target carries its own build context in one of two folders,
+by **whose code is inside**: **`src/`** builds the *genuine upstream software* (a
+vendored release, an official source checkout); **`build/`** builds *code we
+wrote* — a minimal harness that stands a real stack up in a vulnerable config
+(the `misconfig/` targets, still `fidelity: real`) or a full stand-in for a
+service with no reproducible image (the `iot/` sims, `fidelity: simulated`).
+
+### Choosing a category
+
+Pick the category by the **product you point a scanner at** — the top of the
+running stack — not by the vulnerability class (that lives in `tags`/`cwe`). One
+target lives in exactly one category; everything else a reader might filter on is
+metadata. A **language-runtime** flaw (PHP, Node.js) reached over HTTP is a
+`web-apps` target with a `runtime` tag — `web-servers` is only for the HTTP
+server daemon itself (httpd, nginx).
 
 | Category | What lives there |
 | --- | --- |
-| `web-servers` | Apache, nginx, TclHttpd ... version CVEs and config misconfigurations |
-| `web-apps` | Grafana, Metabase, Tomcat, WordPress ... application flaws |
+| `web-servers` | the HTTP server daemon: Apache httpd, nginx, TclHttpd ... version CVEs and config misconfigurations |
+| `web-apps` | applications and language runtimes served over HTTP: Grafana, WordPress, Nextcloud, PHP, Node.js ... (tag runtimes `runtime`) |
 | `databases` | CouchDB, Elasticsearch, Redis ... unauthenticated / default access |
 | `exposures` | leaked `.env`, phpinfo, actuator, metrics, swagger ... information disclosure |
 | `misconfig` | CORS, directory listing, exposed `.git`, GraphQL introspection, open redirect |
 | `default-logins` | default and weak credentials |
 | `iot` | simulated devices: cameras, routers, UPnP, debug ports, backdoors |
 | `network-services` | non-HTTP services (SSH, ...) |
+
+### Naming a target
+
+The folder name **is** `metadata.id` (the schema ties them together). Use one grammar:
+
+```
+<product>[-<version>][-<component>]-cve-<YYYY>-<NNNNN>[-<class-slug>]
+```
+
+- **product** — canonical software name, no redundant prefix (`openssh`, not `ssh-openssh`).
+- **version** — only when it is load-bearing (a pure-version flaw, e.g. `grafana-8.3.0-...`).
+- **component** — a sub-product where it disambiguates (`nextcloud-collabora-code-...`).
+- **cve** — exactly **one** primary CVE in the id; list every CVE in `metadata.vuln_refs`.
+- **class-slug** — optional human hint, always **after** the CVE (`-wp-query-sqli`).
+
+No CVE (sims, misconfigurations): `<product>-<class>` (`redis-unauthenticated-access`),
+with a `VS-<AREA>-<NAME>` id in `vuln_refs`.
+
+Every CVE fact lives **only** in `contract.yaml metadata` — never restated in a
+README — so updating a target (a rescore, a new fixed version, a new reference)
+is a one-line edit in one place. Bump `metadata.updated` when you do.
 
 Each template declares a **fidelity**: `real` runs the genuine affected software
 (the default, and what you should write whenever a public image or buildable
