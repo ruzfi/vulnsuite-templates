@@ -1,0 +1,64 @@
+apiVersion: vulnsuite/v1
+kind: Target
+metadata:
+  id: apache-mod-status-exposure
+  summary: >-
+    Apache httpd does not expose mod_status by default, but enabling a
+    <Location /server-status> handler with permissive access publishes live
+    server internals (requests, clients, worker state) to anyone (CWE-200).
+    Verified benignly by detecting the status page.
+  cwe: [CWE-200]
+  severity: low
+  tags: [apache, httpd, mod-status, info-disclosure, misconfiguration, config-axis]
+  references:
+    - https://httpd.apache.org/docs/2.4/mod/mod_status.html
+    - https://cwe.mitre.org/data/definitions/200.html
+  maintainer: ruzfi
+  added: "2026-10-14"
+  # Config-axis target: the SAME httpd image in both states. The vulnerable
+  # state's command enables mod_status at /server-status with "Require all
+  # granted"; the patched state runs the stock image (no status handler). The
+  # detector is the upstream Nuclei misconfiguration template; declared from its
+  # fingerprint, pending a run against both states.
+  fidelity: real
+  detected_by: ["nuclei:apache-server-status"]
+
+base:
+  kind: image
+  image: httpd:2.4
+  # digest: sha256:...   # docker buildx imagetools inspect httpd:2.4
+
+service:
+  ports: [ { container: 80, protocol: http } ]
+  healthcheck:
+    # The stock "It works!" index answers 200 in both states.
+    http: { path: /, status: 200 }
+    timeout: 60s
+
+states:
+  vulnerable:
+    # Enable mod_status and publish /server-status to everyone, then start
+    # httpd. This is exactly the misconfiguration operators add by hand.
+    command:
+      - sh
+      - -c
+      - |
+        sed -i 's/^#LoadModule status_module/LoadModule status_module/' conf/httpd.conf
+        printf '\n<Location /server-status>\n  SetHandler server-status\n  Require all granted\n</Location>\nExtendedStatus On\n' >> conf/httpd.conf
+        exec httpd-foreground
+    verify:
+      - http:
+          method: GET
+          path: "/server-status"
+          status: 200
+          body_matches: "Apache Server Status"
+  # "patched" is the stock configuration (no status handler) -- the fix is to
+  # not expose it.
+  patched:
+    command: [httpd-foreground]
+    verify:
+      - http:
+          method: GET
+          path: "/server-status"
+          status_in: [404, 403]
+          body_absent: "Apache Server Status"
