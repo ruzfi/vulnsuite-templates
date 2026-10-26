@@ -3,7 +3,7 @@
 # pages leak settings, the URLconf and environment; off (the default for any
 # real deployment) they are plain error pages. Django is safe by default; this
 # target is purely the DEBUG misconfiguration.
-FROM python:3.11-slim
+FROM python:3.11-slim@sha256:b7a9e5f6a93d6d4a31f129bbd4bdee69efccb6ded0fb230d78aafaf37af98377
 RUN pip install --no-cache-dir "django==4.2.16"
 WORKDIR /opt
 RUN django-admin startproject demo

@@ -26,7 +26,7 @@ metadata:
 base:
   kind: image
   image: httpd:2.4
-  # digest: sha256:...   # docker buildx imagetools inspect httpd:2.4
+  digest: sha256:a30cd4cd57f3f3c3be9b2d16384d2488839996bb14c67df2b51f1ecbb3e584a1  # multi-arch manifest-list digest
 
 service:
   ports: [ { container: 80, protocol: http } ]
