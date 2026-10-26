@@ -1,0 +1,35 @@
+apiVersion: vulnsuite/v1
+kind: Target
+metadata:
+  id: exposed-git-repository
+  summary: A deployed .git directory served over HTTP, leaking source and a deploy token.
+  vuln_refs: [VS-EXPOSED-GIT]
+  cwe: [CWE-538]
+  severity: high
+  tags: [misconfiguration, information-disclosure, git]
+  references: [https://owasp.org/www-community/attacks/Source_code_disclosure]
+  maintainer: ruzfi
+  added: "2026-09-29"
+  fidelity: real
+  # Declared from the upstream template\'s fingerprint; run the scanner against both
+  # states and set `detection: scanner` once it fires on vulnerable and stays silent on patched.
+  detected_by: ["nuclei:git-config"]
+base:
+  kind: image
+  image: nginx:1.25-alpine
+service:
+  ports: [ { container: 80, protocol: http } ]
+  healthcheck: { http: { path: /, status: 200 }, timeout: 30s }
+states:
+  vulnerable:
+    overlay:
+      - { src: files/vuln.conf, dest: /etc/nginx/conf.d/default.conf }
+      - { src: files/git/config, dest: /usr/share/nginx/html/.git/config }
+    verify:
+      - http: { method: GET, path: "/.git/config", status: 200, body_matches: "repositoryformatversion" }
+  patched:
+    overlay:
+      - { src: files/fixed.conf, dest: /etc/nginx/conf.d/default.conf }
+      - { src: files/git/config, dest: /usr/share/nginx/html/.git/config }
+    verify:
+      - http: { method: GET, path: "/.git/config", status_in: [403], body_absent: "repositoryformatversion" }

@@ -1,0 +1,66 @@
+apiVersion: vulnsuite/v1
+kind: Target
+metadata:
+  id: graphql-introspection-enabled
+  summary: >-
+    A GraphQL API with introspection enabled exposes its full schema to any
+    unauthenticated client (CWE-200). Safe default is to disable introspection
+    in production; enabling it is the misconfiguration. Verified benignly by
+    running an introspection query and checking the schema is returned.
+  vuln_refs: [VS-MISCONF-GQL-INTRO]
+  cwe: [CWE-200]
+  severity: low
+  tags: [graphql, apollo, nodejs, introspection, info-disclosure, misconfiguration, config-axis]
+  references:
+    - https://graphql.org/learn/introspection/
+    - https://www.apollographql.com/docs/apollo-server/api/apollo-server/#introspection
+  maintainer: ruzfi
+  added: "2026-09-29"
+  fidelity: real
+  # Config-axis target: a genuine Apollo server; the SAME image serves both
+  # states, differing only by the INTROSPECTION env var. There is no upstream
+  # Nuclei template that discriminates introspection-on from -off (schema
+  # detectors fire on both), so detection is custom: the introspection query
+  # itself is the discriminator.
+  detection: custom-only
+
+# Upgraded from a simulated stand-in to a real Apollo GraphQL server. The flaw
+# is purely configuration: introspection defaults to off in production but is
+# often left on. The vulnerable state enables it; the patched state is the
+# secure default.
+base:
+  kind: build
+  context: build
+  dockerfile: Dockerfile
+
+service:
+  ports: [ { container: 4000, protocol: http } ]
+  healthcheck:
+    # Apollo Server's built-in health endpoint answers 200 in both states.
+    http: { path: /.well-known/apollo/server-health, status: 200 }
+    timeout: 90s
+
+states:
+  vulnerable:
+    environment:
+      INTROSPECTION: "1"
+    verify:
+      - http:
+          method: POST
+          path: "/"
+          headers: { Content-Type: "application/json" }
+          body: "{\"query\":\"{__schema{queryType{name}}}\"}"
+          status: 200
+          body_matches: "queryType"
+  # "patched" is the secure default: introspection off, so __schema is refused.
+  patched:
+    environment:
+      INTROSPECTION: "0"
+    verify:
+      - http:
+          method: POST
+          path: "/"
+          headers: { Content-Type: "application/json" }
+          body: "{\"query\":\"{__schema{queryType{name}}}\"}"
+          status_in: [400]
+          body_absent: "queryType"

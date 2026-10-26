@@ -1,0 +1,10 @@
+{
+  "name": "graphql-introspection-demo",
+  "version": "1.0.0",
+  "private": true,
+  "main": "index.js",
+  "dependencies": {
+    "apollo-server": "3.13.0",
+    "graphql": "16.8.1"
+  }
+}
