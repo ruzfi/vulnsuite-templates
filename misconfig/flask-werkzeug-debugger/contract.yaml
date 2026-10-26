@@ -1,0 +1,66 @@
+apiVersion: vulnsuite/v1
+kind: Target
+metadata:
+  id: flask-werkzeug-debugger
+  summary: >-
+    A Flask app is safe by default, but running it with debug enabled exposes
+    the Werkzeug interactive debugger: any unhandled error returns a traceback
+    page with an (RCE-capable) console (CWE-489). Verified benignly by detecting
+    the debugger traceback page, never by using the console.
+  cwe: [CWE-489]
+  severity: high
+  tags: [flask, werkzeug, python, debug, misconfiguration, rce, config-axis]
+  references:
+    - https://werkzeug.palletsprojects.com/en/stable/debug/
+    - https://cwe.mitre.org/data/definitions/489.html
+    - https://owasp.org/www-community/vulnerabilities/Improper_Error_Handling
+  maintainer: ruzfi
+  added: "2026-10-14"
+  # A configuration-axis target: the two states run the SAME image and differ
+  # only by whether the feature is enabled. The detector is the upstream Nuclei
+  # misconfiguration template. Declared from its fingerprint; run the scanner
+  # against both states and set detection: scanner once it fires on vulnerable
+  # (debug on) and stays silent on secure (debug off, the default).
+  fidelity: real
+  detected_by: ["nuclei:flask-werkzeug-debug"]
+
+# Not a version bug: the same app is safe or exploitable depending purely on the
+# Werkzeug debugger. Flask enables it when run with debug=True (and Django
+# deployments hit the same thing via django-extensions' runserver_plus
+# --werkzeug). The "secure" state is the default (debug off); the "vulnerable"
+# state turns the debugger on. APP_DEBUG is carried per state so the two are
+# distinct runs of one build.
+base:
+  kind: build
+  context: build
+  dockerfile: Dockerfile
+
+service:
+  ports: [ { container: 5000, protocol: http } ]
+  healthcheck:
+    http: { path: /healthz, status: 200 }
+    timeout: 60s
+
+states:
+  vulnerable:
+    # debug on: the unhandled error renders the Werkzeug debugger traceback.
+    environment:
+      APP_DEBUG: "1"
+    verify:
+      - http:
+          method: GET
+          path: "/"
+          status: 500
+          body_matches: "Werkzeug powered traceback interpreter"
+  # "patched" here is the secure default configuration (debug off) -- the fix
+  # for this class is a config change, not a version bump.
+  patched:
+    # debug off (the default): a plain 500, no debugger.
+    environment:
+      APP_DEBUG: "0"
+    verify:
+      - http:
+          method: GET
+          path: "/"
+          status: 500
+          body_absent: "Werkzeug powered traceback interpreter"

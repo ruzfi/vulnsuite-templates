@@ -1,0 +1,57 @@
+apiVersion: vulnsuite/v1
+kind: Target
+metadata:
+  id: php-fpm-status-exposure
+  summary: >-
+    PHP-FPM does not expose its pool status page by default, but setting
+    pm.status_path and routing it through the web server publishes pool
+    internals (active processes, request URIs, scripts) to anyone (CWE-200).
+    Verified benignly by detecting the status page.
+  cwe: [CWE-200]
+  severity: low
+  tags: [php, php-fpm, nginx, status, info-disclosure, misconfiguration, config-axis]
+  references:
+    - https://www.php.net/manual/en/fpm.status.php
+    - https://cwe.mitre.org/data/definitions/200.html
+  maintainer: ruzfi
+  added: "2026-10-14"
+  # Config-axis target: one built nginx+PHP-FPM image; the states differ only by
+  # FPM_STATUS, which the entrypoint turns into a pm.status_path pool setting.
+  # The detector is the upstream Nuclei misconfiguration template; declared from
+  # its fingerprint, pending a run against both states.
+  fidelity: real
+  detected_by: ["nuclei:php-fpm-status"]
+
+base:
+  kind: build
+  context: build
+  dockerfile: Dockerfile
+
+service:
+  ports: [ { container: 80, protocol: http } ]
+  healthcheck:
+    # The dummy index answers 200 in both states.
+    http: { path: /, status: 200 }
+    timeout: 90s
+
+states:
+  vulnerable:
+    environment:
+      FPM_STATUS: "1"
+    verify:
+      - http:
+          method: GET
+          path: "/status?full"
+          status: 200
+          body_matches: "pool:"
+  # "patched" is the default pool config (no status path) -- /status is not
+  # served. The fix for this class is the config, not a version bump.
+  patched:
+    environment:
+      FPM_STATUS: "0"
+    verify:
+      - http:
+          method: GET
+          path: "/status?full"
+          status_in: [404, 403]
+          body_absent: "pool:"
