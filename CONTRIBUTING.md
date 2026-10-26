@@ -5,6 +5,12 @@ files it needs. A good template reproduces a real vulnerability in a
 **vulnerable** state, the same system with the flaw removed in a **patched**
 state, and proves each with an independent `verify` probe.
 
+The [README](README.md#layout) is the canonical reference for the folder layout,
+how to choose a category, and the id naming grammar. In short: one target per
+category, chosen by the product you scan (language runtimes go in `web-apps`
+with a `runtime` tag); overlays live under `files/common|vulnerable|patched/`;
+and the id follows `<product>[-<version>][-<component>]-cve-<YYYY>-<NNNNN>[-<slug>]`.
+
 ## Checklist
 
 - [ ] `metadata.fidelity` is set. Use `real` and stand up the genuine software
@@ -13,9 +19,13 @@ state, and proves each with an independent `verify` probe.
       exists. Reserve `simulated` for bare-OS / device / protocol flaws that no
       public image reproduces, and add a `-sim` suffix to the id so a real and a
       simulated target for the same flaw can coexist.
-- [ ] `metadata.id` is unique, lowercase, and names the product + version + CVE
-      (`apache-httpd-2.4.49-cve-2021-41773`), or product + flaw for things
-      without a CVE (`redis-unauthenticated-access`).
+- [ ] `metadata.id` equals the folder name and follows the grammar
+      `<product>[-<version>][-<component>]-cve-<YYYY>-<NNNNN>[-<slug>]`
+      (`apache-httpd-2.4.49-cve-2021-41773`, `wordpress-cve-2026-60137-wp-query-sqli`),
+      or `<product>-<flaw>` for things without a CVE (`redis-unauthenticated-access`).
+      Exactly one primary CVE goes in the id; list every CVE in `vuln_refs`.
+- [ ] `metadata.updated` is set when you change an existing target (metadata,
+      versions, or probes); new targets may leave it unset (it defaults to `added`).
 - [ ] `base` is **pinned**: an image `digest`, a source `commit`, or a
       self-contained `build` context. `vulnsuite validate` fails on an unpinned
       base. Get a digest with `docker buildx imagetools inspect <image>`.
@@ -39,7 +49,7 @@ state, and proves each with an independent `verify` probe.
       it against both states, contribute it to
       [nuclei-templates](https://github.com/projectdiscovery/nuclei-templates),
       then link it here. `vulnsuite validate` lists these gaps
-      (`no-detected-by`); `ssh-version-cve-2018-15473` is one today.
+      (`no-detected-by`): a target with `detection` unset is the open invitation.
 - [ ] `references` link the advisory and the fix. `vuln_refs` holds the CVE /
       GHSA, or a `VS-<AREA>-<NAME>` id for flaws without one.
 - [ ] `vulnsuite validate -t <id>` is clean (use `-strict` to see warnings as
@@ -48,6 +58,30 @@ state, and proves each with an independent `verify` probe.
 - [ ] Nothing in the folder is larger than it must be. Vendor a source tarball
       when upstream may disappear; never vendor a base image.
 
+## Optional per-target README
+
+A target's `contract.yaml` is the source of truth; most targets need no README.
+Add one **only** for build/run nuance a reader can't get from the contract — an
+arch-specific build, an HTTPS requirement, a seed step, a vendored tarball. Keep
+CVE facts (severity, affected/fixed versions, references) **out** of it; those
+live in `metadata` so a frequently-updated CVE changes in one place. Use this
+template:
+
+```markdown
+# <id>
+
+> One line: what makes this target non-trivial to stand up.
+
+## Why this exists
+What's special about the build/run that the contract can't express
+(arch logic, HTTPS requirement, source build, seed data).
+
+## Building / running notes
+Host prerequisites or gotchas (e.g. "needs an amd64 host", "first boot seeds a DB").
+
+<!-- No CVE facts, severity, or version boundaries here — see contract.yaml metadata. -->
+```
+
 ## Choosing the base and the state mechanism
 
 | Situation | `base.kind` | vulnerable | patched |
@@ -55,7 +89,7 @@ state, and proves each with an independent `verify` probe.
 | released version, fix is a newer version | `image` | the vulnerable tag | `image:` override to the fixed tag |
 | flaw needs a config to be reachable | `image` | `overlay` a vulnerable config | `overlay` the fixed config |
 | unreleased / RC commit | `source` (repo + commit) | build at the commit | `patch` with the fix, or `image:` the fixed tag |
-| no public image reproduces it (devices, protocols, sims) | `build` (local `src/`) | build `src/` as-is | `overlay` a patched file, or a `patch` |
+| no public image reproduces it (devices, protocols, sims) | `build` (local `build/`) | build `build/` as-is | `overlay` a patched file, or a `patch` |
 
 Prefer `image` — it is the most portable. Use `build` for anything with no
 reproducible public image; keep the vulnerable and patched apps identical

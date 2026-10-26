@@ -14,10 +14,17 @@ their own scanner. Your output is a template folder:
 
 ```
 <category>/<id>/
-  contract.yaml          the target contract (required)
-  files/...              overlay files, patched source, config (as needed)
-  src/                   Dockerfile + source (only for build-from-source sims)
+  contract.yaml                 the target contract (required)
+  README.md                     optional; build/run nuance only, no CVE facts
+  files/common|vulnerable|patched/   overlay files, keyed by the state they feed
+  src/                          build context for genuine upstream software
+  build/                        build context for code we wrote (harness / sim)
 ```
+
+Choose the category by the product you scan (language runtimes → `web-apps`,
+tagged `runtime`), and name the folder — which is `metadata.id` — with the
+grammar `<product>[-<version>][-<component>]-cve-<YYYY>-<NNNNN>[-<slug>]`. See the
+[README](README.md#layout) for the full taxonomy and naming rules.
 
 The scanner is not your concern. Your job is a target that (a) stands up in a
 **vulnerable** state, (b) stands up in a **patched** state that differs by the
@@ -74,7 +81,7 @@ and how each state is reached.
 | Flaw is in a released version; fix is a newer version | `image` | base image (vulnerable tag) | `image:` override to the fixed tag |
 | Flaw needs a config to be reachable | `image` | `overlay` a vulnerable config | `overlay` the fixed config |
 | Flaw is an unreleased/RC commit | `source` (repo + commit) | build at commit | `image:` fixed tag, or a fix `patch` |
-| No public image reproduces it (custom device, IoT, protocol) | `build` (local `src/`) | build `src/` as-is | `overlay` a patched source file, or a `patch` |
+| No public image reproduces it (custom device, IoT, protocol) | `build` (local `build/`) | build `build/` as-is | `overlay` a patched source file, or a `patch` |
 
 Rules of thumb:
 
@@ -85,7 +92,8 @@ Rules of thumb:
   (Apache mod_status, an aliased directory, a `requirepass`).
 - Use `build` for anything with no reproducible public image — IoT devices,
   bespoke protocols, a vulnerable app you simulate in Python/Go sockets. The
-  whole build context lives in the template's `src/`.
+  whole build context lives in the template's `build/` (reserve `src/` for a
+  context that builds the genuine upstream software).
 - `patched` should differ from `vulnerable` by the **minimum**. If the diff is
   large, the discrimination test is measuring more than the vulnerability.
 
@@ -99,15 +107,16 @@ Skeleton (fill every TODO):
 apiVersion: vulnsuite/v1
 kind: Target
 metadata:
-  id: <product>-<version>-<cve>      # lowercase, hyphens/dots; unique
+  id: <product>[-<version>]-cve-YYYY-NNNNN[-<slug>]   # = folder name; one CVE here
   summary: <one line: what and how>
-  vuln_refs: [CVE-XXXX-XXXXX]        # or VS-<SLUG> for a sim/misconfig with no CVE
+  vuln_refs: [CVE-XXXX-XXXXX]        # every CVE; or VS-<SLUG> for a sim/misconfig with no CVE
   cwe: [CWE-NN]
   severity: critical|high|medium|low
-  tags: [<product>, <class>]
+  tags: [<product>, <class>]         # add `runtime` for a language-runtime flaw
   references: [<advisory>, <fix>]
   maintainer: <you>
   added: "YYYY-MM-DD"
+  # updated: "YYYY-MM-DD"            # set only when editing an existing target
 base:
   kind: image                         # image | source | build
   image: <image:tag>
@@ -226,18 +235,19 @@ When nothing public reproduces it, simulate the vulnerable behaviour in a small
 service. This is the pattern the IoT templates use.
 
 ```
-templates/iot/<id>/
+iot/<id>/
   contract.yaml
-  src/
+  build/                 # code we wrote, so build/ (not src/, which is upstream's)
     Dockerfile           # FROM python:3.12-alpine; COPY app.py; CMD [...]
     app.py               # the VULNERABLE service
   files/
-    app_patched.py       # the fixed service (overlaid onto the build context)
+    patched/
+      app.py             # the fixed service (overlaid onto the build context)
 ```
 
-- `base: { kind: build, context: src }`.
-- `vulnerable` builds `src/` as-is.
-- `patched` overlays the fix: `overlay: [ { src: files/app_patched.py, dest: app.py } ]`.
+- `base: { kind: build, context: build }`.
+- `vulnerable` builds `build/` as-is.
+- `patched` overlays the fix: `overlay: [ { src: files/patched/app.py, dest: app.py } ]`.
   vulnsuite copies the context, replaces `app.py`, and builds.
 - Keep the two apps identical except for the vulnerable code path, so the only
   difference is the flaw.
@@ -307,7 +317,8 @@ exact caps it needs.
 
 ## Checklist before you finish
 
-- [ ] `id` is unique, lowercase, and names the product + version + CVE.
+- [ ] `id` equals the folder name and follows the grammar
+      `<product>[-<version>][-<component>]-cve-<YYYY>-<NNNNN>[-<slug>]`; one CVE in the id, all in `vuln_refs`.
 - [ ] `base` is pinned (image digest, source commit, or a self-contained build).
 - [ ] `vulnerable` and `patched` differ by the minimum that toggles the flaw.
 - [ ] Each state has a `verify` probe written independently of any scanner matcher.

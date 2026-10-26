@@ -51,6 +51,16 @@ jobs:
           fi
           find . -name contract.yaml -not -path './.git/*' -print0 \
             | xargs -0 check-jsonschema --schemafile schemas/contract.schema.json
+  catalog:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+      - run: pip install pyyaml
+      - name: CATALOG.md is regenerated from the contracts and committed
+        run: python3 scripts/gen_catalog.py --check
   lint-commits:
     if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
