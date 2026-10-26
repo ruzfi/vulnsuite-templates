@@ -7,7 +7,8 @@ metadata:
   cwe: [CWE-538]
   severity: high
   tags: [misconfiguration, information-disclosure, git]
-  references: [https://owasp.org/www-community/attacks/Source_code_disclosure]
+  references:
+    - https://owasp.org/www-community/attacks/Source_code_disclosure
   maintainer: ruzfi
   added: "2026-09-29"
   fidelity: real
@@ -17,6 +18,7 @@ metadata:
 base:
   kind: image
   image: nginx:1.25-alpine
+  digest: sha256:516475cc129da42866742567714ddc681e5eed7b9ee0b9e9c015e464b4221a00  # multi-arch manifest-list digest
 service:
   ports: [ { container: 80, protocol: http } ]
   healthcheck: { http: { path: /, status: 200 }, timeout: 30s }

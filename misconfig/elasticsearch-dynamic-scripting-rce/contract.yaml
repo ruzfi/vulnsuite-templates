@@ -38,7 +38,7 @@ metadata:
 base:
   kind: image
   image: elasticsearch:1.5.2
-  # digest: sha256:...   # docker buildx imagetools inspect elasticsearch:1.5.2
+  digest: sha256:fa85d35947083a9b3f4e54299d86ccc2ff6567d21fa0b89fc4424f2a88c2fdaf  # manifest digest
 
 service:
   ports: [ { container: 9200, protocol: http } ]
