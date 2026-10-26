@@ -1,0 +1,57 @@
+apiVersion: vulnsuite/v1
+kind: Target
+metadata:
+  id: nodejs-inspector-exposure
+  summary: >-
+    Node.js is safe by default, but starting it with --inspect bound to a public
+    interface exposes the V8 inspector debugger on :9229 -- an unauthenticated
+    remote debugging (and thus RCE) surface (CWE-489). Verified benignly by
+    detecting the inspector's HTTP metadata, never by attaching a debugger.
+  cwe: [CWE-489]
+  severity: high
+  tags: [nodejs, inspector, debug, rce, misconfiguration, config-axis]
+  references:
+    - https://nodejs.org/en/learn/getting-started/debugging
+    - https://cwe.mitre.org/data/definitions/489.html
+  maintainer: ruzfi
+  added: "2026-10-14"
+  # Config-axis target: the SAME built image in both states, differing only by
+  # whether the process is launched with the inspector exposed (per-state
+  # command). The inspector runs on a SECONDARY port (:9229), so the verify uses
+  # a per-probe port override; the secure state asserts that port is closed.
+  # No upstream Nuclei template discriminates this, so detection is custom-only.
+  fidelity: real
+  detection: custom-only
+
+base:
+  kind: build
+  context: build
+  dockerfile: Dockerfile
+
+service:
+  # The app port is primary (readiness); the inspector lives on :9229.
+  ports: [ { container: 3000, protocol: http } ]
+  healthcheck:
+    http: { path: /, status: 200 }
+    timeout: 60s
+
+states:
+  vulnerable:
+    # Expose the V8 inspector on all interfaces.
+    command: [node, "--inspect=0.0.0.0:9229", server.js]
+    verify:
+      # Probe the inspector on its own port; /json/version returns the V8
+      # inspector metadata. Benign: no debugger is attached.
+      - http:
+          port: 9229
+          method: GET
+          path: "/json/version"
+          status: 200
+          body_matches: "V8-Version"
+  # "patched" is the default: no inspector, so :9229 is closed.
+  patched:
+    command: [node, server.js]
+    verify:
+      - tcp:
+          port: 9229
+          closed: true

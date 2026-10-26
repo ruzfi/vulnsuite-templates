@@ -1,0 +1,91 @@
+apiVersion: vulnsuite/v1
+kind: Target
+metadata:
+  id: elasticsearch-dynamic-scripting-rce
+  summary: >-
+    Elasticsearch 1.x does not run inline scripts by default, but enabling
+    dynamic/inline scripting (script.inline=on) lets an unauthenticated _search
+    execute arbitrary scripts in script_fields -- full RCE (CVE-2014-3120; the
+    Groovy-sandbox bypass CVE-2015-1427 is the same lineage). Verified benignly
+    by running a harmless string expression, never a shell command.
+  vuln_refs: [CVE-2014-3120]
+  cwe: [CWE-94]
+  severity: high
+  tags: [elasticsearch, java, scripting, rce, misconfiguration, config-axis, kev]
+  references:
+    - https://nvd.nist.gov/vuln/detail/CVE-2014-3120
+    - https://nvd.nist.gov/vuln/detail/CVE-2015-1427
+    - https://www.elastic.co/guide/en/elasticsearch/reference/1.5/modules-scripting.html
+  maintainer: ruzfi
+  added: "2026-10-14"
+  # CISA KEV (CVE-2014-3120). Config-axis target: the SAME Elasticsearch image
+  # in both states, differing only by whether inline scripting is enabled (a
+  # per-state command flag). The upstream Nuclei detectors prove it with a
+  # shell exec; we instead run a harmless Groovy string expression, which proves
+  # the same primitive (inline scripting executes) without any RCE payload.
+  # Declared from that behaviour; pending a run against both states.
+  fidelity: real
+  detected_by: ["nuclei:CVE-2014-3120", "nuclei:CVE-2015-1427"]
+
+# Not a version bug on its own: Elasticsearch 1.2+ disables dynamic scripting by
+# default precisely because of this. The vulnerable state re-enables it
+# (script.inline=on); the patched state is the default (off). Both states index
+# one document first (script_fields only evaluate over hits).
+#
+# NOTE (confirm/pin on first run): Elasticsearch 1.x images are old; confirm the
+# tag is pullable and that the scripting flag matches the minor version
+# (script.inline=on for 1.4.3-1.6; older 1.x used script.disable_dynamic=false).
+base:
+  kind: image
+  image: elasticsearch:1.5.2
+  digest: sha256:fa85d35947083a9b3f4e54299d86ccc2ff6567d21fa0b89fc4424f2a88c2fdaf  # manifest digest
+
+service:
+  ports: [ { container: 9200, protocol: http } ]
+  healthcheck:
+    # The ES root returns 200 with the version JSON once it is up.
+    http: { path: /, status: 200 }
+    timeout: 120s
+
+states:
+  vulnerable:
+    # Enable inline scripting (and bind to all interfaces so the target is
+    # reachable). This is the misconfiguration operators add to use scripts.
+    command: [elasticsearch, "-Des.network.host=0.0.0.0", "-Des.script.inline=on"]
+    verify:
+      # 1) index one document so a search has a hit for script_fields to run on.
+      - http:
+          method: PUT
+          path: "/vs/doc/1?refresh=true"
+          headers:
+            Content-Type: application/json
+          body: '{"x":1}'
+          status_in: [200, 201]
+      # 2) a harmless Groovy string expression proves inline scripting executes.
+      #    "vs"+"canary" -> "vscanary" in the script field; no exec, no file read.
+      - http:
+          method: POST
+          path: "/_search"
+          headers:
+            Content-Type: application/json
+          body: '{"size":1,"script_fields":{"probe":{"script":"\"vs\"+\"canary\""}}}'
+          status: 200
+          body_matches: "vscanary"
+  # "patched" is the default (inline scripting off); the same search is refused.
+  patched:
+    command: [elasticsearch, "-Des.network.host=0.0.0.0"]
+    verify:
+      - http:
+          method: PUT
+          path: "/vs/doc/1?refresh=true"
+          headers:
+            Content-Type: application/json
+          body: '{"x":1}'
+          status_in: [200, 201]
+      - http:
+          method: POST
+          path: "/_search"
+          headers:
+            Content-Type: application/json
+          body: '{"size":1,"script_fields":{"probe":{"script":"\"vs\"+\"canary\""}}}'
+          body_absent: "vscanary"

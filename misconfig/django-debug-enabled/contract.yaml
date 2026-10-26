@@ -1,0 +1,63 @@
+apiVersion: vulnsuite/v1
+kind: Target
+metadata:
+  id: django-debug-enabled
+  summary: >-
+    Django is safe by default, but deploying with DEBUG=True turns every error
+    page into a detailed report that leaks settings, the URLconf and the
+    environment (CWE-489 / CWE-215). Verified benignly by detecting the DEBUG
+    404 page, not by harvesting the leaked settings.
+  cwe: [CWE-489, CWE-215]
+  severity: medium
+  tags: [django, python, debug, info-disclosure, misconfiguration, config-axis]
+  references:
+    - https://docs.djangoproject.com/en/stable/ref/settings/#debug
+    - https://cwe.mitre.org/data/definitions/489.html
+  maintainer: ruzfi
+  added: "2026-10-14"
+  # Config-axis target: the SAME image, two states differing only by DJANGO_DEBUG.
+  # The detector is the upstream Nuclei misconfiguration template. Declared from
+  # its fingerprint; run the scanner against both states and set
+  # detection: scanner once it fires on vulnerable (DEBUG on) and stays silent
+  # on patched (DEBUG off, the default).
+  fidelity: real
+  detected_by: ["nuclei:django-debug-config-enabled"]
+
+# Not a version bug. The default state is secure (DEBUG off); the vulnerable
+# state turns DEBUG on. A missing route is enough to show the difference: with
+# DEBUG on the 404 lists the URLconf ("Django tried these URL patterns"); off,
+# a plain 404.
+base:
+  kind: build
+  context: build
+  dockerfile: Dockerfile
+
+service:
+  ports: [ { container: 8000, protocol: http } ]
+  healthcheck:
+    # Any path with no route answers 404 once the dev server is up -- a stable
+    # readiness signal in both states.
+    http: { path: /, status: 404 }
+    timeout: 90s
+
+states:
+  vulnerable:
+    environment:
+      DJANGO_DEBUG: "1"
+    verify:
+      - http:
+          method: GET
+          path: "/NON_EXISTING_PATH/"
+          status: 404
+          body_matches: "Django tried these URL patterns"
+  # "patched" is the secure default (DEBUG off); the fix for this class is the
+  # config, not a version bump.
+  patched:
+    environment:
+      DJANGO_DEBUG: "0"
+    verify:
+      - http:
+          method: GET
+          path: "/NON_EXISTING_PATH/"
+          status: 404
+          body_absent: "Django tried these URL patterns"

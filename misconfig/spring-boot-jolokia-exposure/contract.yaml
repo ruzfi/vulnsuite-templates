@@ -1,0 +1,59 @@
+apiVersion: vulnsuite/v1
+kind: Target
+metadata:
+  id: spring-boot-jolokia-exposure
+  summary: >-
+    When a Spring Boot app ships Jolokia and over-exposes Actuator, the
+    /actuator/jolokia endpoint bridges unauthenticated HTTP to JMX, letting a
+    client read (and, via gadgets, write/exec) MBeans (CWE-200, RCE-adjacent).
+    Verified benignly by reading the java.lang:type=Memory MBean, never by
+    invoking a gadget.
+  cwe: [CWE-200]
+  severity: high
+  tags: [spring-boot, jolokia, actuator, jmx, java, info-disclosure, misconfiguration, config-axis]
+  references:
+    - https://jolokia.org/
+    - https://docs.spring.io/spring-boot/docs/2.7.x/reference/html/actuator.html#actuator.jmx.jolokia
+  maintainer: ruzfi
+  added: "2026-10-14"
+  # Config-axis target sharing the Actuator exposure toggle
+  # (MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE) but demonstrating the stronger
+  # Jolokia/JMX surface. The detector is the upstream Nuclei template; declared
+  # from its fingerprint, pending a run against both states.
+  fidelity: real
+  detected_by: ["nuclei:jolokia-info-disclosure"]
+
+base:
+  kind: build
+  context: build
+  dockerfile: Dockerfile
+
+service:
+  ports: [ { container: 8080, protocol: http } ]
+  healthcheck:
+    http: { path: /actuator/health, status: 200 }
+    timeout: 180s
+
+states:
+  vulnerable:
+    environment:
+      MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE: "*"
+    verify:
+      # Read a harmless MBean. This proves the HTTP->JMX bridge is reachable
+      # without invoking any write/exec gadget.
+      - http:
+          method: GET
+          path: "/actuator/jolokia/read/java.lang:type=Memory"
+          status: 200
+          body_matches: "java.lang:type=Memory"
+  # "patched" is the secure default: only health/info exposed, so Jolokia is not
+  # reachable over HTTP.
+  patched:
+    environment:
+      MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE: "health,info"
+    verify:
+      - http:
+          method: GET
+          path: "/actuator/jolokia/read/java.lang:type=Memory"
+          status_in: [404, 400]
+          body_absent: "java.lang:type=Memory"
