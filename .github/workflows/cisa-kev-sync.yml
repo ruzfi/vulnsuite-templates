@@ -1,0 +1,44 @@
+name: cisa-kev-sync
+# Refresh data/cisa-kev.txt from the CISA Known Exploited Vulnerabilities feed
+# and regenerate CATALOG.md so the derived KEV column stays current. A target is
+# "KEV" when any CVE in its vuln_refs is on the catalog — nothing is written into
+# the contracts; KEV is derived, and only the shared CVE-id snapshot moves.
+on:
+  schedule:
+    - cron: '17 6 * * *'   # daily, 06:17 UTC
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: cisa-kev-sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+      - run: pip install pyyaml
+      - name: refresh the KEV CVE snapshot from CISA
+        run: python3 scripts/fetch_kev.py
+      - name: regenerate CATALOG with the updated KEV column
+        run: python3 scripts/gen_catalog.py
+      - name: commit if the catalog or snapshot changed
+        run: |
+          if git diff --quiet -- data/cisa-kev.txt CATALOG.md; then
+            echo "KEV catalog unchanged; nothing to commit."
+            exit 0
+          fi
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/cisa-kev.txt CATALOG.md
+          ver=$(sed -n 's/^# catalogVersion: \([^ ]*\).*/\1/p' data/cisa-kev.txt)
+          git commit -m "chore(kev): sync CISA KEV catalog (version ${ver:-unknown})"
+          git push
+          # If main is a protected branch, swap the push above for a
+          # create-pull-request step instead.
