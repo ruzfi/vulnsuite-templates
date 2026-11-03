@@ -9,6 +9,7 @@ metadata:
     detecting the inspector's HTTP metadata, never by attaching a debugger.
   cwe: [CWE-489]
   severity: high
+  class: [exposure, misconfig]
   tags: [nodejs, inspector, debug, rce, misconfiguration, config-axis]
   references:
     - https://nodejs.org/en/learn/getting-started/debugging

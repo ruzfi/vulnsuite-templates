@@ -10,6 +10,7 @@ metadata:
   vuln_refs: [VS-MISCONF-GQL-INTRO]
   cwe: [CWE-200]
   severity: low
+  class: [misconfig]
   tags: [graphql, apollo, nodejs, introspection, info-disclosure, misconfiguration, config-axis]
   references:
     - https://graphql.org/learn/introspection/

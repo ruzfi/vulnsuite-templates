@@ -6,6 +6,7 @@ metadata:
   vuln_refs: [VS-EXPOSED-GIT]
   cwe: [CWE-538]
   severity: high
+  class: [exposure]
   tags: [misconfiguration, information-disclosure, git]
   references:
     - https://owasp.org/www-community/attacks/Source_code_disclosure

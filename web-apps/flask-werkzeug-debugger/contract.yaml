@@ -9,6 +9,7 @@ metadata:
     the debugger traceback page, never by using the console.
   cwe: [CWE-489]
   severity: high
+  class: [misconfig]
   tags: [flask, werkzeug, python, debug, misconfiguration, rce, config-axis]
   references:
     - https://werkzeug.palletsprojects.com/en/stable/debug/
