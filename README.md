@@ -16,7 +16,7 @@ vulnsuite run -t apache-httpd-2.4.49-cve-2021-41773 -expose host
 ## Layout
 
 ```
-<category>/<id>/
+<product-surface>/<id>/
   contract.yaml      the target (required)
   README.md          optional; only for build/run nuance the contract can't state (no CVE facts)
   files/
@@ -27,8 +27,15 @@ vulnsuite run -t apache-httpd-2.4.49-cve-2021-41773 -expose host
   src/               build context that builds the genuine upstream software
   build/             build context for a minimal harness app on a real stack
 schemas/contract.schema.json   the contract schema (mirrored from vulnsuite)
+data/cisa-kev.txt    CISA KEV CVE-id snapshot (CI-maintained; feeds the KEV column)
 CATALOG.md           generated index of every target (never hand-edited)
 ```
+
+The top directory level is a **single axis: the product/surface you scan**. The
+*kind* of finding (misconfig, exposure, default-login, a software `vuln`) is
+**not** a directory — it is `metadata.class`, so you filter by it with
+`vulnsuite list` instead of `cd`. See [Choosing a category](#choosing-a-category)
+and [Classifying a target](#classifying-a-target-class-cve-kev).
 
 The per-state overlay folders are named for the states they feed
 (`states.vulnerable` / `states.patched`), so a glance at `files/` tells you which
@@ -38,28 +45,56 @@ A `base.kind: build` target carries its own build context in one of two folders,
 by **whose code is inside**: **`src/`** builds the *genuine upstream software* (a
 vendored release, an official source checkout); **`build/`** builds *code we
 wrote* — a minimal harness that stands a real stack up in a vulnerable config
-(the `misconfig/` targets, still `fidelity: real`) or a full stand-in for a
+(the misconfig-class targets, still `fidelity: real`) or a full stand-in for a
 service with no reproducible image (the `iot/` sims, `fidelity: simulated`).
 
 ### Choosing a category
 
-Pick the category by the **product you point a scanner at** — the top of the
-running stack — not by the vulnerability class (that lives in `tags`/`cwe`). One
-target lives in exactly one category; everything else a reader might filter on is
-metadata. A **language-runtime** flaw (PHP, Node.js) reached over HTTP is a
-`web-apps` target with a `runtime` tag — `web-servers` is only for the HTTP
-server daemon itself (httpd, nginx).
+The directory is **one axis: the product/surface you point a scanner at** — the
+top of the running stack. Not the vulnerability class, not the year, not whether
+it's a CVE — those are composable facts you filter on, so they live in metadata
+(see [Classifying a target](#classifying-a-target-class-cve-kev)). A target lives
+in exactly one category because it has exactly one top-of-stack. A
+**language-runtime** flaw (PHP, Node.js) reached over HTTP is a `web-apps` target
+with a `runtime` tag — `web-servers` is only for the HTTP server daemon itself
+(httpd, nginx).
 
 | Category | What lives there |
 | --- | --- |
-| `web-servers` | the HTTP server daemon: Apache httpd, nginx, TclHttpd ... version CVEs and config misconfigurations |
+| `web-servers` | the HTTP server daemon itself: Apache httpd, nginx, TclHttpd ... |
 | `web-apps` | applications and language runtimes served over HTTP: Grafana, WordPress, Nextcloud, PHP, Node.js ... (tag runtimes `runtime`) |
-| `databases` | CouchDB, Elasticsearch, Redis ... unauthenticated / default access |
-| `exposures` | leaked `.env`, phpinfo, actuator, metrics, swagger ... information disclosure |
-| `misconfig` | CORS, directory listing, exposed `.git`, GraphQL introspection, open redirect |
-| `default-logins` | default and weak credentials |
-| `iot` | simulated devices: cameras, routers, UPnP, debug ports, backdoors |
+| `databases` | CouchDB, Elasticsearch, Couchbase, Redis ... |
 | `network-services` | non-HTTP services (SSH, ...) |
+| `iot` | simulated devices: cameras, routers, UPnP, debug ports, backdoors |
+| `misc` | catch-all for a target with no real product home (generic default-login or protocol sims) |
+
+There is no `misconfig`, `exposures`, or `default-logins` directory: those are
+*finding classes*, not products. A misconfigured Spring Boot app is a `web-apps`
+target with `class: [misconfig]`; an exposed `.git` is a `web-apps` target with
+`class: [exposure]`.
+
+### Classifying a target (class, CVE, KEV)
+
+The directory answers *what you scan*; metadata answers *what kind of finding it
+is* — the composable axis you filter on:
+
+- **`metadata.class`** (required, multi-valued) — the finding class:
+  `vuln` (a flaw in the software itself, usually CVE-tracked), `misconfig`,
+  `exposure`, `default-login`, `weak-crypto`. A target may carry more than one
+  (`elasticsearch-...-dynamic-scripting` is `[vuln, misconfig]`).
+- **CVE-tracked** — **derived**, never stored: a target is a CVE if any
+  `vuln_refs` entry matches `CVE-YYYY-NNNNN`; synthetic ids use `VS-<AREA>-<NAME>`.
+- **KEV** — **derived**, never stored: a target is KEV if any of its CVEs is on
+  the CISA Known Exploited Vulnerabilities catalog. The CVE-id snapshot lives in
+  `data/cisa-kev.txt` (refreshed by the `cisa-kev-sync` workflow); `CATALOG.md`
+  renders the column.
+- **`metadata.disclosed`** (optional) — the date the vuln was publicly
+  disclosed; it (or the CVE year) drives the timeline/history view. Omit it for
+  timeless class issues (generic misconfigurations).
+
+Rule of thumb: **single-valued + browse-first → directory; multi-valued +
+filter-first → metadata.** Product is the former; class, CVE, KEV and year are
+the latter.
 
 ### Naming a target
 
@@ -111,6 +146,7 @@ metadata:
   vuln_refs: [CVE-2021-43798]
   cwe: [CWE-22]
   severity: high
+  class: [vuln]
   references: [https://github.com/grafana/grafana/releases/tag/v8.3.1]
 base:
   kind: image

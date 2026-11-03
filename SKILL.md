@@ -13,7 +13,7 @@ You are helping build a **reproducible vulnerable target** the user can scan wit
 their own scanner. Your output is a template folder:
 
 ```
-<category>/<id>/
+<product-surface>/<id>/
   contract.yaml                 the target contract (required)
   README.md                     optional; build/run nuance only, no CVE facts
   files/common|vulnerable|patched/   overlay files, keyed by the state they feed
@@ -21,9 +21,11 @@ their own scanner. Your output is a template folder:
   build/                        build context for code we wrote (harness / sim)
 ```
 
-Choose the category by the product you scan (language runtimes → `web-apps`,
-tagged `runtime`), and name the folder — which is `metadata.id` — with the
-grammar `<product>[-<version>][-<component>]-cve-<YYYY>-<NNNNN>[-<slug>]`. See the
+The directory is one axis — the **product/surface you scan** (language runtimes →
+`web-apps`, tagged `runtime`). The *finding class* is not a directory: set it in
+`metadata.class` (`vuln` | `misconfig` | `exposure` | `default-login` |
+`weak-crypto`). Name the folder — which is `metadata.id` — with the grammar
+`<product>[-<version>][-<component>]-cve-<YYYY>-<NNNNN>[-<slug>]`. See the
 [README](README.md#layout) for the full taxonomy and naming rules.
 
 The scanner is not your concern. Your job is a target that (a) stands up in a
@@ -112,6 +114,7 @@ metadata:
   vuln_refs: [CVE-XXXX-XXXXX]        # every CVE; or VS-<SLUG> for a sim/misconfig with no CVE
   cwe: [CWE-NN]
   severity: critical|high|medium|low
+  class: [vuln]                      # vuln|misconfig|exposure|default-login|weak-crypto (multi-valued)
   tags: [<product>, <class>]         # add `runtime` for a language-runtime flaw
   references: [<advisory>, <fix>]
   maintainer: <you>
@@ -319,6 +322,7 @@ exact caps it needs.
 
 - [ ] `id` equals the folder name and follows the grammar
       `<product>[-<version>][-<component>]-cve-<YYYY>-<NNNNN>[-<slug>]`; one CVE in the id, all in `vuln_refs`.
+- [ ] The folder sits under its **product/surface** category; the finding class is in `metadata.class`, not the path.
 - [ ] `base` is pinned (image digest, source commit, or a self-contained build).
 - [ ] `vulnerable` and `patched` differ by the minimum that toggles the flaw.
 - [ ] Each state has a `verify` probe written independently of any scanner matcher.
