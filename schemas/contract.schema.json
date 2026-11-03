@@ -62,6 +62,21 @@
             "critical"
           ]
         },
+        "class": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "vuln",
+              "misconfig",
+              "exposure",
+              "default-login",
+              "weak-crypto"
+            ]
+          },
+          "description": "Finding class(es) -- the primary filter axis, replacing the former issue-class directories. The directory encodes product/surface (single-valued); class encodes the kind of finding (multi-valued). `vuln` = a flaw in the software itself (usually CVE-tracked). Whether a target is CVE-tracked is DERIVED from vuln_refs, and KEV membership is DERIVED by cross-referencing vuln_refs against the CISA KEV catalog -- neither is stored here."
+        },
         "tags": {
           "type": "array",
           "items": {
@@ -84,6 +99,11 @@
         "updated": {
           "type": "string",
           "description": "ISO date of the last change to this target's metadata or states (YYYY-MM-DD); bump it whenever CVE facts, versions, or probes change. Defaults to `added` when never updated."
+        },
+        "disclosed": {
+          "type": "string",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+          "description": "ISO date the vulnerability was publicly disclosed / first existed (YYYY-MM-DD). Drives the timeline/history view (sort/filter by era). Omit for timeless class issues (generic misconfigurations); the year may be derived from this or from the CVE id in vuln_refs."
         },
         "detected_by": {
           "type": "array",
