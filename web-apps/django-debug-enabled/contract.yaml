@@ -9,6 +9,7 @@ metadata:
     404 page, not by harvesting the leaked settings.
   cwe: [CWE-489, CWE-215]
   severity: medium
+  class: [misconfig]
   tags: [django, python, debug, info-disclosure, misconfiguration, config-axis]
   references:
     - https://docs.djangoproject.com/en/stable/ref/settings/#debug

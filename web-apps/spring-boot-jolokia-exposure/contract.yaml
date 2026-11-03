@@ -10,6 +10,7 @@ metadata:
     invoking a gadget.
   cwe: [CWE-200]
   severity: high
+  class: [misconfig]
   tags: [spring-boot, jolokia, actuator, jmx, java, info-disclosure, misconfiguration, config-axis]
   references:
     - https://jolokia.org/

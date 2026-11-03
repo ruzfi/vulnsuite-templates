@@ -9,6 +9,7 @@ metadata:
     Verified benignly by detecting the status page.
   cwe: [CWE-200]
   severity: low
+  class: [misconfig, exposure]
   tags: [apache, httpd, mod-status, info-disclosure, misconfiguration, config-axis]
   references:
     - https://httpd.apache.org/docs/2.4/mod/mod_status.html

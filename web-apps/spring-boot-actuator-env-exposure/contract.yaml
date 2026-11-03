@@ -10,6 +10,7 @@ metadata:
     by reading secret values.
   cwe: [CWE-200]
   severity: medium
+  class: [exposure]
   tags: [spring-boot, actuator, java, info-disclosure, misconfiguration, config-axis]
   references:
     - https://docs.spring.io/spring-boot/docs/2.7.x/reference/html/actuator.html#actuator.endpoints.exposing

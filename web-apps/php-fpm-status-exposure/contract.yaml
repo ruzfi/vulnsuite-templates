@@ -9,6 +9,7 @@ metadata:
     Verified benignly by detecting the status page.
   cwe: [CWE-200]
   severity: low
+  class: [exposure]
   tags: [php, php-fpm, nginx, status, info-disclosure, misconfiguration, config-axis]
   references:
     - https://www.php.net/manual/en/fpm.status.php
