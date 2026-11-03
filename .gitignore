@@ -3,3 +3,5 @@
 *.tgz.tmp
 __pycache__/
 *.pyc
+# local scan scratch: list of running target URLs, not part of the suite
+targets.txt
