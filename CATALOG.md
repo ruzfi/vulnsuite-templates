@@ -2,10 +2,12 @@
 
 # Catalog
 
-19 target(s). Regenerate with `python3 scripts/gen_catalog.py`.
+25 target(s). Regenerate with `python3 scripts/gen_catalog.py`.
 
 | Target | Category | CVEs | Severity | Fidelity | Detection | Updated |
 | --- | --- | --- | --- | --- | --- | --- |
+| `apache-couchdb-3.0.0-cve-2020-1955` | databases | CVE-2020-1955 | critical | real | unset | 2026-10-28 |
+| `couchbase-server-5.5.1-cve-2020-9039` | databases | CVE-2020-9039 | critical | real | scanner | 2026-10-28 |
 | `apache-mod-status-exposure` | misconfig | — | low | real | unset | 2026-10-14 |
 | `django-debug-enabled` | misconfig | — | medium | real | unset | 2026-10-14 |
 | `elasticsearch-cve-2014-3120-dynamic-scripting` | misconfig | CVE-2014-3120 | high | real | unset | 2026-10-26 |
@@ -17,10 +19,14 @@
 | `spring-boot-actuator-env-exposure` | misconfig | — | medium | real | unset | 2026-10-14 |
 | `spring-boot-jolokia-exposure` | misconfig | — | high | real | unset | 2026-10-14 |
 | `openssh-7.6p1-cve-2018-15473` | network-services | CVE-2018-15473 | medium | real | custom-only | 2026-10-26 |
+| `golang-1.27.2-cve-2026-111943-emudhra-compromised-ca` | web-apps | CVE-2026-111943 | critical | real | scanner | 2026-10-29 |
 | `grafana-8.3.0-cve-2021-43798` | web-apps | CVE-2021-43798 | high | real | scanner | 2026-09-29 |
 | `nextcloud-collabora-code-cve-2026-110447` | web-apps | CVE-2026-110447 | critical | real | custom-only | 2026-10-21 |
-| `nodejs-cve-2026-111497-express-brotli` | web-apps | CVE-2026-111497 | critical | real | custom-only | 2026-10-26 |
-| `php-8.2-cve-2026-109618-multipart-rce` | web-apps | CVE-2026-109618, CVE-2026-109619 | critical | real | scanner | 2026-10-26 |
+| `nodejs-cve-2026-111497-express-version-upgrade-patch` | web-apps | CVE-2026-111497 | critical | real | custom-only | 2026-11-03 |
+| `nodejs-cve-2026-111497-express-workaround-patch` | web-apps | CVE-2026-111497 | critical | real | custom-only | 2026-11-03 |
+| `php-8.2-cve-2026-109618-multipart-rce-expose-php-off` | web-apps | CVE-2026-109618, CVE-2026-109619 | critical | real | unset | 2026-11-03 |
+| `php-8.2-cve-2026-109618-multipart-rce-version-upgrade-patch` | web-apps | CVE-2026-109618, CVE-2026-109619 | critical | real | scanner | 2026-11-03 |
+| `php-8.2-cve-2026-109618-multipart-rce-workaround-patch` | web-apps | CVE-2026-109618, CVE-2026-109619 | critical | real | unset | 2026-11-03 |
 | `wordpress-cve-2026-60137-wp-query-sqli` | web-apps | CVE-2026-60137 | critical | real | custom-only | 2026-10-19 |
 | `wordpress-cve-2026-63030-batch-rce` | web-apps | CVE-2026-63030 | critical | real | scanner | 2026-10-19 |
 | `wordpress-cve-2026-87902-page-template-traversal` | web-apps | CVE-2026-87902 | critical | real | scanner | 2026-10-13 |
