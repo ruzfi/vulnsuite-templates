@@ -2,26 +2,34 @@
 
 # Catalog
 
-19 target(s). Regenerate with `python3 scripts/gen_catalog.py`.
+25 target(s). Regenerate with `python3 scripts/gen_catalog.py`.
 
-| Target | Category | CVEs | Severity | Fidelity | Detection | Updated |
-| --- | --- | --- | --- | --- | --- | --- |
-| `apache-mod-status-exposure` | misconfig | — | low | real | unset | 2026-10-14 |
-| `django-debug-enabled` | misconfig | — | medium | real | unset | 2026-10-14 |
-| `elasticsearch-cve-2014-3120-dynamic-scripting` | misconfig | CVE-2014-3120 | high | real | unset | 2026-10-26 |
-| `exposed-git-repository` | misconfig | VS-EXPOSED-GIT | high | real | unset | 2026-10-26 |
-| `flask-werkzeug-debugger` | misconfig | — | high | real | unset | 2026-10-14 |
-| `graphql-introspection-enabled` | misconfig | VS-MISCONF-GQL-INTRO | low | real | custom-only | 2026-09-29 |
-| `nodejs-inspector-exposure` | misconfig | — | high | real | custom-only | 2026-10-14 |
-| `php-fpm-status-exposure` | misconfig | — | low | real | unset | 2026-10-14 |
-| `spring-boot-actuator-env-exposure` | misconfig | — | medium | real | unset | 2026-10-14 |
-| `spring-boot-jolokia-exposure` | misconfig | — | high | real | unset | 2026-10-14 |
-| `openssh-7.6p1-cve-2018-15473` | network-services | CVE-2018-15473 | medium | real | custom-only | 2026-10-26 |
-| `grafana-8.3.0-cve-2021-43798` | web-apps | CVE-2021-43798 | high | real | scanner | 2026-09-29 |
-| `nextcloud-collabora-code-cve-2026-110447` | web-apps | CVE-2026-110447 | critical | real | custom-only | 2026-10-21 |
-| `nodejs-cve-2026-111497-express-brotli` | web-apps | CVE-2026-111497 | critical | real | custom-only | 2026-10-26 |
-| `php-8.2-cve-2026-109618-multipart-rce` | web-apps | CVE-2026-109618, CVE-2026-109619 | critical | real | scanner | 2026-10-26 |
-| `wordpress-cve-2026-60137-wp-query-sqli` | web-apps | CVE-2026-60137 | critical | real | custom-only | 2026-10-19 |
-| `wordpress-cve-2026-63030-batch-rce` | web-apps | CVE-2026-63030 | critical | real | scanner | 2026-10-19 |
-| `wordpress-cve-2026-87902-page-template-traversal` | web-apps | CVE-2026-87902 | critical | real | scanner | 2026-10-13 |
-| `apache-httpd-2.4.49-cve-2021-41773` | web-servers | CVE-2021-41773 | high | real | scanner | 2026-10-26 |
+KEV is derived from `data/cisa-kev.txt` (CISA Known Exploited Vulnerabilities), refreshed by the cisa-kev-sync workflow; `?` means the catalog has not been synced yet.
+
+| Target | Category | Class | CVEs | KEV | Severity | Fidelity | Detection | Updated |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| `apache-couchdb-3.0.0-cve-2020-1955` | databases | vuln | CVE-2020-1955 | no | critical | real | unset | 2026-10-28 |
+| `couchbase-server-5.5.1-cve-2020-9039` | databases | vuln | CVE-2020-9039 | no | critical | real | scanner | 2026-10-28 |
+| `elasticsearch-cve-2014-3120-dynamic-scripting` | databases | vuln, misconfig | CVE-2014-3120 | **yes** | high | real | unset | 2026-10-26 |
+| `openssh-7.6p1-cve-2018-15473` | network-services | vuln | CVE-2018-15473 | no | medium | real | custom-only | 2026-10-26 |
+| `django-debug-enabled` | web-apps | misconfig | — | no | medium | real | unset | 2026-10-14 |
+| `exposed-git-repository` | web-apps | exposure | VS-EXPOSED-GIT | no | high | real | unset | 2026-10-26 |
+| `flask-werkzeug-debugger` | web-apps | misconfig | — | no | high | real | unset | 2026-10-14 |
+| `golang-1.27.2-cve-2026-111943-emudhra-compromised-ca` | web-apps | vuln | CVE-2026-111943 | no | critical | real | scanner | 2026-10-29 |
+| `grafana-8.3.0-cve-2021-43798` | web-apps | vuln | CVE-2021-43798 | **yes** | high | real | scanner | 2026-09-29 |
+| `graphql-introspection-enabled` | web-apps | misconfig | VS-MISCONF-GQL-INTRO | no | low | real | custom-only | 2026-09-29 |
+| `nextcloud-collabora-code-cve-2026-110447` | web-apps | vuln | CVE-2026-110447 | **yes** | critical | real | custom-only | 2026-10-21 |
+| `nodejs-cve-2026-111497-express-version-upgrade-patch` | web-apps | vuln | CVE-2026-111497 | **yes** | critical | real | custom-only | 2026-11-03 |
+| `nodejs-cve-2026-111497-express-workaround-patch` | web-apps | vuln | CVE-2026-111497 | **yes** | critical | real | custom-only | 2026-11-03 |
+| `nodejs-inspector-exposure` | web-apps | exposure, misconfig | — | no | high | real | custom-only | 2026-10-14 |
+| `php-8.2-cve-2026-109618-multipart-rce-expose-php-off` | web-apps | vuln | CVE-2026-109618, CVE-2026-109619 | **yes** | critical | real | unset | 2026-11-03 |
+| `php-8.2-cve-2026-109618-multipart-rce-version-upgrade-patch` | web-apps | vuln | CVE-2026-109618, CVE-2026-109619 | **yes** | critical | real | scanner | 2026-11-03 |
+| `php-8.2-cve-2026-109618-multipart-rce-workaround-patch` | web-apps | vuln | CVE-2026-109618, CVE-2026-109619 | **yes** | critical | real | unset | 2026-11-03 |
+| `php-fpm-status-exposure` | web-apps | exposure | — | no | low | real | unset | 2026-10-14 |
+| `spring-boot-actuator-env-exposure` | web-apps | exposure | — | no | medium | real | unset | 2026-10-14 |
+| `spring-boot-jolokia-exposure` | web-apps | misconfig | — | no | high | real | unset | 2026-10-14 |
+| `wordpress-cve-2026-60137-wp-query-sqli` | web-apps | vuln | CVE-2026-60137 | **yes** | critical | real | custom-only | 2026-10-19 |
+| `wordpress-cve-2026-63030-batch-rce` | web-apps | vuln | CVE-2026-63030 | **yes** | critical | real | scanner | 2026-10-19 |
+| `wordpress-cve-2026-87902-page-template-traversal` | web-apps | vuln | CVE-2026-87902 | **yes** | critical | real | scanner | 2026-10-13 |
+| `apache-httpd-2.4.49-cve-2021-41773` | web-servers | vuln | CVE-2021-41773 | **yes** | high | real | scanner | 2026-10-26 |
+| `apache-mod-status-exposure` | web-servers | misconfig, exposure | — | no | low | real | unset | 2026-10-14 |

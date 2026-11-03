@@ -1,15 +1,16 @@
 # Contributing templates
 
-Every template is a folder `<category>/<id>/` with a `contract.yaml` and the
-files it needs. A good template reproduces a real vulnerability in a
+Every template is a folder `<product-surface>/<id>/` with a `contract.yaml` and
+the files it needs. A good template reproduces a real vulnerability in a
 **vulnerable** state, the same system with the flaw removed in a **patched**
 state, and proves each with an independent `verify` probe.
 
 The [README](README.md#layout) is the canonical reference for the folder layout,
-how to choose a category, and the id naming grammar. In short: one target per
-category, chosen by the product you scan (language runtimes go in `web-apps`
-with a `runtime` tag); overlays live under `files/common|vulnerable|patched/`;
-and the id follows `<product>[-<version>][-<component>]-cve-<YYYY>-<NNNNN>[-<slug>]`.
+how to choose a category, and the id naming grammar. In short: the directory is
+one axis — the product/surface you scan (language runtimes go in `web-apps` with
+a `runtime` tag) — while the finding class lives in `metadata.class`, not in a
+directory; overlays live under `files/common|vulnerable|patched/`; and the id
+follows `<product>[-<version>][-<component>]-cve-<YYYY>-<NNNNN>[-<slug>]`.
 
 ## Checklist
 
@@ -24,6 +25,12 @@ and the id follows `<product>[-<version>][-<component>]-cve-<YYYY>-<NNNNN>[-<slu
       (`apache-httpd-2.4.49-cve-2021-41773`, `wordpress-cve-2026-60137-wp-query-sqli`),
       or `<product>-<flaw>` for things without a CVE (`redis-unauthenticated-access`).
       Exactly one primary CVE goes in the id; list every CVE in `vuln_refs`.
+- [ ] `metadata.class` is set to the finding class(es): `vuln` (a flaw in the
+      software, usually CVE-tracked), `misconfig`, `exposure`, `default-login`,
+      or `weak-crypto`. This is the filter axis that replaces the old issue-class
+      directories; CVE and KEV status are derived (from `vuln_refs` and the CISA
+      KEV catalog), not set by hand. Set `disclosed` when you know the public
+      disclosure date.
 - [ ] `metadata.updated` is set when you change an existing target (metadata,
       versions, or probes); new targets may leave it unset (it defaults to `added`).
 - [ ] `base` is **pinned**: an image `digest`, a source `commit`, or a
