@@ -2,7 +2,7 @@
 
 # Catalog
 
-25 target(s). Regenerate with `python3 scripts/gen_catalog.py`.
+34 target(s). Regenerate with `python3 scripts/gen_catalog.py`.
 
 KEV is derived from `data/cisa-kev.txt` (CISA Known Exploited Vulnerabilities), refreshed by the cisa-kev-sync workflow; `?` means the catalog has not been synced yet.
 
@@ -11,7 +11,16 @@ KEV is derived from `data/cisa-kev.txt` (CISA Known Exploited Vulnerabilities), 
 | `apache-couchdb-3.0.0-cve-2020-1955` | databases | vuln | CVE-2020-1955 | no | critical | real | unset | 2026-10-28 |
 | `couchbase-server-5.5.1-cve-2020-9039` | databases | vuln | CVE-2020-9039 | no | critical | real | scanner | 2026-10-28 |
 | `elasticsearch-cve-2014-3120-dynamic-scripting` | databases | vuln, misconfig | CVE-2014-3120 | **yes** | high | real | unset | 2026-10-26 |
+| `openssh-10.0p1-alpine-3.22-cve-2026-123158` | network-services | vuln | CVE-2026-123158 | no | high | real | scanner | 2026-11-06 |
+| `openssh-10.2p1-alpine-3.23-cve-2026-123158` | network-services | vuln | CVE-2026-123158 | no | high | real | scanner | 2026-11-06 |
+| `openssh-10.3p1-alpine-3.24-cve-2026-123158` | network-services | vuln | CVE-2026-123158 | no | high | real | scanner | 2026-11-06 |
 | `openssh-7.6p1-cve-2018-15473` | network-services | vuln | CVE-2018-15473 | no | medium | real | custom-only | 2026-10-26 |
+| `openssh-9.0p1-alpine-3.16-cve-2026-123158` | network-services | vuln | CVE-2026-123158 | no | high | real | scanner | 2026-11-06 |
+| `openssh-9.1p1-alpine-3.17-cve-2026-123158` | network-services | vuln | CVE-2026-123158 | no | high | real | scanner | 2026-11-06 |
+| `openssh-9.3p2-alpine-3.18-cve-2026-123158` | network-services | vuln | CVE-2026-123158 | no | high | real | scanner | 2026-11-06 |
+| `openssh-9.6p1-alpine-3.19-cve-2026-123158` | network-services | vuln | CVE-2026-123158 | no | high | real | scanner | 2026-11-06 |
+| `openssh-9.7p1-alpine-3.20-cve-2026-123158` | network-services | vuln | CVE-2026-123158 | no | high | real | scanner | 2026-11-06 |
+| `openssh-9.9p2-alpine-3.21-cve-2026-123158` | network-services | vuln | CVE-2026-123158 | no | high | real | scanner | 2026-11-06 |
 | `django-debug-enabled` | web-apps | misconfig | — | no | medium | real | unset | 2026-10-14 |
 | `exposed-git-repository` | web-apps | exposure | VS-EXPOSED-GIT | no | high | real | unset | 2026-10-26 |
 | `flask-werkzeug-debugger` | web-apps | misconfig | — | no | high | real | unset | 2026-10-14 |
