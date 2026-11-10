@@ -26,9 +26,12 @@ vulnsuite run -t apache-httpd-2.4.49-cve-2021-41773 -expose host
   patches/           git patches for source bases
   src/               build context that builds the genuine upstream software
   build/             build context for a minimal harness app on a real stack
+suites/<name>.txt    named, shareable selector lists (vulnsuite `-t suite:<name>`)
 schemas/contract.schema.json   the contract schema (mirrored from vulnsuite)
+schemas/suite-format.md        the suite file format
 data/cisa-kev.txt    CISA KEV CVE-id snapshot (CI-maintained; feeds the KEV column)
 CATALOG.md           generated index of every target (never hand-edited)
+SUITES.md            generated index of every suite + its members (never hand-edited)
 ```
 
 The top directory level is a **single axis: the product/surface you scan**. The
@@ -126,6 +129,32 @@ vulnsuite run  -t php-8.2-...-workaround-patch   # one exact member (an id)
 primary. See [Authoring a variant group](CONTRIBUTING.md#authoring-a-variant-group).
 The two shipped families are `php2shell` (PHP mod_php RCE, remediation-strategy
 variants) and `sshole` (OpenSSH auth bypass, one variant per Alpine branch).
+
+### Suites: curated sets you stand up in one run
+
+A **suite** is a named, shareable list of selectors — "the set I always scan" —
+that vulnsuite (v0.2.1+) stands up in one run. Suites live in `suites/<name>.txt`,
+fetched with the rest of the repo by `vulnsuite update-templates`, and are
+referenced with the explicit `suite:` prefix:
+
+```bash
+vulnsuite run -t suite:ssh-bypass             # the suite's default set
+vulnsuite run -t suite:nightly -variants      # expand every group member in it
+vulnsuite build -f suites/nightly.txt         # or use the file directly as a -f list
+```
+
+Each file is **one selector per line** (`#` comments and blanks ignored); a line
+is an id, a **group handle**, a category, a nested `suite:<name>`, or a filter
+line (`-class misconfig`). Lines **union** into one de-duplicated set; filters on
+one line AND, separate lines OR. A group handle contributes its primary by
+default and all members under `-variants`. The full grammar is
+[schemas/suite-format.md](schemas/suite-format.md); the shipped seeds and their
+resolved members are indexed in [SUITES.md](SUITES.md).
+
+Suites carry **no CVE facts** — they reference targets and groups by selector
+only, so a seed like `misconfig-sweep` (`-class misconfig`) tracks the corpus as
+it grows without edits. See
+[Authoring a suite](CONTRIBUTING.md#authoring-a-suite).
 
 ### Naming a target
 
