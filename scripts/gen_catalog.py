@@ -41,12 +41,20 @@ def find_contracts() -> list[Path]:
     )
 
 
-def row(path: Path, kev: set[str]) -> tuple[str, str, str]:
-    """Return (category, id, markdown-row) for one contract."""
+def row(path: Path, kev: set[str]) -> tuple[tuple, str]:
+    """Return (sort_key, markdown-row) for one contract.
+
+    The sort key clusters variant-group members together (primary first),
+    while ungrouped targets sort by id within their category, so members of a
+    group render as a contiguous block under their group handle.
+    """
     data = yaml.safe_load(path.read_text()) or {}
     meta = data.get("metadata", {}) or {}
     category = path.parent.parent.name
     tid = meta.get("id", path.parent.name)
+    group = meta.get("group")
+    variant = meta.get("variant")
+    primary = bool(meta.get("primary", False))
     refs = meta.get("vuln_refs", []) or []
     cves = ", ".join(refs) or "—"
     classes = ", ".join(meta.get("class", [])) or "—"
@@ -62,20 +70,38 @@ def row(path: Path, kev: set[str]) -> tuple[str, str, str]:
     fidelity = meta.get("fidelity", "—")
     detection = meta.get("detection", "unset")
     updated = meta.get("updated") or meta.get("added", "—")
+    # Group cell: `handle` · variant, with ★ marking the group's primary member.
+    if group:
+        group_cell = f"`{group}`"
+        if variant:
+            group_cell += f" · {variant}"
+        if primary:
+            group_cell += " ★"
+    else:
+        group_cell = "—"
     cell = (
-        f"| `{tid}` | {category} | {classes} | {cves} | {kev_cell} | "
+        f"| `{tid}` | {category} | {group_cell} | {classes} | {cves} | {kev_cell} | "
         f"{severity} | {fidelity} | {detection} | {updated} |"
     )
-    return category, tid, cell
+    # Cluster grouped members together (by group handle), ungrouped by id;
+    # within a group the primary sorts first, then variants alphabetically.
+    cluster = group or tid
+    sort_key = (category, cluster, 0 if primary else 1, variant or "", tid)
+    return sort_key, cell
 
 
 def render() -> str:
     kev = load_kev()
-    rows = sorted((row(p, kev) for p in find_contracts()), key=lambda r: (r[0], r[1]))
+    rows = sorted((row(p, kev) for p in find_contracts()), key=lambda r: r[0])
     kev_note = (
         "KEV is derived from `data/cisa-kev.txt` (CISA Known Exploited "
         "Vulnerabilities), refreshed by the cisa-kev-sync workflow; `?` means "
         "the catalog has not been synced yet."
+    )
+    group_note = (
+        "Group is the variant-family handle (`metadata.group`); members of a "
+        "group render together, and ★ marks the group's primary member — the "
+        "one a bare `-t <group>` selector resolves to."
     )
     lines = [
         HEADER,
@@ -86,9 +112,11 @@ def render() -> str:
         "",
         kev_note,
         "",
-        "| Target | Category | Class | CVEs | KEV | Severity | Fidelity | Detection | Updated |",
-        "| --- | --- | --- | --- | --- | --- | --- | --- | --- |",
-        *[cell for _, _, cell in rows],
+        group_note,
+        "",
+        "| Target | Category | Group | Class | CVEs | KEV | Severity | Fidelity | Detection | Updated |",
+        "| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |",
+        *[cell for _, cell in rows],
         "",
     ]
     return "\n".join(lines)
