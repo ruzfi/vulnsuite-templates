@@ -115,6 +115,9 @@ metadata:
   cwe: [CWE-NN]
   severity: critical|high|medium|low
   class: [vuln]                      # vuln|misconfig|exposure|default-login|weak-crypto (multi-valued)
+  # group: <family>                  # variant group: same vuln, many members (see below); shared handle
+  # primary: true                    # on exactly ONE member of the group — the canonical one
+  # variant: <discriminator>         # this member's label in the group, unique (e.g. version-upgrade, alpine-3-24)
   tags: [<product>, <class>]         # add `runtime` for a language-runtime flaw
   references: [<advisory>, <fix>]
   maintainer: <you>
@@ -153,6 +156,13 @@ Notes:
     flags. A header match counts as a strong assertion (no `weak-verify` warning).
 - Per-state `environment`, `command`, and `overlay` let one image serve both
   states (e.g. redis run with a per-state `redis.conf`).
+- **Variant group** (optional) — if this target is one of several members of the
+  *same* vulnerability (different runtimes, remediation strategies, or distro
+  branches), give every member the same `group` handle, set `primary: true` on
+  exactly one, and a unique `variant` on each (`^[a-z0-9]+(-[a-z0-9]+)*$` — no
+  dots, so `alpine-3-24`, not `alpine-3.24`). `-t <group>` then runs the primary
+  and `-t <group> -variants` the whole family. See
+  [Authoring a variant group](CONTRIBUTING.md#authoring-a-variant-group).
 
 ---
 
