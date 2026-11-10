@@ -328,6 +328,36 @@ exact caps it needs.
 
 ---
 
+## Authoring a suite (a curated set)
+
+A **suite** is a named list of selectors vulnsuite stands up in one run — a
+pentest profile, a regression set, a demo. Drop a file at `suites/<name>.txt`;
+it is fetched with the repo and referenced as `vulnsuite run -t suite:<name>`
+(the `suite:` prefix is required — a bare handle never hits a suite).
+
+One **selector per line** (`#` comments and blank lines ignored); each line is:
+
+```
+# php-rce — PHP remote-code-execution targets.   # leading comments = description
+php2shell                      # a GROUP HANDLE -> its primary (all members with -variants)
+grafana-8.3.0-cve-2021-43798   # an exact id
+web-apps                       # a category (every target in the folder)
+suite:misconfig-sweep          # a nested suite (cycles are rejected)
+-class misconfig               # a FILTER line: every target matching (same filters as `list`)
+```
+
+Lines **union** into one de-duplicated, order-stable set; filters on one line
+AND, separate lines OR. Prefer a **group handle or a filter** over a long list of
+ids so the suite tracks the corpus as it grows. Keep CVE facts out — a suite
+references targets by selector only. Then:
+
+- Regenerate the index: `python3 scripts/gen_suites.py` (it also lints — a
+  selector that matches nothing, an unknown nested suite, or a cycle fails).
+- Full format: [schemas/suite-format.md](schemas/suite-format.md); worked
+  guidance: [CONTRIBUTING.md#authoring-a-suite](CONTRIBUTING.md#authoring-a-suite).
+
+---
+
 ## Checklist before you finish
 
 - [ ] `id` equals the folder name and follows the grammar
