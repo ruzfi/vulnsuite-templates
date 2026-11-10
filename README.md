@@ -96,6 +96,37 @@ Rule of thumb: **single-valued + browse-first → directory; multi-valued +
 filter-first → metadata.** Product is the former; class, CVE, KEV and year are
 the latter.
 
+### Grouping variants (one vuln, many members)
+
+When several targets are the **same vulnerability expressed differently** — the
+canonical reproduction plus, say, a WAF-evasion variant, a different runtime, or
+a set of remediation strategies — tie them into a **variant group** so a scanner
+can pull *the* representative with one handle, or the whole family at once. Three
+optional `metadata` fields do this (they live only in each `contract.yaml`, never
+restated in a README):
+
+- **`group`** — the family handle, shared by every member
+  (`^[a-z0-9]+(-[a-z0-9]+)*$`, e.g. `php2shell`, `sshole`). A selector naming the
+  group resolves to its primary; `vulnsuite … -variants` expands to all members.
+- **`primary: true`** — marks the **one** canonical member. Exactly one per
+  multi-member group (the validator fails zero or several). A lone target that
+  sets only `group` is just a nickname for its id and needs no `primary`.
+- **`variant`** — this member's discriminator within the group, unique in the
+  family (`^[a-z0-9]+(-[a-z0-9]+)*$`, e.g. `version-upgrade`, `alpine-3-24` —
+  dots aren't allowed, so write a version as `3-24`, not `3.24`).
+
+```bash
+vulnsuite list -group php2shell       # the whole family, one row per member
+vulnsuite run  -t php2shell           # just the primary
+vulnsuite run  -t php2shell -variants # every member of the family
+vulnsuite run  -t php-8.2-...-workaround-patch   # one exact member (an id)
+```
+
+`CATALOG.md` renders a **Group** column: members sort together and ★ marks the
+primary. See [Authoring a variant group](CONTRIBUTING.md#authoring-a-variant-group).
+The two shipped families are `php2shell` (PHP mod_php RCE, remediation-strategy
+variants) and `sshole` (OpenSSH auth bypass, one variant per Alpine branch).
+
 ### Naming a target
 
 The folder name **is** `metadata.id` (the schema ties them together). Use one grammar:
