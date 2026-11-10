@@ -1,0 +1,4 @@
+# misconfig-sweep — every misconfiguration-class target in the corpus.
+# A single filter line: resolves across the whole corpus by metadata.class,
+# so new misconfig targets join the sweep automatically (no edit here).
+-class misconfig

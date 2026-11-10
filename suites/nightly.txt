@@ -1,0 +1,9 @@
+# nightly — broad nightly coverage set.
+# Both shipped variant families plus every misconfiguration- and exposure-class
+# target. Mixes group handles with filter lines; separate lines union (OR) and
+# de-duplicate, so targets that are both misconfig and exposure appear once.
+# Pass -variants to stand up every member of each family, not just its primary.
+php2shell
+sshole
+-class misconfig
+-class exposure
