@@ -1,0 +1,5 @@
+# php-rce — PHP remote-code-execution targets.
+# The php2shell variant family: PHP 8.2 mod_php multipart RCE
+# (CVE-2026-109618 / CVE-2026-109619), across its remediation strategies.
+# A bare group handle contributes the family primary; pass -variants for all members.
+php2shell
