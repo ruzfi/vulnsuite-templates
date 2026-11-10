@@ -1,0 +1,5 @@
+# ssh-bypass — SSH authentication-bypass targets.
+# The sshole variant family: OpenSSH long-password auth bypass on Alpine/musl
+# (CVE-2026-123158), one member per Alpine branch.
+# A bare group handle contributes the family primary; pass -variants for all members.
+sshole
