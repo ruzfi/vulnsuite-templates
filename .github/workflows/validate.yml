@@ -61,6 +61,18 @@ jobs:
       - run: pip install pyyaml
       - name: CATALOG.md is regenerated from the contracts and committed
         run: python3 scripts/gen_catalog.py --check
+  suites:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: '3.12'
+      - run: pip install pyyaml
+      - name: SUITES.md is regenerated from the suite files and contracts
+        # Also lints every suite: a selector that resolves to nothing, an
+        # unknown nested suite, or a cycle fails the build.
+        run: python3 scripts/gen_suites.py --check
   lint-commits:
     if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
