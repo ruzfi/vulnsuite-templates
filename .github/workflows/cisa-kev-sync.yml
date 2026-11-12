@@ -4,20 +4,22 @@ name: cisa-kev-sync
 # "KEV" when any CVE in its vuln_refs is on the catalog -- nothing is written into
 # the contracts; KEV is derived, and only the shared CVE-id snapshot moves.
 #
-# main is a protected branch (PR + required checks), so this cannot push directly.
-# Instead it opens/updates a single PR and turns on auto-merge; the PR lands once
-# validate.yml's required checks pass.
+# main is a protected branch (PR + required checks + 1 review), so this cannot push
+# directly. Instead it opens/updates a single PR, waits for validate.yml's checks to
+# pass, then merges using the App's ruleset bypass. It does NOT use the auto-merge
+# queue: auto-merge only fires when requirements are literally met, and it does not
+# honor the ruleset bypass for the required-review rule -- so a bot PR would wait
+# forever for an approval no one gives. A direct merge by the bypassing App actor
+# does clear that rule, so the final step merges explicitly (--admin).
 #
 # Auth is a GitHub App token, minted fresh each run. It is used in place of
 # GITHUB_TOKEN on purpose -- a PR opened by GITHUB_TOKEN does NOT trigger
-# validate.yml, so its required checks would never run and auto-merge would wait
-# forever. The App is a distinct bot actor, repo-scoped, and its token expires in
-# ~1h. Requires:
+# validate.yml, so its required checks would never run. The App is a distinct bot
+# actor, repo-scoped, and its token expires in ~1h. Requires:
 #   - repo variable  KEV_SYNC_APP_ID   (the App's numeric ID)
 #   - repo secret    KEV_SYNC_APP_KEY  (the App's PEM private key)
 #   - the App installed on this repo with Contents: RW and Pull requests: RW
 #   - the App on the main ruleset's bypass list (Integration, pull_request mode)
-#   - "Allow auto-merge" enabled in Settings -> General
 on:
   schedule:
     - cron: '17 6 * * *'   # daily, 06:17 UTC
@@ -73,8 +75,20 @@ jobs:
 
             Nothing is written into the contracts -- KEV is derived, and only the
             shared CVE-id snapshot moves. Opened by the `cisa-kev-sync` workflow.
-      - name: enable auto-merge
+      - name: wait for checks, then merge with the App's bypass
         if: steps.cpr.outputs.pull-request-number != ''
         env:
           GH_TOKEN: ${{ steps.app-token.outputs.token }}
-        run: gh pr merge --merge --auto "${{ steps.cpr.outputs.pull-request-number }}"
+          PR: ${{ steps.cpr.outputs.pull-request-number }}
+        run: |
+          # Give validate.yml a moment to register its checks on the PR before we
+          # watch them, or `gh pr checks` can race and report "no checks".
+          for i in $(seq 1 12); do
+            gh pr checks "$PR" >/dev/null 2>&1 && break
+            echo "waiting for checks to appear on PR #$PR ..."; sleep 10
+          done
+          # Block until every check completes; exit non-zero (fail the run) if any fails.
+          gh pr checks "$PR" --watch --interval 15 --fail-fast
+          # required reviews=1 and a bot PR can't get a human approval, so merge with
+          # the App's ruleset bypass. --admin issues the override the bypass permits.
+          gh pr merge "$PR" --merge --admin --delete-branch
