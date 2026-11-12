@@ -1,8 +1,23 @@
 name: cisa-kev-sync
 # Refresh data/cisa-kev.txt from the CISA Known Exploited Vulnerabilities feed
 # and regenerate CATALOG.md so the derived KEV column stays current. A target is
-# "KEV" when any CVE in its vuln_refs is on the catalog — nothing is written into
+# "KEV" when any CVE in its vuln_refs is on the catalog -- nothing is written into
 # the contracts; KEV is derived, and only the shared CVE-id snapshot moves.
+#
+# main is a protected branch (PR + required checks), so this cannot push directly.
+# Instead it opens/updates a single PR and turns on auto-merge; the PR lands once
+# validate.yml's required checks pass.
+#
+# Auth is a GitHub App token, minted fresh each run. It is used in place of
+# GITHUB_TOKEN on purpose -- a PR opened by GITHUB_TOKEN does NOT trigger
+# validate.yml, so its required checks would never run and auto-merge would wait
+# forever. The App is a distinct bot actor, repo-scoped, and its token expires in
+# ~1h. Requires:
+#   - repo variable  KEV_SYNC_APP_ID   (the App's numeric ID)
+#   - repo secret    KEV_SYNC_APP_KEY  (the App's PEM private key)
+#   - the App installed on this repo with Contents: RW and Pull requests: RW
+#   - the App on the main ruleset's bypass list (Integration, pull_request mode)
+#   - "Allow auto-merge" enabled in Settings -> General
 on:
   schedule:
     - cron: '17 6 * * *'   # daily, 06:17 UTC
@@ -10,6 +25,7 @@ on:
 
 permissions:
   contents: write
+  pull-requests: write
 
 concurrency:
   group: cisa-kev-sync
@@ -19,6 +35,12 @@ jobs:
   sync:
     runs-on: ubuntu-latest
     steps:
+      - name: mint a short-lived App token (distinct actor; triggers validate.yml)
+        id: app-token
+        uses: actions/create-github-app-token@v2
+        with:
+          app-id: ${{ vars.KEV_SYNC_APP_ID }}
+          private-key: ${{ secrets.KEV_SYNC_APP_KEY }}
       - uses: actions/checkout@v7
       - uses: actions/setup-python@v7
         with:
@@ -28,17 +50,31 @@ jobs:
         run: python3 scripts/fetch_kev.py
       - name: regenerate CATALOG with the updated KEV column
         run: python3 scripts/gen_catalog.py
-      - name: commit if the catalog or snapshot changed
+      - name: read the catalog version for the commit and PR title
+        id: ver
         run: |
-          if git diff --quiet -- data/cisa-kev.txt CATALOG.md; then
-            echo "KEV catalog unchanged; nothing to commit."
-            exit 0
-          fi
-          git config user.name  "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/cisa-kev.txt CATALOG.md
           ver=$(sed -n 's/^# catalogVersion: \([^ ]*\).*/\1/p' data/cisa-kev.txt)
-          git commit -m "chore(kev): sync CISA KEV catalog (version ${ver:-unknown})"
-          git push
-          # If main is a protected branch, swap the push above for a
-          # create-pull-request step instead.
+          echo "ver=${ver:-unknown}" >> "$GITHUB_OUTPUT"
+      - name: open or update the KEV sync PR
+        id: cpr
+        uses: peter-evans/create-pull-request@v7
+        with:
+          token: ${{ steps.app-token.outputs.token }}
+          branch: chore/cisa-kev-sync
+          delete-branch: true
+          add-paths: |
+            data/cisa-kev.txt
+            CATALOG.md
+          commit-message: "chore(kev): sync CISA KEV catalog (version ${{ steps.ver.outputs.ver }})"
+          title: "chore(kev): sync CISA KEV catalog (version ${{ steps.ver.outputs.ver }})"
+          body: |
+            Automated daily refresh of `data/cisa-kev.txt` from the CISA KEV feed,
+            with `CATALOG.md` regenerated so the derived KEV column stays current.
+
+            Nothing is written into the contracts -- KEV is derived, and only the
+            shared CVE-id snapshot moves. Opened by the `cisa-kev-sync` workflow.
+      - name: enable auto-merge
+        if: steps.cpr.outputs.pull-request-number != ''
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+        run: gh pr merge --merge --auto "${{ steps.cpr.outputs.pull-request-number }}"
