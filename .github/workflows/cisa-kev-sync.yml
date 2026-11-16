@@ -59,7 +59,7 @@ jobs:
           echo "ver=${ver:-unknown}" >> "$GITHUB_OUTPUT"
       - name: open or update the KEV sync PR
         id: cpr
-        uses: peter-evans/create-pull-request@v7
+        uses: peter-evans/create-pull-request@v8
         with:
           token: ${{ steps.app-token.outputs.token }}
           branch: chore/cisa-kev-sync
