@@ -39,7 +39,7 @@ jobs:
     steps:
       - name: mint a short-lived App token (distinct actor; triggers validate.yml)
         id: app-token
-        uses: actions/create-github-app-token@v2
+        uses: actions/create-github-app-token@v3
         with:
           app-id: ${{ vars.KEV_SYNC_APP_ID }}
           private-key: ${{ secrets.KEV_SYNC_APP_KEY }}
