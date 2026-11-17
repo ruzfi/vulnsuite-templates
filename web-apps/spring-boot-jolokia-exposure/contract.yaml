@@ -19,10 +19,6 @@ metadata:
   maintainer: ruzfi
   added: "2026-10-14"
   updated: "2026-11-17"
-  # Config-axis target sharing the Actuator exposure toggle
-  # (MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE) but demonstrating the stronger
-  # Jolokia/JMX surface. The detector is the upstream Nuclei template; declared
-  # from its fingerprint, pending a run against both states.
   fidelity: real
   detected_by: ["nuclei:jolokia-info-disclosure"]
 
@@ -42,15 +38,11 @@ states:
     environment:
       MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE: "*"
     verify:
-      # Read a harmless MBean. This proves the HTTP->JMX bridge is reachable
-      # without invoking any write/exec gadget.
       - http:
           method: GET
           path: "/actuator/jolokia/read/java.lang:type=Memory"
           status: 200
           body_matches: "java.lang:type=Memory"
-  # "patched" is the secure default: only health/info exposed, so Jolokia is not
-  # reachable over HTTP.
   patched:
     environment:
       MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE: "health,info"

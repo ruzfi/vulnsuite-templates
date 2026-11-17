@@ -18,30 +18,22 @@ metadata:
   maintainer: ruzfi
   added: "2026-10-14"
   updated: "2026-11-17"
-  # Config-axis target: the SAME httpd image in both states. The vulnerable
-  # state's command enables mod_status at /server-status with "Require all
-  # granted"; the patched state runs the stock image (no status handler). The
-  # detector is the upstream Nuclei misconfiguration template; declared from its
-  # fingerprint, pending a run against both states.
   fidelity: real
   detected_by: ["nuclei:apache-server-status"]
 
 base:
   kind: image
   image: httpd:2.4
-  digest: sha256:a30cd4cd57f3f3c3be9b2d16384d2488839996bb14c67df2b51f1ecbb3e584a1  # multi-arch manifest-list digest
+  digest: sha256:a30cd4cd57f3f3c3be9b2d16384d2488839996bb14c67df2b51f1ecbb3e584a1
 
 service:
   ports: [ { container: 80, protocol: http } ]
   healthcheck:
-    # The stock "It works!" index answers 200 in both states.
     http: { path: /, status: 200 }
     timeout: 60s
 
 states:
   vulnerable:
-    # Enable mod_status and publish /server-status to everyone, then start
-    # httpd. This is exactly the misconfiguration operators add by hand.
     command:
       - sh
       - -c
@@ -55,8 +47,6 @@ states:
           path: "/server-status"
           status: 200
           body_matches: "Apache Server Status"
-  # "patched" is the stock configuration (no status handler) -- the fix is to
-  # not expose it.
   patched:
     command: [httpd-foreground]
     verify:
