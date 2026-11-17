@@ -2,7 +2,7 @@
 
 # Catalog
 
-36 target(s). Regenerate with `python3 scripts/gen_catalog.py`.
+37 target(s). Regenerate with `python3 scripts/gen_catalog.py`.
 
 KEV is derived from `data/cisa-kev.txt` (CISA Known Exploited Vulnerabilities), refreshed by the cisa-kev-sync workflow; `?` means the catalog has not been synced yet.
 
@@ -30,6 +30,7 @@ Group is the variant-family handle (`metadata.group`); members of a group render
 | `golang-1.27.2-cve-2026-111943-emudhra-compromised-ca` | web-apps | — | vuln | CVE-2026-111943 | no | critical | real | scanner | 2026-10-29 |
 | `grafana-8.3.0-cve-2021-43798` | web-apps | — | vuln | CVE-2021-43798 | **yes** | high | real | scanner | 2026-09-29 |
 | `graphql-introspection-enabled` | web-apps | — | misconfig | VS-MISCONF-GQL-INTRO | no | low | real | custom-only | 2026-09-29 |
+| `jenkins-2.441-cve-2024-23897` | web-apps | — | vuln | CVE-2024-23897 | **yes** | high | real | unset | 2026-11-18 |
 | `nextcloud-collabora-code-cve-2026-110447` | web-apps | — | vuln | CVE-2026-110447 | **yes** | critical | real | unset | 2026-11-17 |
 | `nodejs-cve-2026-111497-express-version-upgrade-patch` | web-apps | — | vuln | CVE-2026-111497 | **yes** | critical | real | scanner | 2026-11-17 |
 | `nodejs-cve-2026-111497-express-workaround-patch` | web-apps | — | vuln | CVE-2026-111497 | **yes** | critical | real | scanner | 2026-11-17 |
