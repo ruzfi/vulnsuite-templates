@@ -2,7 +2,7 @@
 
 # Catalog
 
-34 target(s). Regenerate with `python3 scripts/gen_catalog.py`.
+39 target(s). Regenerate with `python3 scripts/gen_catalog.py`.
 
 KEV is derived from `data/cisa-kev.txt` (CISA Known Exploited Vulnerabilities), refreshed by the cisa-kev-sync workflow; `?` means the catalog has not been synced yet.
 
@@ -23,16 +23,20 @@ Group is the variant-family handle (`metadata.group`); members of a group render
 | `openssh-9.9p2-alpine-3.21-cve-2026-123158` | network-services | `sshole` · alpine-3-21 | vuln | CVE-2026-123158 | **yes** | high | real | scanner | 2026-11-06 |
 | `openssh-10.0p1-alpine-3.22-cve-2026-123158` | network-services | `sshole` · alpine-3-22 | vuln | CVE-2026-123158 | **yes** | high | real | scanner | 2026-11-06 |
 | `openssh-10.2p1-alpine-3.23-cve-2026-123158` | network-services | `sshole` · alpine-3-23 | vuln | CVE-2026-123158 | **yes** | high | real | scanner | 2026-11-06 |
+| `apache-flink-1.11.2-cve-2020-17519` | web-apps | — | vuln | CVE-2020-17519 | **yes** | high | real | scanner | 2026-11-18 |
 | `django-debug-enabled` | web-apps | — | misconfig | VS-MISCONF-DJANGO-DEBUG | no | medium | real | unset | 2026-11-17 |
 | `exposed-git-repository` | web-apps | — | exposure | VS-EXPOSED-GIT | no | high | real | unset | 2026-10-26 |
 | `flask-werkzeug-debugger` | web-apps | — | misconfig | VS-MISCONF-FLASK-DEBUG | no | high | real | unset | 2026-11-17 |
 | `golang-1.27.2-cve-2026-111943-emudhra-compromised-ca` | web-apps | — | vuln | CVE-2026-111943 | no | critical | real | scanner | 2026-10-29 |
 | `grafana-8.3.0-cve-2021-43798` | web-apps | — | vuln | CVE-2021-43798 | **yes** | high | real | scanner | 2026-09-29 |
 | `graphql-introspection-enabled` | web-apps | — | misconfig | VS-MISCONF-GQL-INTRO | no | low | real | custom-only | 2026-09-29 |
+| `jenkins-2.441-cve-2024-23897` | web-apps | — | vuln | CVE-2024-23897 | **yes** | high | real | unset | 2026-11-18 |
 | `nextcloud-collabora-code-cve-2026-110447` | web-apps | — | vuln | CVE-2026-110447 | **yes** | critical | real | unset | 2026-11-17 |
+| `nexus3-3.21.1-cve-2020-10199` | web-apps | — | vuln | CVE-2020-10199 | **yes** | critical | real | scanner | 2026-11-18 |
 | `nodejs-cve-2026-111497-express-version-upgrade-patch` | web-apps | — | vuln | CVE-2026-111497 | **yes** | critical | real | scanner | 2026-11-17 |
 | `nodejs-cve-2026-111497-express-workaround-patch` | web-apps | — | vuln | CVE-2026-111497 | **yes** | critical | real | scanner | 2026-11-17 |
 | `nodejs-inspector-exposure` | web-apps | — | exposure, misconfig | VS-MISCONF-NODE-INSPECT | no | high | real | custom-only | 2026-11-17 |
+| `openfire-4.7.4-cve-2023-32315` | web-apps | — | vuln | CVE-2023-32315 | **yes** | high | real | unset | 2026-11-18 |
 | `php-fpm-status-exposure` | web-apps | — | exposure | VS-EXPOSED-PHPFPM-STATUS | no | low | real | unset | 2026-11-17 |
 | `php-8.2-cve-2026-109618-multipart-rce-version-upgrade-patch` | web-apps | `php2shell` · version-upgrade ★ | vuln | CVE-2026-109618, CVE-2026-109619 | **yes** | critical | real | scanner | 2026-11-17 |
 | `php-8.2-cve-2026-109618-multipart-rce-expose-php-off` | web-apps | `php2shell` · expose-php-off | vuln | CVE-2026-109618, CVE-2026-109619 | **yes** | critical | real | unset | 2026-11-17 |
@@ -43,4 +47,5 @@ Group is the variant-family handle (`metadata.group`); members of a group render
 | `wordpress-cve-2026-63030-batch-rce` | web-apps | — | vuln | CVE-2026-63030 | **yes** | critical | real | scanner | 2026-10-19 |
 | `wordpress-cve-2026-87902-page-template-traversal` | web-apps | — | vuln | CVE-2026-87902 | **yes** | critical | real | scanner | 2026-10-13 |
 | `apache-httpd-2.4.49-cve-2021-41773` | web-servers | — | vuln | CVE-2021-41773 | **yes** | high | real | scanner | 2026-10-26 |
+| `apache-httpd-2.4.50-cve-2021-42013` | web-servers | — | vuln | CVE-2021-42013 | **yes** | critical | real | scanner | 2026-11-18 |
 | `apache-mod-status-exposure` | web-servers | — | misconfig, exposure | VS-EXPOSED-APACHE-STATUS | no | low | real | unset | 2026-11-17 |

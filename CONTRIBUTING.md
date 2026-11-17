@@ -61,7 +61,13 @@ follows `<product>[-<version>][-<component>]-cve-<YYYY>-<NNNNN>[-<slug>]`.
       [nuclei-templates](https://github.com/projectdiscovery/nuclei-templates),
       then link it here. `vulnsuite validate` lists these gaps
       (`no-detected-by`): a target with `detection` unset is the open invitation.
-- [ ] `references` link the advisory and the fix. `vuln_refs` holds the CVE /
+- [ ] `references` link the advisory and the fix. If the base image comes from
+      **[vulhub/vulhub](https://github.com/vulhub/vulhub)** (the pre-built
+      vulnerable environments), link the environment you used as well —
+      `https://github.com/vulhub/vulhub/tree/master/<product>/<CVE-YYYY-NNNNN>` —
+      and note the provenance in the target's README. See
+      [Attribution for borrowed environments](#attribution-for-borrowed-environments).
+      `vuln_refs` holds the CVE /
       GHSA, or a `VS-<AREA>-<NAME>` id for flaws without one.
 - [ ] `vulnsuite validate -t <id>` is clean (use `-strict` to see warnings as
       failures) and both `vulnsuite run vulnerable|patched -t <id>` print
@@ -71,6 +77,35 @@ follows `<product>[-<version>][-<component>]-cve-<YYYY>-<NNNNN>[-<slug>]`.
       as how to refresh a digest) go in the target's `README.md`.
 - [ ] Nothing in the folder is larger than it must be. Vendor a source tarball
       when upstream may disappear; never vendor a base image.
+
+## Attribution for borrowed environments
+
+A target may stand up an environment that already exists somewhere else instead of
+building one from scratch. The most common source is
+**[vulhub/vulhub](https://github.com/vulhub/vulhub)** (MIT, © phith0n), a
+collection of pre-built vulnerable Docker environments — one per CVE, published as
+`vulhub/<product>:<tag>`. They are a legitimate, `fidelity: real` base: genuine
+upstream software in a documented vulnerable configuration.
+
+When you use one:
+
+- **Cite it in `metadata.references`**, next to the advisory and the fix:
+  `https://github.com/vulhub/vulhub/tree/master/<product>/<CVE-YYYY-NNNNN>`
+  (the per-CVE environment directory, not the repo root).
+- **Say so in the target's README** under a `## Provenance` heading: where the
+  vulnerable base came from, and where the patched base came from (usually the
+  upstream release image). Provenance is not a CVE fact, so it belongs in the
+  README; the URL belongs in `metadata`.
+- **Use the published image, not a copy of their Dockerfile.** Do not vendor
+  vulhub's Dockerfile or their PoC payload into the template. Write the `verify`
+  probe yourself from the advisory (`SKILL.md` step 4) — vulhub is the
+  *environment*, not the *detection logic*.
+- **Mind the architecture.** `vulhub/*` images are `linux/amd64` only, so the
+  contract needs `requires: { arch: [amd64], emulation: true }`.
+- **Mind the state diff.** A `vulhub/*` vulnerable image paired with an upstream
+  patched image means the two states differ by more than the fix. Say so in the
+  README, and prefer a same-family pair (another `vulhub/*` tag, or the upstream
+  release) when one exists.
 
 ## Authoring a variant group
 
