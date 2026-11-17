@@ -7,6 +7,7 @@ metadata:
     interface exposes the V8 inspector debugger on :9229 -- an unauthenticated
     remote debugging (and thus RCE) surface (CWE-489). Verified benignly by
     detecting the inspector's HTTP metadata, never by attaching a debugger.
+  vuln_refs: [VS-MISCONF-NODE-INSPECT]
   cwe: [CWE-489]
   severity: high
   class: [exposure, misconfig]
@@ -16,6 +17,7 @@ metadata:
     - https://cwe.mitre.org/data/definitions/489.html
   maintainer: ruzfi
   added: "2026-10-14"
+  updated: "2026-11-17"
   # Config-axis target: the SAME built image in both states, differing only by
   # whether the process is launched with the inspector exposed (per-state
   # command). The inspector runs on a SECONDARY port (:9229), so the verify uses

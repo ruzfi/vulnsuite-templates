@@ -7,6 +7,7 @@ metadata:
     pm.status_path and routing it through the web server publishes pool
     internals (active processes, request URIs, scripts) to anyone (CWE-200).
     Verified benignly by detecting the status page.
+  vuln_refs: [VS-EXPOSED-PHPFPM-STATUS]
   cwe: [CWE-200]
   severity: low
   class: [exposure]
@@ -16,6 +17,7 @@ metadata:
     - https://cwe.mitre.org/data/definitions/200.html
   maintainer: ruzfi
   added: "2026-10-14"
+  updated: "2026-11-17"
   # Config-axis target: one built nginx+PHP-FPM image; the states differ only by
   # FPM_STATUS, which the entrypoint turns into a pm.status_path pool setting.
   # The detector is the upstream Nuclei misconfiguration template; declared from
