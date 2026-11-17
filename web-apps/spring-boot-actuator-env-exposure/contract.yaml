@@ -8,6 +8,7 @@ metadata:
     /actuator/env, which leaks the application's configuration and environment
     (CWE-200). Verified benignly by detecting the env endpoint's structure, not
     by reading secret values.
+  vuln_refs: [VS-EXPOSED-SPRING-ENV]
   cwe: [CWE-200]
   severity: medium
   class: [exposure]
@@ -17,10 +18,7 @@ metadata:
     - https://cwe.mitre.org/data/definitions/200.html
   maintainer: ruzfi
   added: "2026-10-14"
-  # Config-axis target: the SAME built image in both states, differing only by
-  # the MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE env var. The detector is the
-  # upstream Nuclei actuator template; declared from its fingerprint, pending a
-  # run against both states.
+  updated: "2026-11-17"
   fidelity: real
   detected_by: ["nuclei:springboot-actuator"]
 
@@ -32,13 +30,11 @@ base:
 service:
   ports: [ { container: 8080, protocol: http } ]
   healthcheck:
-    # /actuator/health is exposed by default in both states.
     http: { path: /actuator/health, status: 200 }
     timeout: 180s
 
 states:
   vulnerable:
-    # Over-expose every actuator endpoint, including /env.
     environment:
       MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE: "*"
     verify:
@@ -47,8 +43,6 @@ states:
           path: "/actuator/env"
           status: 200
           body_matches: '"propertySources"'
-  # "patched" is the secure default: only health/info exposed, so /env is not
-  # reachable. The fix for this class is the exposure config, not a version bump.
   patched:
     environment:
       MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE: "health,info"

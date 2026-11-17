@@ -8,6 +8,7 @@ metadata:
     client read (and, via gadgets, write/exec) MBeans (CWE-200, RCE-adjacent).
     Verified benignly by reading the java.lang:type=Memory MBean, never by
     invoking a gadget.
+  vuln_refs: [VS-EXPOSED-JOLOKIA]
   cwe: [CWE-200]
   severity: high
   class: [misconfig]
@@ -17,10 +18,7 @@ metadata:
     - https://docs.spring.io/spring-boot/docs/2.7.x/reference/html/actuator.html#actuator.jmx.jolokia
   maintainer: ruzfi
   added: "2026-10-14"
-  # Config-axis target sharing the Actuator exposure toggle
-  # (MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE) but demonstrating the stronger
-  # Jolokia/JMX surface. The detector is the upstream Nuclei template; declared
-  # from its fingerprint, pending a run against both states.
+  updated: "2026-11-17"
   fidelity: real
   detected_by: ["nuclei:jolokia-info-disclosure"]
 
@@ -40,15 +38,11 @@ states:
     environment:
       MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE: "*"
     verify:
-      # Read a harmless MBean. This proves the HTTP->JMX bridge is reachable
-      # without invoking any write/exec gadget.
       - http:
           method: GET
           path: "/actuator/jolokia/read/java.lang:type=Memory"
           status: 200
           body_matches: "java.lang:type=Memory"
-  # "patched" is the secure default: only health/info exposed, so Jolokia is not
-  # reachable over HTTP.
   patched:
     environment:
       MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE: "health,info"
