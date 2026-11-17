@@ -66,6 +66,9 @@ follows `<product>[-<version>][-<component>]-cve-<YYYY>-<NNNNN>[-<slug>]`.
 - [ ] `vulnsuite validate -t <id>` is clean (use `-strict` to see warnings as
       failures) and both `vulnsuite run vulnerable|patched -t <id>` print
       `verify: ok`.
+- [ ] `contract.yaml` carries **no prose comments**. Explanations (state
+      design, what each verify proves, scanner results, maintenance notes such
+      as how to refresh a digest) go in the target's `README.md`.
 - [ ] Nothing in the folder is larger than it must be. Vendor a source tarball
       when upstream may disappear; never vendor a base image.
 
@@ -146,24 +149,36 @@ The shipped seeds are the pattern to copy:
 
 ## Optional per-target README
 
-A target's `contract.yaml` is the source of truth; most targets need no README.
-Add one **only** for build/run nuance a reader can't get from the contract — an
-arch-specific build, an HTTPS requirement, a seed step, a vendored tarball. Keep
-CVE facts (severity, affected/fixed versions, references) **out** of it; those
-live in `metadata` so a frequently-updated CVE changes in one place. Use this
-template:
+A target's `contract.yaml` is the source of truth and is kept **data-only**:
+no prose comments. Anything a reader needs to understand *why* the target looks
+the way it does goes in an optional `README.md` next to it — how the two states
+differ, what each verify probe proves (and that it is benign), which scanners
+were run against both states and what they reported, and build/run nuance (an
+arch-specific build, an HTTPS requirement, a seed step, a vendored tarball, how
+to refresh a digest). Targets whose contract is self-explanatory need no README.
+
+Keep CVE facts (severity, affected/fixed versions, references) and variant-group
+facts **out** of it; those live in `metadata` so a frequently-updated CVE
+changes in one place. Use this template, dropping sections you don't need:
 
 ```markdown
 # <id>
 
-> One line: what makes this target non-trivial to stand up.
+> One line: what this target is and what toggles the flaw.
 
-## Why this exists
-What's special about the build/run that the contract can't express
-(arch logic, HTTPS requirement, source build, seed data).
+## Design
+How the vulnerable and patched states differ, and why that is the minimal toggle.
+
+## Verification
+What each verify probe proves, and that it is benign (no exploit payload).
+
+## Detection
+Which scanner templates were run against both states, when, and what they
+reported; or why `detection` is `custom-only` / unset.
 
 ## Building / running notes
-Host prerequisites or gotchas (e.g. "needs an amd64 host", "first boot seeds a DB").
+Host prerequisites or gotchas (e.g. "needs an amd64 host", "first boot seeds a
+DB", how to refresh the pinned digest).
 
 <!-- No CVE facts, severity, or version boundaries here — see contract.yaml metadata. -->
 ```
