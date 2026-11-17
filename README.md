@@ -18,7 +18,7 @@ vulnsuite run -t apache-httpd-2.4.49-cve-2021-41773 -expose host
 ```
 <product-surface>/<id>/
   contract.yaml      the target (required)
-  README.md          optional; only for build/run nuance the contract can't state (no CVE facts)
+  README.md          optional; design rationale, verify/detection notes, build/run nuance (no CVE facts)
   files/
     common/          overlays shared by both states
     vulnerable/      overlays applied only to the vulnerable state
@@ -176,6 +176,10 @@ with a `VS-<AREA>-<NAME>` id in `vuln_refs`.
 Every CVE fact lives **only** in `contract.yaml metadata` — never restated in a
 README — so updating a target (a rescore, a new fixed version, a new reference)
 is a one-line edit in one place. Bump `metadata.updated` when you do.
+
+Keep `contract.yaml` data-only: no prose comments. The *why* behind a target
+(how the states differ, what a verify probe proves, scanner results,
+maintenance notes) goes in that target's `README.md`.
 
 Each template declares a **fidelity**: `real` runs the genuine affected software
 (the default, and what you should write whenever a public image or buildable

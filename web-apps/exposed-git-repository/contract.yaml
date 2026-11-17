@@ -14,13 +14,11 @@ metadata:
   added: "2026-09-29"
   updated: "2026-10-26"
   fidelity: real
-  # Declared from the upstream template\'s fingerprint; run the scanner against both
-  # states and set `detection: scanner` once it fires on vulnerable and stays silent on patched.
   detected_by: ["nuclei:git-config"]
 base:
   kind: image
   image: nginx:1.25-alpine
-  digest: sha256:516475cc129da42866742567714ddc681e5eed7b9ee0b9e9c015e464b4221a00  # multi-arch manifest-list digest
+  digest: sha256:516475cc129da42866742567714ddc681e5eed7b9ee0b9e9c015e464b4221a00
 service:
   ports: [ { container: 80, protocol: http } ]
   healthcheck: { http: { path: /, status: 200 }, timeout: 30s }
