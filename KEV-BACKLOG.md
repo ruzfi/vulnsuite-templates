@@ -143,42 +143,31 @@ analysis: `tomcat:9.0.30`, `solr:8.11.0` / `8.3.0` / `8.1.1`, `jenkins/jenkins:2
 
 ---
 
-## What we can contribute back to vulhub
+## Scope of this repository
 
-> The full contribution plan lives in the **local-only `PLAN.md`** (git-ignored,
-> never committed). Short version of the six tracks, with the acceptance criteria
-> vulhub publishes in
-> [`.claude/skills/add-vulhub-env/SKILL.md`](https://github.com/vulhub/vulhub/blob/master/.claude/skills/add-vulhub-env/SKILL.md):
->
-> 1. **Environments for the 67 reproducible KEV CVEs vulhub does not cover** —
->    the core contribution; 17 of them are single-container with an official
->    upstream image pair already verified.
-> 2. **ARM64 / multi-arch bases** — every `vulhub/*` image is a single
->    `linux/amd64` manifest, so Apple Silicon and arm64 runners cannot use them.
-> 3. **Non-destructive verification scripts** — our independent, benign probes
->    (assert `root:.*:0:0:` / `uid=`, never a shell) match vulhub's stated
->    preference for safe demonstration payloads.
-> 4. **Patched counterparts** — vulhub has no patched concept anywhere in the
->    tree; we have a patched twin for every target. Propose via an issue first.
-> 5. **KEV metadata in `environments.toml`** — `kev` / `date_added` /
->    `ransomware` fields; the most useful prioritisation filter is missing.
-> 6. **A mutual cross-link** — vulhub's README pointing at vulnsuite, since our
->    contracts already point back.
+This repository ships **vulnerable/patched target pairs for vulnsuite**, and
+nothing else. It records which upstream projects publish a ready-made
+vulnerable environment (the appendix below) so a target can stand on it and
+credit it properly — that is the whole of the relationship with other projects.
+Contributing environments, patches or documentation *to* those projects is out
+of scope here and is not tracked in this file.
 
 ---
 
+## Wave 0 — variant of an existing target (shipped)
+
 | CVE | Product | Vulnerable base | Patched base | Why now |
 | --- | --- | --- | --- | --- |
-| CVE-2021-42013 | Apache httpd 2.4.50 | `httpd:2.4.50` `sha256:b73a8591d3f1f170568b501ce645dc900f8f1c4c697fbc2420cae3502ab5e02c` | `httpd:2.4.51` `sha256:0c8dd1d9f90f0da8a29…` | Sibling of the shipped `apache-httpd-2.4.49-cve-2021-41773`; **verified locally**: the 41773 path returns 400 on 2.4.50, the bypass path `/icons/.%32%65/.%32%65/.%32%65/.%32%65/etc/passwd` returns 200 + `root:x:0:0:` on 2.4.50 and 400 on 2.4.51. Same overlay as the 2.4.49 target — no mod_cgi needed. |
+| CVE-2021-42013 | Apache httpd 2.4.50 | `httpd:2.4.50` `sha256:b73a8591d3f1f170568b501ce645dc900f8f1c4c697fbc2420cae3502ab5e02c` | `httpd:2.4.51` `sha256:0c8dd1d9f90f0da8a29…` | Sibling of the shipped `apache-httpd-2.4.49-cve-2021-41773`; **verified locally**: the 41773 path returns 400 on 2.4.50, the bypass path `/icons/%%32%65%%32%65/…/etc/passwd` returns 200 + `root:x:0:0:` on 2.4.50 and 400 on 2.4.51. Same overlay as the 2.4.49 target — no mod_cgi needed. |
 
 ## Wave 1 — single container, upstream image pair on both sides
 
 | CVE | Product | Vulnerable base | Patched base | Probe | Provenance |
 | --- | --- | --- | --- | --- | --- |
-| CVE-2024-23897 | Jenkins | `jenkins/jenkins:2.441` | `jenkins/jenkins:2.442` | CLI `who-am-i` / argfile path traversal | upstream |
+| CVE-2024-23897 | Jenkins | `jenkins/jenkins:2.441` | `jenkins/jenkins:2.442` | CLI `who-am-i` / argfile path traversal | upstream | **SHIPPED (#34)**
 | CVE-2020-1938 | Tomcat (Ghostcat) | `tomcat:9.0.30-jdk8` `sha256:1ea11c1e…` | `tomcat:9.0.31-jdk8` `sha256:256f5296…` | `tcp` probe: hand-built AJP13 Forward-Request on 8009 — vulnerable accepts it, patched closes the connection (secret required by default) | upstream |
 | CVE-2025-24813 | Tomcat | `tomcat:9.0.98` | `tomcat:9.0.99` | PUT via path equivalence (default servlet write) | upstream |
-| CVE-2020-17519 | Apache Flink JobManager | `flink:1.11.2` `sha256:1fe4fb22…` | `flink:1.11.3` `sha256:7cdca61c…` | **verified locally**: `GET /jobmanager/logs/..%252f..%252f..%252f..%252f..%252f..%252fetc%252fpasswd` -> 200 + `root:x:0:0:`; patched -> 404 `{"errors":["This file does not exist in JobManager log dir."]}` | upstream |
+| CVE-2020-17519 | Apache Flink JobManager | `flink:1.11.2` `sha256:1fe4fb22…` | `flink:1.11.3` `sha256:7cdca61c…` | **verified locally**: `GET /jobmanager/logs/..%252f..%252f..%252f..%252f..%252f..%252fetc%252fpasswd` -> 200 + `root:x:0:0:`; patched -> 404 `{"errors":["This file does not exist in JobManager log dir."]}` | upstream | **SHIPPED (#30)**
 | CVE-2021-44228 | Log4j2 (Solr) | `solr:8.11.0` | `solr:8.11.1` | JNDI lookup header (see Wave 2 for the app-toggle variant) | upstream |
 | CVE-2019-17558 | Apache Solr | `solr:8.3.0` `sha256:89464b35…` | `solr:8.4.0` `sha256:060fcb87…` | enable `VelocityResponseWriter` then `$runtime.exec(...)`; **needs a seed** (create a core) | upstream |
 | CVE-2018-7600 | Drupal | `drupal:8.5.0` | `drupal:8.5.1` | `#post_render` AJAX RCE | upstream |
@@ -188,11 +177,11 @@ analysis: `tomcat:9.0.30`, `solr:8.11.0` / `8.3.0` / `8.1.1`, `jenkins/jenkins:2
 | CVE-2025-24893 | XWiki | `xwiki:15.10.10` | `xwiki:15.10.11` | SolrSearch Groovy eval (single container, embedded DB) | upstream |
 | CVE-2023-49103 | ownCloud graphapi | `owncloud/server:10.13.0` | `owncloud/server:10.13.1` | `graphapi` phpinfo file leak (app version toggled by `occ`) | upstream |
 | CVE-2019-11043 | PHP-FPM | `php:7.2.23-fpm` + nginx | `php:7.2.24-fpm` | PATH_INFO overflow (reuses the `php2shell` pattern) | upstream |
-| CVE-2020-10199 | Sonatype Nexus | `sonatype/nexus3:3.21.1` | `sonatype/nexus3:3.21.2` | Groovy RCE | upstream |
+| CVE-2020-10199 | Sonatype Nexus | `sonatype/nexus3:3.21.1` | `sonatype/nexus3:3.21.2` | Groovy RCE | upstream | **SHIPPED (#35)**
 | CVE-2019-7238 | Sonatype Nexus | `vulhub/nexus:3.14.0` | `sonatype/nexus3:3.25.1` | expression-language auth bypass | **vulhub** `nexus/CVE-2019-7238` |
 | CVE-2021-41277 | Metabase | `vulhub/metabase:0.40.4` | `vulhub/metabase:0.46.6` | GeoJSON LFI | **vulhub** `metabase/CVE-2021-41277` |
 | CVE-2026-72898 | Metabase | `metabase/metabase:v0.58.23` | `metabase/metabase:v0.58.24` | `POST /api/session/reset_password` SQLi | upstream |
-| CVE-2023-32315 | Openfire | `nasqueron/openfire:4.7.4` | `nasqueron/openfire:4.7.5` | unicode traversal to `openfire.log` | upstream |
+| CVE-2023-32315 | Openfire | `nasqueron/openfire:4.7.4` | `nasqueron/openfire:4.7.5` | unicode traversal to `openfire.log` | upstream | **SHIPPED (#36)**
 | CVE-2025-32433 | Erlang/OTP SSH | `vulhub/erlang:27.3.2-with-ssh` | `erlang:27.3.3` | pre-auth SSH channel open | **vulhub** `erlang/CVE-2025-32433` |
 | CVE-2025-3248 | Langflow | `vulhub/langflow:1.2.0` | `langflowai/langflow:1.3.0` | `POST /api/v1/validate/code` eval | **vulhub** `langflow/CVE-2025-3248` |
 | CVE-2025-34291 | Langflow | `langflowai/langflow:1.6.9` | build 1.7.0 | CORS origin reflection (`header_matches`) | upstream |
