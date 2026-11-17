@@ -5,3 +5,5 @@ __pycache__/
 *.pyc
 # local scan scratch: list of running target URLs, not part of the suite
 targets.txt
+# local working plan for the upstream vulhub contribution; never commit it
+PLAN.md
