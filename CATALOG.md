@@ -2,7 +2,7 @@
 
 # Catalog
 
-34 target(s). Regenerate with `python3 scripts/gen_catalog.py`.
+35 target(s). Regenerate with `python3 scripts/gen_catalog.py`.
 
 KEV is derived from `data/cisa-kev.txt` (CISA Known Exploited Vulnerabilities), refreshed by the cisa-kev-sync workflow; `?` means the catalog has not been synced yet.
 
@@ -43,4 +43,5 @@ Group is the variant-family handle (`metadata.group`); members of a group render
 | `wordpress-cve-2026-63030-batch-rce` | web-apps | — | vuln | CVE-2026-63030 | **yes** | critical | real | scanner | 2026-10-19 |
 | `wordpress-cve-2026-87902-page-template-traversal` | web-apps | — | vuln | CVE-2026-87902 | **yes** | critical | real | scanner | 2026-10-13 |
 | `apache-httpd-2.4.49-cve-2021-41773` | web-servers | — | vuln | CVE-2021-41773 | **yes** | high | real | scanner | 2026-10-26 |
+| `apache-httpd-2.4.50-cve-2021-42013` | web-servers | — | vuln | CVE-2021-42013 | **yes** | critical | real | scanner | 2026-11-18 |
 | `apache-mod-status-exposure` | web-servers | — | misconfig, exposure | VS-EXPOSED-APACHE-STATUS | no | low | real | unset | 2026-11-17 |
