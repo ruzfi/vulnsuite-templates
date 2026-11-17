@@ -27,7 +27,7 @@ base:
   dockerfile: Dockerfile
 
 service:
-  ports: [ { container: 3000, protocol: http } ]
+  ports: [ { container: 3000, protocol: http }, { container: 9229, protocol: http, publish: true } ]
   healthcheck:
     http: { path: /, status: 200 }
     timeout: 60s
@@ -41,10 +41,14 @@ states:
           method: GET
           path: "/json/version"
           status: 200
-          body_matches: "V8-Version"
+          body_matches: '"Browser":\s*"node\.js/v'
   patched:
     command: [node, server.js]
     verify:
-      - tcp:
-          port: 9229
-          closed: true
+      - exec:
+          run: >-
+            node -e "require('net').connect(9229,'127.0.0.1')
+            .on('connect',()=>{console.log('inspector-open');process.exit(1)})
+            .on('error',()=>{console.log('inspector-closed');process.exit(0)})"
+          expect_exit: 0
+          stdout_matches: "inspector-closed"
