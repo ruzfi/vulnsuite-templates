@@ -1,5 +1,25 @@
 # KEV coverage backlog — reproducible vulnsuite targets
 
+## Shipped so far
+
+| Target | CVE | PR |
+| --- | --- | --- |
+| `apache-httpd-2.4.50-cve-2021-42013` | CVE-2021-42013 | #29 |
+| `apache-flink-1.11.2-cve-2020-17519` | CVE-2020-17519 | #30 |
+| `jenkins-2.441-cve-2024-23897` | CVE-2024-23897 | #34 |
+| `nexus3-3.21.1-cve-2020-10199` | CVE-2020-10199 | #35 |
+| `openfire-4.7.4-cve-2023-32315` | CVE-2023-32315 | #36 |
+
+KEV coverage: **11 → 16** targets (of 1781 KEV CVEs).
+
+Two of them ship with `detection` deliberately unset, because the public
+scanner template does not discriminate: `nuclei:CVE-2024-23897` fires on the
+patched Jenkins too, and `nuclei:CVE-2023-32315` requires a Tomcat-flavored log
+that the embedded-Jetty image does not produce. Both are documented in their
+READMEs as test beds for a better matcher.
+
+---
+
 Generated from the live CISA KEV feed (catalogVersion 2026.11.13, 1781 CVEs) against
 this repo's 34 shipped targets. Every base image listed here was verified
 pullable and digest-pinned from this machine (`docker buildx imagetools inspect` /
