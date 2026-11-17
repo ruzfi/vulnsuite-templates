@@ -8,6 +8,7 @@ metadata:
     client read (and, via gadgets, write/exec) MBeans (CWE-200, RCE-adjacent).
     Verified benignly by reading the java.lang:type=Memory MBean, never by
     invoking a gadget.
+  vuln_refs: [VS-EXPOSED-JOLOKIA]
   cwe: [CWE-200]
   severity: high
   class: [misconfig]
@@ -17,6 +18,7 @@ metadata:
     - https://docs.spring.io/spring-boot/docs/2.7.x/reference/html/actuator.html#actuator.jmx.jolokia
   maintainer: ruzfi
   added: "2026-10-14"
+  updated: "2026-11-17"
   # Config-axis target sharing the Actuator exposure toggle
   # (MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE) but demonstrating the stronger
   # Jolokia/JMX surface. The detector is the upstream Nuclei template; declared

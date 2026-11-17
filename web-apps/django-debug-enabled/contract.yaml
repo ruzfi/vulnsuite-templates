@@ -7,6 +7,7 @@ metadata:
     page into a detailed report that leaks settings, the URLconf and the
     environment (CWE-489 / CWE-215). Verified benignly by detecting the DEBUG
     404 page, not by harvesting the leaked settings.
+  vuln_refs: [VS-MISCONF-DJANGO-DEBUG]
   cwe: [CWE-489, CWE-215]
   severity: medium
   class: [misconfig]
@@ -16,6 +17,7 @@ metadata:
     - https://cwe.mitre.org/data/definitions/489.html
   maintainer: ruzfi
   added: "2026-10-14"
+  updated: "2026-11-17"
   # Config-axis target: the SAME image, two states differing only by DJANGO_DEBUG.
   # The detector is the upstream Nuclei misconfiguration template. Declared from
   # its fingerprint; run the scanner against both states and set

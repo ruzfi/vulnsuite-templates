@@ -8,6 +8,7 @@ metadata:
     /actuator/env, which leaks the application's configuration and environment
     (CWE-200). Verified benignly by detecting the env endpoint's structure, not
     by reading secret values.
+  vuln_refs: [VS-EXPOSED-SPRING-ENV]
   cwe: [CWE-200]
   severity: medium
   class: [exposure]
@@ -17,6 +18,7 @@ metadata:
     - https://cwe.mitre.org/data/definitions/200.html
   maintainer: ruzfi
   added: "2026-10-14"
+  updated: "2026-11-17"
   # Config-axis target: the SAME built image in both states, differing only by
   # the MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE env var. The detector is the
   # upstream Nuclei actuator template; declared from its fingerprint, pending a
