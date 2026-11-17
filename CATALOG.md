@@ -2,7 +2,7 @@
 
 # Catalog
 
-35 target(s). Regenerate with `python3 scripts/gen_catalog.py`.
+36 target(s). Regenerate with `python3 scripts/gen_catalog.py`.
 
 KEV is derived from `data/cisa-kev.txt` (CISA Known Exploited Vulnerabilities), refreshed by the cisa-kev-sync workflow; `?` means the catalog has not been synced yet.
 
@@ -23,6 +23,7 @@ Group is the variant-family handle (`metadata.group`); members of a group render
 | `openssh-9.9p2-alpine-3.21-cve-2026-123158` | network-services | `sshole` · alpine-3-21 | vuln | CVE-2026-123158 | **yes** | high | real | scanner | 2026-11-06 |
 | `openssh-10.0p1-alpine-3.22-cve-2026-123158` | network-services | `sshole` · alpine-3-22 | vuln | CVE-2026-123158 | **yes** | high | real | scanner | 2026-11-06 |
 | `openssh-10.2p1-alpine-3.23-cve-2026-123158` | network-services | `sshole` · alpine-3-23 | vuln | CVE-2026-123158 | **yes** | high | real | scanner | 2026-11-06 |
+| `apache-flink-1.11.2-cve-2020-17519` | web-apps | — | vuln | CVE-2020-17519 | **yes** | high | real | scanner | 2026-11-18 |
 | `django-debug-enabled` | web-apps | — | misconfig | VS-MISCONF-DJANGO-DEBUG | no | medium | real | unset | 2026-11-17 |
 | `exposed-git-repository` | web-apps | — | exposure | VS-EXPOSED-GIT | no | high | real | unset | 2026-10-26 |
 | `flask-werkzeug-debugger` | web-apps | — | misconfig | VS-MISCONF-FLASK-DEBUG | no | high | real | unset | 2026-11-17 |
