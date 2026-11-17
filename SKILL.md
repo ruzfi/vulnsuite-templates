@@ -98,6 +98,20 @@ Rules of thumb:
   context that builds the genuine upstream software).
 - `patched` should differ from `vulnerable` by the **minimum**. If the diff is
   large, the discrimination test is measuring more than the vulnerability.
+- **A ready-made vulnerable environment already exists for many CVEs.** Check
+  **[vulhub/vulhub](https://github.com/vulhub/vulhub)** before writing a build
+  context: it publishes one Docker environment per CVE as `vulhub/<product>:<tag>`
+  (MIT, © phith0n), each standing up genuine upstream software in a documented
+  vulnerable configuration — a valid `fidelity: real` base. When you use one:
+  - cite it in `metadata.references` as
+    `https://github.com/vulhub/vulhub/tree/master/<product>/<CVE-YYYY-NNNNN>`,
+    and note the provenance in the target's README under `## Provenance`;
+  - use the published image, not a copy of their Dockerfile or PoC payload —
+    write the `verify` probe yourself from the advisory (step 4);
+  - `vulhub/*` images are `linux/amd64` only, so add
+    `requires: { arch: [amd64], emulation: true }`;
+  - if the patched side is an upstream release image, the two states differ by
+    more than the fix — say so in the README, or prefer a same-family pair.
 
 ---
 
