@@ -15,7 +15,7 @@ their own scanner. Your output is a template folder:
 ```
 <product-surface>/<id>/
   contract.yaml                 the target contract (required)
-  README.md                     optional; build/run nuance only, no CVE facts
+  README.md                     optional; design/verify/detection notes + build/run nuance, no CVE facts
   files/common|vulnerable|patched/   overlay files, keyed by the state they feed
   src/                          build context for genuine upstream software
   build/                        build context for code we wrote (harness / sim)
@@ -143,6 +143,12 @@ states:
 
 Notes:
 
+- The comments in this skeleton are guidance for you; **do not ship them**.
+  The finished `contract.yaml` is data-only, with no prose comments. Put the
+  rationale (state design, what each probe proves, scanner results, digest
+  refresh commands) in the target's `README.md` instead, using the template in
+  [CONTRIBUTING.md](CONTRIBUTING.md#optional-per-target-readme). Keep CVE facts
+  and variant-group facts out of the README; they live in `metadata`.
 - `raw_path` is sent **verbatim** — use it for traversal/encoding payloads so the
   bytes survive. `path` is fine for ordinary requests (it may include a query).
 - Probe kinds: `http` (request: `method` / `path` or `raw_path` / `headers` /
@@ -368,4 +374,5 @@ references targets by selector only. Then:
 - [ ] Each state has a `verify` probe written independently of any scanner matcher.
 - [ ] Vulnerable verify asserts the impact; patched verify asserts it is gone.
 - [ ] `references` link the advisory and the fix.
+- [ ] `contract.yaml` has no prose comments; any rationale is in `README.md` (no CVE facts there).
 - [ ] `vulnsuite validate -t <id>` is clean; both `vulnsuite run` states show `verify: ok`.
