@@ -1,0 +1,104 @@
+=================================================================
+==6==ERROR: AddressSanitizer: heap-use-after-free on address 0x511000007d60 at pc 0xaaaabb248a4c bp 0xffffef30de40 sp 0xffffef30de58
+WRITE of size 8 at 0x511000007d60 thread T0
+    #0 0xaaaabb248a48 in ngx_resolver_process_a src/core/ngx_resolver.c:2142
+    #1 0xaaaabb248a48 in ngx_resolver_process_response src/core/ngx_resolver.c:1879
+    #2 0xaaaabb24cec0 in ngx_resolver_udp_read src/core/ngx_resolver.c:1600
+    #3 0xaaaabb27b8d8 in ngx_epoll_process_events src/event/modules/ngx_epoll_module.c:901
+    #4 0xaaaabb25ff80 in ngx_process_events_and_timers src/event/ngx_event.c:248
+    #5 0xaaaabb277030 in ngx_worker_process_cycle src/os/unix/ngx_process_cycle.c:751
+    #6 0xaaaabb2730c4 in ngx_spawn_process src/os/unix/ngx_process.c:199
+    #7 0xaaaabb274d8c in ngx_start_worker_processes src/os/unix/ngx_process_cycle.c:366
+    #8 0xaaaabb2780e0 in ngx_master_process_cycle src/os/unix/ngx_process_cycle.c:130
+    #9 0xaaaabb205784 in main src/core/nginx.c:403
+    #10 0xffff9abf2258  (/lib/aarch64-linux-gnu/libc.so.6+0x22258) (BuildId: 5f3926d9963ff284b8173bf3601bbb00c3abad16)
+    #11 0xffff9abf2338 in __libc_start_main (/lib/aarch64-linux-gnu/libc.so.6+0x22338) (BuildId: 5f3926d9963ff284b8173bf3601bbb00c3abad16)
+    #12 0xaaaabb201b6c in _start (/usr/sbin/nginx+0xa1b6c) (BuildId: 26865832571645764cf01df0277101565ee5c456)
+
+0x511000007d60 is located 32 bytes inside of 224-byte region [0x511000007d40,0x511000007e20)
+freed by thread T0 here:
+    #0 0xffff9b7092b4 in free ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:52
+    #1 0xaaaabb244d18 in ngx_resolver_free_locked src/core/ngx_resolver.c:4198
+    #2 0xaaaabb244d18 in ngx_resolve_name_done src/core/ngx_resolver.c:595
+    #3 0xaaaabb32874c in ngx_http_upstream_finalize_request src/http/ngx_http_upstream.c:4803
+    #4 0xaaaabb32952c in ngx_http_upstream_cleanup src/http/ngx_http_upstream.c:4780
+    #5 0xaaaabb2f53f8 in ngx_http_terminate_request src/http/ngx_http_request.c:2954
+    #6 0xaaaabb2f81e8 in ngx_http_finalize_request src/http/ngx_http_request.c:2784
+    #7 0xaaaabb2f8298 in ngx_http_finalize_request src/http/ngx_http_request.c:2811
+    #8 0xaaaabb329218 in ngx_http_upstream_finalize_request src/http/ngx_http_upstream.c:4922
+    #9 0xaaaabb3389b0 in ngx_http_upstream_resolve_handler src/http/ngx_http_upstream.c:1271
+    #10 0xaaaabb248a74 in ngx_resolver_process_a src/core/ngx_resolver.c:2146
+    #11 0xaaaabb248a74 in ngx_resolver_process_response src/core/ngx_resolver.c:1879
+    #12 0xaaaabb24cec0 in ngx_resolver_udp_read src/core/ngx_resolver.c:1600
+    #13 0xaaaabb27b8d8 in ngx_epoll_process_events src/event/modules/ngx_epoll_module.c:901
+    #14 0xaaaabb25ff80 in ngx_process_events_and_timers src/event/ngx_event.c:248
+    #15 0xaaaabb277030 in ngx_worker_process_cycle src/os/unix/ngx_process_cycle.c:751
+    #16 0xaaaabb2730c4 in ngx_spawn_process src/os/unix/ngx_process.c:199
+    #17 0xaaaabb274d8c in ngx_start_worker_processes src/os/unix/ngx_process_cycle.c:366
+    #18 0xaaaabb2780e0 in ngx_master_process_cycle src/os/unix/ngx_process_cycle.c:130
+    #19 0xaaaabb205784 in main src/core/nginx.c:403
+    #20 0xffff9abf2258  (/lib/aarch64-linux-gnu/libc.so.6+0x22258) (BuildId: 5f3926d9963ff284b8173bf3601bbb00c3abad16)
+    #21 0xffff9abf2338 in __libc_start_main (/lib/aarch64-linux-gnu/libc.so.6+0x22338) (BuildId: 5f3926d9963ff284b8173bf3601bbb00c3abad16)
+    #22 0xaaaabb201b6c in _start (/usr/sbin/nginx+0xa1b6c) (BuildId: 26865832571645764cf01df0277101565ee5c456)
+
+previously allocated by thread T0 here:
+    #0 0xffff9b70a400 in malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:69
+    #1 0xaaaabb26abe8 in ngx_alloc src/os/unix/ngx_alloc.c:22
+    #2 0xaaaabb23d5b0 in ngx_resolver_alloc src/core/ngx_resolver.c:4161
+    #3 0xaaaabb23d9d8 in ngx_resolver_calloc src/core/ngx_resolver.c:4174
+    #4 0xaaaabb241e40 in ngx_resolve_start src/core/ngx_resolver.c:422
+    #5 0xaaaabb338388 in ngx_http_upstream_init_request src/http/ngx_http_upstream.c:806
+    #6 0xaaaabb339928 in ngx_http_upstream_init src/http/ngx_http_upstream.c:588
+    #7 0xaaaabb30f330 in ngx_http_read_client_request_body src/http/ngx_http_request_body.c:47
+    #8 0xaaaabb3d5bf8 in ngx_http_proxy_handler src/http/modules/ngx_http_proxy_module.c:970
+    #9 0xaaaabb2eaadc in ngx_http_core_content_phase src/http/ngx_http_core_module.c:1311
+    #10 0xaaaabb2dc0c4 in ngx_http_core_run_phases src/http/ngx_http_core_module.c:906
+    #11 0xaaaabb2dc348 in ngx_http_handler src/http/ngx_http_core_module.c:889
+    #12 0xaaaabb2f42c4 in ngx_http_run_posted_requests src/http/ngx_http_request.c:2708
+    #13 0xaaaabb2fb5f8 in ngx_http_process_request_headers src/http/ngx_http_request.c:1595
+    #14 0xaaaabb2fc824 in ngx_http_process_request_line src/http/ngx_http_request.c:1230
+    #15 0xaaaabb2fd554 in ngx_http_wait_request_handler src/http/ngx_http_request.c:534
+    #16 0xaaaabb27b8d8 in ngx_epoll_process_events src/event/modules/ngx_epoll_module.c:901
+    #17 0xaaaabb25ff80 in ngx_process_events_and_timers src/event/ngx_event.c:248
+    #18 0xaaaabb277030 in ngx_worker_process_cycle src/os/unix/ngx_process_cycle.c:751
+    #19 0xaaaabb2730c4 in ngx_spawn_process src/os/unix/ngx_process.c:199
+    #20 0xaaaabb274d8c in ngx_start_worker_processes src/os/unix/ngx_process_cycle.c:366
+    #21 0xaaaabb2780e0 in ngx_master_process_cycle src/os/unix/ngx_process_cycle.c:130
+    #22 0xaaaabb205784 in main src/core/nginx.c:403
+    #23 0xffff9abf2258  (/lib/aarch64-linux-gnu/libc.so.6+0x22258) (BuildId: 5f3926d9963ff284b8173bf3601bbb00c3abad16)
+    #24 0xffff9abf2338 in __libc_start_main (/lib/aarch64-linux-gnu/libc.so.6+0x22338) (BuildId: 5f3926d9963ff284b8173bf3601bbb00c3abad16)
+    #25 0xaaaabb201b6c in _start (/usr/sbin/nginx+0xa1b6c) (BuildId: 26865832571645764cf01df0277101565ee5c456)
+
+SUMMARY: AddressSanitizer: heap-use-after-free src/core/ngx_resolver.c:2142 in ngx_resolver_process_a
+Shadow bytes around the buggy address:
+  0x511000007a80: fa fa fa fa fa fa fa fa fd fd fd fd fd fd fd fd
+  0x511000007b00: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x511000007b80: fd fd fd fd fa fa fa fa fa fa fa fa fa fa fa fa
+  0x511000007c00: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x511000007c80: fd fd fd fd fd fd fd fd fd fd fd fd fa fa fa fa
+=>0x511000007d00: fa fa fa fa fa fa fa fa fd fd fd fd[fd]fd fd fd
+  0x511000007d80: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x511000007e00: fd fd fd fd fa fa fa fa fa fa fa fa fa fa fa fa
+  0x511000007e80: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x511000007f00: fd fd fd fd fd fd fd fd fd fd fd fd fa fa fa fa
+  0x511000007f80: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+==6==ABORTING

@@ -1,0 +1,24 @@
+== vuln seq none
+RESULT {"variant": "seq", "method": "none", "n": 60, "hits": 0, "sendfail": 58, "crashes": 0, "other_asan": 0, "errors": 0, "held": 60}
+== vuln seq-prime none
+RESULT {"variant": "seq-prime", "method": "none", "n": 60, "hits": 10, "sendfail": 50, "crashes": 10, "other_asan": 0, "errors": 3, "held": 47, "prime_K": 565, "sample": 1}
+== vuln seq-prime-delay1ms none
+RESULT {"variant": "seq-prime-delay1ms", "method": "none", "n": 60, "hits": 2, "sendfail": 57, "crashes": 2, "other_asan": 0, "errors": 0, "held": 58, "prime_K": 565, "sample": 1}
+== vuln freeze sigstop
+RESULT {"variant": "freeze", "method": "sigstop", "n": 60, "hits": 0, "sendfail": 58, "crashes": 0, "other_asan": 0, "errors": 0, "held": 60}
+== vuln freeze-prime sigstop
+RESULT {"variant": "freeze-prime", "method": "sigstop", "n": 60, "hits": 58, "sendfail": 58, "crashes": 58, "other_asan": 0, "errors": 2, "held": 0, "prime_K": 565, "sample": 1}
+== vuln freeze-prime pause
+RESULT {"variant": "freeze-prime", "method": "pause", "n": 60, "hits": 57, "sendfail": 57, "crashes": 57, "other_asan": 0, "errors": 3, "held": 0, "prime_K": 565, "sample": 1}
+== fix-mail seq none
+RESULT {"variant": "seq", "method": "none", "n": 60, "hits": 0, "sendfail": 58, "crashes": 0, "other_asan": 0, "errors": 0, "held": 60}
+== fix-mail seq-prime none
+RESULT {"variant": "seq-prime", "method": "none", "n": 60, "hits": 0, "sendfail": 58, "crashes": 0, "other_asan": 0, "errors": 1, "held": 59, "prime_K": 565}
+== fix-mail seq-prime-delay1ms none
+RESULT {"variant": "seq-prime-delay1ms", "method": "none", "n": 60, "hits": 0, "sendfail": 59, "crashes": 0, "other_asan": 0, "errors": 0, "held": 60, "prime_K": 565}
+== fix-mail freeze sigstop
+RESULT {"variant": "freeze", "method": "sigstop", "n": 60, "hits": 0, "sendfail": 58, "crashes": 0, "other_asan": 0, "errors": 0, "held": 60}
+== fix-mail freeze-prime sigstop
+RESULT {"variant": "freeze-prime", "method": "sigstop", "n": 60, "hits": 0, "sendfail": 59, "crashes": 0, "other_asan": 0, "errors": 0, "held": 60, "prime_K": 565}
+== fix-mail freeze-prime pause
+RESULT {"variant": "freeze-prime", "method": "pause", "n": 60, "hits": 0, "sendfail": 59, "crashes": 0, "other_asan": 0, "errors": 0, "held": 60, "prime_K": 565}

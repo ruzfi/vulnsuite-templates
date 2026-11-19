@@ -1,0 +1,84 @@
+=================================================================
+==6==ERROR: AddressSanitizer: heap-use-after-free on address 0x5130000003e8 at pc 0xaaaab20a3218 bp 0xffffc1a43fa0 sp 0xffffc1a43fb8
+READ of size 8 at 0x5130000003e8 thread T0
+    #0 0xaaaab20a3214 in ngx_mail_auth_http_write_handler src/mail/ngx_mail_auth_http_module.c:247
+    #1 0xaaaab1edb93c in ngx_epoll_process_events src/event/modules/ngx_epoll_module.c:930
+    #2 0xaaaab1ebff80 in ngx_process_events_and_timers src/event/ngx_event.c:248
+    #3 0xaaaab1ed7030 in ngx_worker_process_cycle src/os/unix/ngx_process_cycle.c:751
+    #4 0xaaaab1ed30c4 in ngx_spawn_process src/os/unix/ngx_process.c:199
+    #5 0xaaaab1ed4d8c in ngx_start_worker_processes src/os/unix/ngx_process_cycle.c:366
+    #6 0xaaaab1ed80e0 in ngx_master_process_cycle src/os/unix/ngx_process_cycle.c:130
+    #7 0xaaaab1e65784 in main src/core/nginx.c:403
+    #8 0xffffa5232258  (/lib/aarch64-linux-gnu/libc.so.6+0x22258) (BuildId: 5f3926d9963ff284b8173bf3601bbb00c3abad16)
+    #9 0xffffa5232338 in __libc_start_main (/lib/aarch64-linux-gnu/libc.so.6+0x22338) (BuildId: 5f3926d9963ff284b8173bf3601bbb00c3abad16)
+    #10 0xaaaab1e61b6c in _start (/usr/sbin/nginx+0xa1b6c) (BuildId: 26865832571645764cf01df0277101565ee5c456)
+
+0x5130000003e8 is located 40 bytes inside of 384-byte region [0x5130000003c0,0x513000000540)
+freed by thread T0 here:
+    #0 0xffffa5d492b4 in free ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:52
+    #1 0xaaaab1e68e4c in ngx_destroy_pool src/core/ngx_palloc.c:85
+    #2 0xaaaab208eff4 in ngx_mail_close_connection src/mail/ngx_mail_handler.c:972
+    #3 0xaaaab208f76c in ngx_mail_send src/mail/ngx_mail_handler.c:813
+    #4 0xaaaab1edb93c in ngx_epoll_process_events src/event/modules/ngx_epoll_module.c:930
+    #5 0xaaaab1ebff80 in ngx_process_events_and_timers src/event/ngx_event.c:248
+    #6 0xaaaab1ed7030 in ngx_worker_process_cycle src/os/unix/ngx_process_cycle.c:751
+    #7 0xaaaab1ed30c4 in ngx_spawn_process src/os/unix/ngx_process.c:199
+    #8 0xaaaab1ed4d8c in ngx_start_worker_processes src/os/unix/ngx_process_cycle.c:366
+    #9 0xaaaab1ed80e0 in ngx_master_process_cycle src/os/unix/ngx_process_cycle.c:130
+    #10 0xaaaab1e65784 in main src/core/nginx.c:403
+    #11 0xffffa5232258  (/lib/aarch64-linux-gnu/libc.so.6+0x22258) (BuildId: 5f3926d9963ff284b8173bf3601bbb00c3abad16)
+    #12 0xffffa5232338 in __libc_start_main (/lib/aarch64-linux-gnu/libc.so.6+0x22338) (BuildId: 5f3926d9963ff284b8173bf3601bbb00c3abad16)
+    #13 0xaaaab1e61b6c in _start (/usr/sbin/nginx+0xa1b6c) (BuildId: 26865832571645764cf01df0277101565ee5c456)
+
+previously allocated by thread T0 here:
+    #0 0xffffa5d4a400 in malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cpp:69
+    #1 0xaaaab1ecabe8 in ngx_alloc src/os/unix/ngx_alloc.c:22
+    #2 0xaaaab1e6891c in ngx_palloc_large src/core/ngx_palloc.c:220
+    #3 0xaaaab1e69250 in ngx_palloc src/core/ngx_palloc.c:131
+    #4 0xaaaab1e69250 in ngx_pcalloc src/core/ngx_palloc.c:302
+    #5 0xaaaab208f908 in ngx_mail_init_connection src/mail/ngx_mail_handler.c:122
+    #6 0xaaaab1ec2cec in ngx_event_accept src/event/ngx_event_accept.c:312
+    #7 0xaaaab1edb8d8 in ngx_epoll_process_events src/event/modules/ngx_epoll_module.c:901
+    #8 0xaaaab1ebff80 in ngx_process_events_and_timers src/event/ngx_event.c:248
+    #9 0xaaaab1ed7030 in ngx_worker_process_cycle src/os/unix/ngx_process_cycle.c:751
+    #10 0xaaaab1ed30c4 in ngx_spawn_process src/os/unix/ngx_process.c:199
+    #11 0xaaaab1ed4d8c in ngx_start_worker_processes src/os/unix/ngx_process_cycle.c:366
+    #12 0xaaaab1ed80e0 in ngx_master_process_cycle src/os/unix/ngx_process_cycle.c:130
+    #13 0xaaaab1e65784 in main src/core/nginx.c:403
+    #14 0xffffa5232258  (/lib/aarch64-linux-gnu/libc.so.6+0x22258) (BuildId: 5f3926d9963ff284b8173bf3601bbb00c3abad16)
+    #15 0xffffa5232338 in __libc_start_main (/lib/aarch64-linux-gnu/libc.so.6+0x22338) (BuildId: 5f3926d9963ff284b8173bf3601bbb00c3abad16)
+    #16 0xaaaab1e61b6c in _start (/usr/sbin/nginx+0xa1b6c) (BuildId: 26865832571645764cf01df0277101565ee5c456)
+
+SUMMARY: AddressSanitizer: heap-use-after-free src/mail/ngx_mail_auth_http_module.c:247 in ngx_mail_auth_http_write_handler
+Shadow bytes around the buggy address:
+  0x513000000100: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x513000000180: 00 00 00 00 00 00 fa fa fa fa fa fa fa fa fa fa
+  0x513000000200: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x513000000280: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x513000000300: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 fa fa
+=>0x513000000380: fa fa fa fa fa fa fa fa fd fd fd fd fd[fd]fd fd
+  0x513000000400: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x513000000480: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd
+  0x513000000500: fd fd fd fd fd fd fd fd fa fa fa fa fa fa fa fa
+  0x513000000580: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x513000000600: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+==6==ABORTING

@@ -1,0 +1,61 @@
+0 -   
+1 - sendfail  
+2 - sendfail  
+3 - sendfail  
+4 - sendfail  
+5 - sendfail  
+6 - sendfail  
+7 - sendfail  
+8 - sendfail  
+9 - sendfail  
+10 - sendfail  
+11 - sendfail  
+12 - sendfail  
+13 - sendfail  
+14 - sendfail  
+15 - sendfail  
+16 - sendfail  
+17 - sendfail  
+18 - sendfail  
+19 - sendfail  
+20 - sendfail  
+21 - sendfail  
+22 - sendfail  
+23 HIT sendfail crash  no-auth-request
+24 -   
+25 - sendfail  
+26 - sendfail  
+27 - sendfail  
+28 - sendfail  
+29 - sendfail  
+30 - sendfail  
+31 - sendfail  
+32 - sendfail  
+33 - sendfail  
+34 - sendfail  
+35 - sendfail  
+36 - sendfail  
+37 - sendfail  
+38 - sendfail  
+39 - sendfail  
+40 - sendfail  
+41 - sendfail  
+42 - sendfail  
+43 - sendfail  
+44 - sendfail  
+45 - sendfail  
+46 - sendfail  
+47 - sendfail  
+48 - sendfail  
+49 - sendfail  
+50 - sendfail  
+51 - sendfail  
+52 - sendfail  
+53 HIT sendfail crash  no-auth-request
+54 -   
+55 - sendfail  
+56 - sendfail  
+57 - sendfail  
+58 - sendfail  
+59 - sendfail  
+RESULT {"variant": "seq-prime-delay1ms", "method": "none", "n": 60, "hits": 2, "sendfail": 57, "crashes": 2, "other_asan": 0, "errors": 0, "held": 58, "prime_K": 565, "sample": 1}

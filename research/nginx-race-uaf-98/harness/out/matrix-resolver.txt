@@ -1,0 +1,24 @@
+== vuln seq-nosplit none
+RESULT {"variant": "seq-nosplit", "method": "none", "n": 60, "hits": 0, "alerts": 0, "crashes": 0, "other_asan": 0, "errors": 0}
+== vuln seq-split none
+RESULT {"variant": "seq-split", "method": "none", "n": 60, "hits": 33, "alerts": 33, "crashes": 33, "other_asan": 0, "errors": 0, "sample": 1}
+== vuln freeze-nosplit-dnsfirst sigstop
+RESULT {"variant": "freeze-nosplit-dnsfirst", "method": "sigstop", "n": 60, "hits": 0, "alerts": 0, "crashes": 0, "other_asan": 0, "errors": 0}
+== vuln freeze-split-dnsfirst sigstop
+RESULT {"variant": "freeze-split-dnsfirst", "method": "sigstop", "n": 60, "hits": 60, "alerts": 60, "crashes": 60, "other_asan": 0, "errors": 0, "sample": 1}
+== vuln freeze-split-rstfirst sigstop
+RESULT {"variant": "freeze-split-rstfirst", "method": "sigstop", "n": 60, "hits": 0, "alerts": 0, "crashes": 0, "other_asan": 0, "errors": 0}
+== vuln freeze-split-dnsfirst pause
+RESULT {"variant": "freeze-split-dnsfirst", "method": "pause", "n": 60, "hits": 60, "alerts": 60, "crashes": 60, "other_asan": 0, "errors": 0, "sample": 1}
+== fix-resolver seq-nosplit none
+RESULT {"variant": "seq-nosplit", "method": "none", "n": 60, "hits": 0, "alerts": 0, "crashes": 0, "other_asan": 0, "errors": 0}
+== fix-resolver seq-split none
+RESULT {"variant": "seq-split", "method": "none", "n": 60, "hits": 0, "alerts": 0, "crashes": 0, "other_asan": 0, "errors": 0}
+== fix-resolver freeze-nosplit-dnsfirst sigstop
+RESULT {"variant": "freeze-nosplit-dnsfirst", "method": "sigstop", "n": 60, "hits": 0, "alerts": 0, "crashes": 0, "other_asan": 0, "errors": 0}
+== fix-resolver freeze-split-dnsfirst sigstop
+RESULT {"variant": "freeze-split-dnsfirst", "method": "sigstop", "n": 60, "hits": 0, "alerts": 0, "crashes": 0, "other_asan": 0, "errors": 0}
+== fix-resolver freeze-split-rstfirst sigstop
+RESULT {"variant": "freeze-split-rstfirst", "method": "sigstop", "n": 60, "hits": 0, "alerts": 0, "crashes": 0, "other_asan": 0, "errors": 0}
+== fix-resolver freeze-split-dnsfirst pause
+RESULT {"variant": "freeze-split-dnsfirst", "method": "pause", "n": 60, "hits": 0, "alerts": 0, "crashes": 0, "other_asan": 0, "errors": 0}
