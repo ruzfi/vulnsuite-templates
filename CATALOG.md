@@ -2,7 +2,7 @@
 
 # Catalog
 
-66 target(s). Regenerate with `python3 scripts/gen_catalog.py`.
+67 target(s). Regenerate with `python3 scripts/gen_catalog.py`.
 
 KEV is derived from `data/cisa-kev.txt` (CISA Known Exploited Vulnerabilities), refreshed by the cisa-kev-sync workflow; `?` means the catalog has not been synced yet.
 
@@ -78,3 +78,4 @@ Verified is `metadata.verification`: **no** means the contract is statically val
 | `nginx-1.30.6-mail-cve-2026-113425` | web-servers | `nginx2root-mail` · stable-1-30 | vuln | CVE-2026-113425 | no | critical | real | 2026-11-20 | custom-only | 2026-11-20 |
 | `nginx-1.31.8-resolver-cve-2026-123634` | web-servers | `nginx2root-resolver` · mainline-1-31 ★ | vuln | CVE-2026-123634 | no | critical | real | 2026-11-20 | custom-only | 2026-11-20 |
 | `nginx-1.30.6-resolver-cve-2026-123634` | web-servers | `nginx2root-resolver` · stable-1-30 | vuln | CVE-2026-123634 | no | critical | real | 2026-11-20 | custom-only | 2026-11-20 |
+| `tomcat-8.5.21-put-jsp-cve-2017-12617` | web-servers | — | vuln | CVE-2017-12617 | **yes** | high | real | 2026-11-20 | scanner | 2026-11-21 |
