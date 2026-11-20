@@ -2,7 +2,7 @@
 
 # Suites
 
-4 suite(s). Regenerate with `python3 scripts/gen_suites.py`.
+5 suite(s). Regenerate with `python3 scripts/gen_suites.py`.
 
 A suite is a named list of selectors stood up in one run; the format is [schemas/suite-format.md](schemas/suite-format.md). Reference one from the CLI with the explicit `suite:` prefix:
 
@@ -30,6 +30,27 @@ Members: **7** default, **7** with `-variants`.
 | `nodejs-inspector-exposure` | web-apps | -class misconfig | ✓ |
 | `spring-boot-jolokia-exposure` | web-apps | -class misconfig | ✓ |
 | `apache-mod-status-exposure` | web-servers | -class misconfig | ✓ |
+
+## `nginx2root`
+
+nginx2root — the nginx2root disclosure (nginx 1.31.9 / 1.30.7, November 2026). One variant family per CVE: the HTTP/2 flow-control window underflow (CVE-2026-123007) and the four use-after-frees in the HTTP/2 connection (CVE-2026-123633), HTTP/3 (CVE-2026-121810), resolver (CVE-2026-123634) and mail proxy (CVE-2026-113425) code, each on mainline 1.31.8 and stable 1.30.6. A bare group handle contributes the family primary (mainline); pass -variants for the stable 1.30.6 members too.
+
+Selectors: `nginx2root-h2-window`, `nginx2root-h2-conn`, `nginx2root-h3`, `nginx2root-resolver`, `nginx2root-mail`
+
+Members: **5** default, **10** with `-variants`.
+
+| Target | Category | Via | Default |
+| --- | --- | --- | --- |
+| `nginx-1.31.8-http2-cve-2026-123007` | web-servers | `nginx2root-h2-window` ★ | ✓ |
+| `nginx-1.30.6-http2-cve-2026-123007` | web-servers | `nginx2root-h2-window` | `-variants` |
+| `nginx-1.31.8-http2-conn-cve-2026-123633` | web-servers | `nginx2root-h2-conn` ★ | ✓ |
+| `nginx-1.30.6-http2-conn-cve-2026-123633` | web-servers | `nginx2root-h2-conn` | `-variants` |
+| `nginx-1.31.8-http3-cve-2026-121810` | web-servers | `nginx2root-h3` ★ | ✓ |
+| `nginx-1.30.6-http3-cve-2026-121810` | web-servers | `nginx2root-h3` | `-variants` |
+| `nginx-1.31.8-resolver-cve-2026-123634` | web-servers | `nginx2root-resolver` ★ | ✓ |
+| `nginx-1.30.6-resolver-cve-2026-123634` | web-servers | `nginx2root-resolver` | `-variants` |
+| `nginx-1.31.8-mail-cve-2026-113425` | web-servers | `nginx2root-mail` ★ | ✓ |
+| `nginx-1.30.6-mail-cve-2026-113425` | web-servers | `nginx2root-mail` | `-variants` |
 
 ## `nightly`
 
