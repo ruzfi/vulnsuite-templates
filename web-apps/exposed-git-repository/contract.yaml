@@ -15,6 +15,11 @@ metadata:
   updated: "2026-10-26"
   fidelity: real
   detected_by: ["nuclei:git-config"]
+  verified_on:
+    date: "2026-11-20"
+    vulnsuite: v0.5.0
+    host: linux/arm64
+    states: [vulnerable, patched]
 base:
   kind: image
   image: nginx:1.25-alpine

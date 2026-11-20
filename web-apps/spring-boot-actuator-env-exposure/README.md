@@ -11,8 +11,12 @@ version bump. `/actuator/health` is exposed in both states and is the readiness
 check.
 
 ## Detection
-`nuclei:springboot-actuator` is declared from its fingerprint but not yet run
-against both states. Set `detection: scanner` once it fires on vulnerable and
-stays silent on patched.
+`nuclei:springboot-env` fires on the vulnerable state and stays silent on the
+patched one (2026-11-21).
+
+`nuclei:springboot-actuator` was declared before and is not a detector for
+this finding: it is a technology fingerprint that lists whatever actuator
+endpoints exist, and the patched state still exposes `health` and `info`, so it
+fires on both states.
 
 <!-- No CVE facts, severity, or version boundaries here — see contract.yaml metadata. -->
