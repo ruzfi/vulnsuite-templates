@@ -57,7 +57,7 @@ nightly — broad nightly coverage set. Both shipped variant families plus every
 
 Selectors: `php2shell`, `sshole`, `-class misconfig`, `-class exposure`
 
-Members: **11** default, **21** with `-variants`.
+Members: **12** default, **22** with `-variants`.
 
 | Target | Category | Via | Default |
 | --- | --- | --- | --- |
@@ -80,6 +80,7 @@ Members: **11** default, **21** with `-variants`.
 | `spring-boot-jolokia-exposure` | web-apps | -class misconfig | ✓ |
 | `apache-mod-status-exposure` | web-servers | -class misconfig | ✓ |
 | `exposed-git-repository` | web-apps | -class exposure | ✓ |
+| `owncloud-10.13.0-graphapi-cve-2023-49103` | web-apps | -class exposure | ✓ |
 | `php-fpm-status-exposure` | web-apps | -class exposure | ✓ |
 | `spring-boot-actuator-env-exposure` | web-apps | -class exposure | ✓ |
 
