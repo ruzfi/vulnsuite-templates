@@ -1,0 +1,12 @@
+# nginx2root — the nginx2root disclosure (nginx 1.31.9 / 1.30.7, November 2026).
+# One variant family per CVE: the HTTP/2 flow-control window underflow
+# (CVE-2026-123007) and the four use-after-frees in the HTTP/2 connection
+# (CVE-2026-123633), HTTP/3 (CVE-2026-121810), resolver (CVE-2026-123634) and
+# mail proxy (CVE-2026-113425) code, each on mainline 1.31.8 and stable 1.30.6.
+# A bare group handle contributes the family primary (mainline); pass -variants
+# for the stable 1.30.6 members too.
+nginx2root-h2-window
+nginx2root-h2-conn
+nginx2root-h3
+nginx2root-resolver
+nginx2root-mail
