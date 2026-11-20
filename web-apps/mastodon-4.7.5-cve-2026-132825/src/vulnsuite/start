@@ -1,0 +1,20 @@
+#!/bin/sh
+# nginx on :8080 in front of Mastodon's own Puma (bin/puma, config/puma.rb) on
+# 127.0.0.1:3000. Puma runs under glibc's heap checker in both states; its
+# output goes to /tmp/puma.log so the verify probe can read it. Puma preloads
+# the app, which needs the schema, so the database is prepared first (as
+# Mastodon's docker-compose `rails db:migrate` step does).
+set -e
+i=0
+until bundle exec rails db:prepare; do
+  i=$((i + 1)); [ "$i" -ge 30 ] && exit 1
+  echo "database not ready, retrying ($i)"; sleep 2
+done
+LIBDEBUG="/usr/lib/$(uname -m)-linux-gnu/libc_malloc_debug.so.0"
+sed "s/__LOCAL_DOMAIN__/$LOCAL_DOMAIN/" /etc/nginx/vulnsuite.conf > /tmp/nginx.conf
+nginx -c /tmp/nginx.conf
+: > /tmp/puma.log
+tail -n +1 -F /tmp/puma.log &
+exec env LD_PRELOAD="$LIBDEBUG" GLIBC_TUNABLES=glibc.malloc.check=3 \
+  bundle exec puma -C config/puma.rb \
+  --redirect-stdout /tmp/puma.log --redirect-stderr /tmp/puma.log --redirect-append

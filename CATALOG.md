@@ -2,7 +2,7 @@
 
 # Catalog
 
-51 target(s). Regenerate with `python3 scripts/gen_catalog.py`.
+56 target(s). Regenerate with `python3 scripts/gen_catalog.py`.
 
 KEV is derived from `data/cisa-kev.txt` (CISA Known Exploited Vulnerabilities), refreshed by the cisa-kev-sync workflow; `?` means the catalog has not been synced yet.
 
@@ -43,6 +43,13 @@ Group is the variant-family handle (`metadata.group`); members of a group render
 | `php-8.2-cve-2026-109618-multipart-rce-version-upgrade-patch` | web-apps | `php2shell` · version-upgrade ★ | vuln | CVE-2026-109618, CVE-2026-109619 | **yes** | critical | real | scanner | 2026-11-17 |
 | `php-8.2-cve-2026-109618-multipart-rce-expose-php-off` | web-apps | `php2shell` · expose-php-off | vuln | CVE-2026-109618, CVE-2026-109619 | **yes** | critical | real | unset | 2026-11-17 |
 | `php-8.2-cve-2026-109618-multipart-rce-workaround-patch` | web-apps | `php2shell` · workaround | vuln | CVE-2026-109618, CVE-2026-109619 | **yes** | critical | real | unset | 2026-11-17 |
+| `ruby-4.0.9-rails-cve-2026-132825` | web-apps | `ruby2shell` · ruby-4-0 ★ | vuln | CVE-2026-132825 | no | critical | real | unset | 2026-11-19 |
+| `chatwoot-4.20.0-cve-2026-132825` | web-apps | `ruby2shell` · chatwoot-4-20 | vuln | CVE-2026-132825 | no | critical | real | unset | 2026-11-20 |
+| `gitlab-19.6.0-cve-2026-132825` | web-apps | `ruby2shell` · gitlab-19-6 | vuln | CVE-2026-132825 | no | critical | real | custom-only | 2026-11-20 |
+| `mastodon-4.7.5-cve-2026-132825` | web-apps | `ruby2shell` · mastodon-4-7 | vuln | CVE-2026-132825 | no | critical | real | unset | 2026-11-19 |
+| `openproject-17.9.7-cve-2026-132825` | web-apps | `ruby2shell` · openproject-17-9 | vuln | CVE-2026-132825 | no | critical | real | unset | 2026-11-19 |
+| `ruby-3.3.13-rails-cve-2026-132825` | web-apps | `ruby2shell` · ruby-3-3 | vuln | CVE-2026-132825 | no | critical | real | unset | 2026-11-19 |
+| `ruby-3.4.12-rails-cve-2026-132825` | web-apps | `ruby2shell` · ruby-3-4 | vuln | CVE-2026-132825 | no | critical | real | unset | 2026-11-19 |
 | `spring-boot-actuator-env-exposure` | web-apps | — | exposure | VS-EXPOSED-SPRING-ENV | no | medium | real | unset | 2026-11-17 |
 | `spring-boot-jolokia-exposure` | web-apps | — | misconfig | VS-EXPOSED-JOLOKIA | no | high | real | unset | 2026-11-17 |
 | `wordpress-cve-2026-60137-wp-query-sqli` | web-apps | — | vuln | CVE-2026-60137 | **yes** | critical | real | custom-only | 2026-10-19 |
