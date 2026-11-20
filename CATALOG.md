@@ -2,7 +2,7 @@
 
 # Catalog
 
-56 target(s). Regenerate with `python3 scripts/gen_catalog.py`.
+58 target(s). Regenerate with `python3 scripts/gen_catalog.py`.
 
 KEV is derived from `data/cisa-kev.txt` (CISA Known Exploited Vulnerabilities), refreshed by the cisa-kev-sync workflow; `?` means the catalog has not been synced yet.
 
@@ -32,6 +32,8 @@ Verified is `metadata.verification`: **no** means the contract is statically val
 | `golang-1.27.2-cve-2026-111943-emudhra-compromised-ca` | web-apps | — | vuln | CVE-2026-111943 | no | critical | real | yes | scanner | 2026-10-29 |
 | `grafana-8.3.0-cve-2021-43798` | web-apps | — | vuln | CVE-2021-43798 | **yes** | high | real | yes | scanner | 2026-09-29 |
 | `graphql-introspection-enabled` | web-apps | — | misconfig | VS-MISCONF-GQL-INTRO | no | low | real | yes | custom-only | 2026-09-29 |
+| `openjdk-17.0.21-cve-2026-114938-version-upgrade-patch` | web-apps | `java4shell` · version-upgrade ★ | vuln | CVE-2026-114938 | no | critical | real | **no** | custom-only | 2026-11-19 |
+| `openjdk-17.0.21-cve-2026-114938-workaround-patch` | web-apps | `java4shell` · workaround | vuln | CVE-2026-114938 | no | critical | real | **no** | custom-only | 2026-11-19 |
 | `jenkins-2.441-cve-2024-23897` | web-apps | — | vuln | CVE-2024-23897 | **yes** | high | real | yes | unset | 2026-11-18 |
 | `nextcloud-collabora-code-cve-2026-110447` | web-apps | — | vuln | CVE-2026-110447 | **yes** | critical | real | yes | unset | 2026-11-17 |
 | `nexus3-3.21.1-cve-2020-10199` | web-apps | — | vuln | CVE-2020-10199 | **yes** | critical | real | yes | scanner | 2026-11-18 |
@@ -43,6 +45,13 @@ Verified is `metadata.verification`: **no** means the contract is statically val
 | `php-8.2-cve-2026-109618-multipart-rce-version-upgrade-patch` | web-apps | `php2shell` · version-upgrade ★ | vuln | CVE-2026-109618, CVE-2026-109619 | **yes** | critical | real | yes | scanner | 2026-11-17 |
 | `php-8.2-cve-2026-109618-multipart-rce-expose-php-off` | web-apps | `php2shell` · expose-php-off | vuln | CVE-2026-109618, CVE-2026-109619 | **yes** | critical | real | yes | unset | 2026-11-17 |
 | `php-8.2-cve-2026-109618-multipart-rce-workaround-patch` | web-apps | `php2shell` · workaround | vuln | CVE-2026-109618, CVE-2026-109619 | **yes** | critical | real | yes | unset | 2026-11-17 |
+| `ruby-4.0.9-rails-cve-2026-132825` | web-apps | `ruby2shell` · ruby-4-0 ★ | vuln | CVE-2026-132825 | no | critical | real | yes | unset | 2026-11-19 |
+| `chatwoot-4.20.0-cve-2026-132825` | web-apps | `ruby2shell` · chatwoot-4-20 | vuln | CVE-2026-132825 | no | critical | real | yes | unset | 2026-11-20 |
+| `gitlab-19.6.0-cve-2026-132825` | web-apps | `ruby2shell` · gitlab-19-6 | vuln | CVE-2026-132825 | no | critical | real | yes | custom-only | 2026-11-20 |
+| `mastodon-4.7.5-cve-2026-132825` | web-apps | `ruby2shell` · mastodon-4-7 | vuln | CVE-2026-132825 | no | critical | real | yes | unset | 2026-11-19 |
+| `openproject-17.9.7-cve-2026-132825` | web-apps | `ruby2shell` · openproject-17-9 | vuln | CVE-2026-132825 | no | critical | real | yes | unset | 2026-11-19 |
+| `ruby-3.3.13-rails-cve-2026-132825` | web-apps | `ruby2shell` · ruby-3-3 | vuln | CVE-2026-132825 | no | critical | real | yes | unset | 2026-11-19 |
+| `ruby-3.4.12-rails-cve-2026-132825` | web-apps | `ruby2shell` · ruby-3-4 | vuln | CVE-2026-132825 | no | critical | real | yes | unset | 2026-11-19 |
 | `spring-boot-actuator-env-exposure` | web-apps | — | exposure | VS-EXPOSED-SPRING-ENV | no | medium | real | yes | unset | 2026-11-17 |
 | `spring-boot-jolokia-exposure` | web-apps | — | misconfig | VS-EXPOSED-JOLOKIA | no | high | real | yes | unset | 2026-11-17 |
 | `wordpress-cve-2026-60137-wp-query-sqli` | web-apps | — | vuln | CVE-2026-60137 | **yes** | critical | real | yes | custom-only | 2026-10-19 |
