@@ -2,7 +2,7 @@
 
 # Catalog
 
-61 target(s). Regenerate with `python3 scripts/gen_catalog.py`.
+64 target(s). Regenerate with `python3 scripts/gen_catalog.py`.
 
 KEV is derived from `data/cisa-kev.txt` (CISA Known Exploited Vulnerabilities), refreshed by the cisa-kev-sync workflow; `?` means the catalog has not been synced yet.
 
@@ -44,10 +44,12 @@ Verified is `metadata.verification`: **no** means the contract is statically val
 | `nodejs-cve-2026-111497-express-workaround-patch` | web-apps | — | vuln | CVE-2026-111497 | **yes** | critical | real | 2026-11-20 | scanner | 2026-11-20 |
 | `nodejs-inspector-exposure` | web-apps | — | exposure, misconfig | VS-MISCONF-NODE-INSPECT | no | high | real | 2026-11-20 | custom-only | 2026-11-17 |
 | `openfire-4.7.4-cve-2023-32315` | web-apps | — | vuln | CVE-2023-32315 | **yes** | high | real | 2026-11-20 | scanner | 2026-11-20 |
+| `owncloud-10.13.0-graphapi-cve-2023-49103` | web-apps | — | vuln, exposure | CVE-2023-49103 | **yes** | critical | real | 2026-11-20 | scanner | 2026-11-21 |
 | `php-fpm-status-exposure` | web-apps | — | exposure | VS-EXPOSED-PHPFPM-STATUS | no | low | real | 2026-11-20 | unset | 2026-11-17 |
 | `php-8.2-cve-2026-109618-multipart-rce-version-upgrade-patch` | web-apps | `php2shell` · version-upgrade ★ | vuln | CVE-2026-109618, CVE-2026-109619 | **yes** | critical | real | 2026-11-20 | scanner | 2026-11-20 |
 | `php-8.2-cve-2026-109618-multipart-rce-expose-php-off` | web-apps | `php2shell` · expose-php-off | vuln | CVE-2026-109618, CVE-2026-109619 | **yes** | critical | real | 2026-11-20 | unset | 2026-11-20 |
 | `php-8.2-cve-2026-109618-multipart-rce-workaround-patch` | web-apps | `php2shell` · workaround | vuln | CVE-2026-109618, CVE-2026-109619 | **yes** | critical | real | 2026-11-20 | unset | 2026-11-20 |
+| `phpunit-5.6.2-cve-2017-9841` | web-apps | — | vuln | CVE-2017-9841 | **yes** | critical | real | 2026-11-20 | scanner | 2026-11-21 |
 | `ruby-4.0.9-rails-cve-2026-132825` | web-apps | `ruby2shell` · ruby-4-0 ★ | vuln | CVE-2026-132825 | no | critical | real | 2026-11-20 | unset | 2026-11-19 |
 | `chatwoot-4.20.0-cve-2026-132825` | web-apps | `ruby2shell` · chatwoot-4-20 | vuln | CVE-2026-132825 | no | critical | real | 2026-11-20 | unset | 2026-11-20 |
 | `gitlab-19.6.0-cve-2026-132825` | web-apps | `ruby2shell` · gitlab-19-6 | vuln | CVE-2026-132825 | no | critical | real | 2026-11-20 | custom-only | 2026-11-20 |
@@ -55,6 +57,7 @@ Verified is `metadata.verification`: **no** means the contract is statically val
 | `openproject-17.9.7-cve-2026-132825` | web-apps | `ruby2shell` · openproject-17-9 | vuln | CVE-2026-132825 | no | critical | real | 2026-11-20 | unset | 2026-11-19 |
 | `ruby-3.3.13-rails-cve-2026-132825` | web-apps | `ruby2shell` · ruby-3-3 | vuln | CVE-2026-132825 | no | critical | real | 2026-11-20 | unset | 2026-11-19 |
 | `ruby-3.4.12-rails-cve-2026-132825` | web-apps | `ruby2shell` · ruby-3-4 | vuln | CVE-2026-132825 | no | critical | real | 2026-11-20 | unset | 2026-11-19 |
+| `solr-8.3.0-cve-2019-17558` | web-apps | — | vuln | CVE-2019-17558 | **yes** | high | real | 2026-11-20 | scanner | 2026-11-21 |
 | `spring-boot-actuator-env-exposure` | web-apps | — | exposure | VS-EXPOSED-SPRING-ENV | no | medium | real | 2026-11-20 | scanner | 2026-11-21 |
 | `spring-boot-jolokia-exposure` | web-apps | — | misconfig | VS-EXPOSED-JOLOKIA | no | high | real | 2026-11-20 | scanner | 2026-11-21 |
 | `wordpress-cve-2026-60137-wp-query-sqli` | web-apps | — | vuln | CVE-2026-60137 | **yes** | medium | real | 2026-11-20 | custom-only | 2026-11-20 |
