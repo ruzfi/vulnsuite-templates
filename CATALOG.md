@@ -2,7 +2,7 @@
 
 # Catalog
 
-78 target(s). Regenerate with `python3 scripts/gen_catalog.py`.
+79 target(s). Regenerate with `python3 scripts/gen_catalog.py`.
 
 KEV is derived from `data/cisa-kev.txt` (CISA Known Exploited Vulnerabilities), refreshed by the cisa-kev-sync workflow; `?` means the catalog has not been synced yet.
 
@@ -30,6 +30,7 @@ Verified is `metadata.verification`: **no** means the contract is statically val
 | `openssh-9.9p2-alpine-3.21-cve-2026-123158` | network-services | `sshole` · alpine-3-21 | vuln | CVE-2026-123158 | **yes** | high | real | 2026-11-20 | scanner | 2026-11-06 |
 | `openssh-10.0p1-alpine-3.22-cve-2026-123158` | network-services | `sshole` · alpine-3-22 | vuln | CVE-2026-123158 | **yes** | high | real | 2026-11-20 | scanner | 2026-11-06 |
 | `openssh-10.2p1-alpine-3.23-cve-2026-123158` | network-services | `sshole` · alpine-3-23 | vuln | CVE-2026-123158 | **yes** | high | real | 2026-11-20 | scanner | 2026-11-06 |
+| `activemq-5.11.1-fileserver-cve-2016-3088` | web-apps | — | vuln | CVE-2016-3088 | **yes** | critical | real | 2026-11-20 | scanner | 2026-11-21 |
 | `apache-flink-1.11.2-cve-2020-17519` | web-apps | — | vuln | CVE-2020-17519 | **yes** | critical | real | 2026-11-20 | scanner | 2026-11-20 |
 | `django-debug-enabled` | web-apps | — | misconfig | VS-MISCONF-DJANGO-DEBUG | no | medium | real | 2026-11-20 | unset | 2026-11-20 |
 | `exposed-git-repository` | web-apps | — | exposure | VS-EXPOSED-GIT | no | high | real | 2026-11-20 | unset | 2026-10-26 |
