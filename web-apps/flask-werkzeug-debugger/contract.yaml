@@ -21,6 +21,11 @@ metadata:
   updated: "2026-11-17"
   fidelity: real
   detected_by: ["nuclei:flask-werkzeug-debug"]
+  verified_on:
+    date: "2026-11-20"
+    vulnsuite: v0.5.0
+    host: linux/arm64
+    states: [vulnerable, patched]
 
 base:
   kind: build
