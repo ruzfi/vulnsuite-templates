@@ -13,6 +13,10 @@ vulnsuite build -t web-servers -j 4
 vulnsuite run -t apache-httpd-2.4.49-cve-2021-41773 -expose host
 ```
 
+Targets the **vulnsuite v0.4.0** contract: `schemas/contract.schema.json` is
+mirrored from that release and the rules below are its validator's. See
+[Contract rules](#contract-rules-vulnsuite-v040) for what changed.
+
 ## Layout
 
 ```
@@ -27,7 +31,7 @@ vulnsuite run -t apache-httpd-2.4.49-cve-2021-41773 -expose host
   src/               build context that builds the genuine upstream software
   build/             build context for a minimal harness app on a real stack
 suites/<name>.txt    named, shareable selector lists (vulnsuite `-t suite:<name>`)
-schemas/contract.schema.json   the contract schema (mirrored from vulnsuite)
+schemas/contract.schema.json   the contract schema (mirrored from vulnsuite v0.4.0)
 schemas/suite-format.md        the suite file format
 data/cisa-kev.txt    CISA KEV CVE-id snapshot (CI-maintained; feeds the KEV column)
 CATALOG.md           generated index of every target (never hand-edited)
@@ -133,7 +137,7 @@ variants) and `sshole` (OpenSSH auth bypass, one variant per Alpine branch).
 ### Suites: curated sets you stand up in one run
 
 A **suite** is a named, shareable list of selectors — "the set I always scan" —
-that vulnsuite (v0.2.1+) stands up in one run. Suites live in `suites/<name>.txt`,
+that vulnsuite (v0.4.0+) stands up in one run. Suites live in `suites/<name>.txt`,
 fetched with the rest of the repo by `vulnsuite update-templates`, and are
 referenced with the explicit `suite:` prefix:
 
@@ -234,6 +238,83 @@ Three things make a template good: the base is **pinned**, `vulnerable` and
 a `verify` probe written from the **advisory**, not from a scanner's matcher.
 The full field reference is in
 [vulnsuite/docs/CONTRACT.md](https://github.com/ruzfi/vulnsuite/blob/main/docs/CONTRACT.md).
+
+### Contract rules (vulnsuite v0.4.0)
+
+vulnsuite v0.3.0 tightened the contract and v0.4.0 tightened it further.
+`vulnsuite validate` enforces these against every template in this repo, and
+they are what a new target has to satisfy:
+
+- **Every image is pinned by digest** — the `base` image, every **per-state
+  `image:` override** (the patched tag) and every **sidecar** image. A state
+  override without a digest is `unpinned-state-image`; a sidecar without one
+  is `unpinned-sidecar`; both are errors like `unpinned-base`.
+- **A `source` base pins a full commit id** (40 hex characters). A branch or a
+  tag is unpinned (`unpinned-base`); an abbreviated id is a `short-commit`
+  warning.
+- **Paths are relative to the template folder** and may not escape it:
+  `overlay[].src`, `patch`, `base.context` and `base.dockerfile` are plain
+  relative paths (no absolute path, no `..`, no control characters), and a
+  symlink must resolve inside the folder (`path-escapes-template`).
+- **`overlay[].dest` is a plain path** — letters, digits and `. _ @ % + = : , / -`
+  only: no whitespace, quotes or `$`, no `..`, never `/`. For an `image` base it
+  is absolute; for a `source`/`build` base it is a path in the build context.
+- **`overlay[].mode` is four octal digits** (`"0755"`), set on the file in the
+  build context — so it also works on a non-root or shell-less base.
+- **`environment` names are plain variable names** (`^[A-Za-z_][A-Za-z0-9_.-]*$`)
+  and values may not contain control characters: they become Dockerfile `ENV`
+  lines.
+- **`service` must declare its ports** (`no-ports`), and a healthcheck or
+  verify `port` must be 1-65535 and declared there (`undeclared-port`). A
+  probe `timeout` is greater than 0.
+- **One contract per folder** — `contract.yaml`, `contract.yml` or
+  `template.yaml`; only the first is loaded (`shadowed-contract`). The file
+  holds a **single YAML document**, and types are strict: quote a number that
+  should be a string (`FOO: "1"`).
+- **Discovery skips** dot-directories (`.git`, `.github`) and `node_modules`,
+  and never descends into a template's own `files/`, `patches/` or `src/`.
+- **A per-state `image:` is for `image` bases only** (v0.4.0). A `source` or
+  `build` base builds every state from its own checkout or context, so make
+  the states differ with a `patch` or an `overlay` instead.
+- **Refs and dates are checked** (v0.4.0): `CVE-YYYY-NNNN` with a 4-7 digit
+  sequence, `GHSA-...` in lower case, a `PREFIX-ID` prefix of 2-8 upper-case
+  letters; `disclosed`/`added`/`updated` must be real calendar dates.
+- **Required strings may not be empty** (v0.4.0) — `base.image`, `base.repo`,
+  `base.commit`, a sidecar's `name`/`image`, a `seed` or `exec` `run` — and an
+  `overlay[].dest` may not end in `/` or `/.`. `devices` is limited to an
+  allow-list (`/dev/kvm`, `/dev/net/tun`, `/dev/fuse`, ...).
+- **`run` and `build` refuse a template `validate` would reject** (v0.4.0),
+  up front, instead of failing halfway through (an unpinned base is still
+  allowed while authoring).
+
+vulnsuite v0.4.0 also adds contract features a template can use:
+
+- **`requires.cpu_flags`** — CPU features the daemon's machine must have
+  (`[avx512f, avx512vbmi]`, Linux `/proc/cpuinfo` names). A target that sets
+  them never runs emulated, and is skipped with the missing flags named on a
+  host without them. `vulnsuite host` shows what the daemon offers.
+- **`requires.probe`** — `{ run, reason, timeout }`, a shell check run in the
+  target's own image before anything starts (a kernel version, cgroup v2, a
+  sysctl); a non-zero exit skips the target with `reason`.
+- **`sequence` verify probes** for race-condition targets: ordered steps that
+  `exec` (in the target or a sidecar), `freeze`/`resume` the target
+  (`docker pause`), `sleep`, and assert with `expect_sanitizer` (an ASan
+  report of a given `kind`/`frame`, or `none`) and `expect_log`, over
+  `attempts`/`min_hits`. Needs `service.sanitizer.log_dir` for sanitizer
+  steps; write a positive control (`expect_log`) on patched.
+- **Built sidecars** — a sidecar may set `build: { context, dockerfile,
+  build_args }` instead of `image`/`digest`, to run a driver or fake service
+  from the template's own files. It is pinned by its content.
+
+`vulnsuite list -runnable` hides the targets this host cannot run, and
+`-json` skipped entries name the unmet requirement.
+
+vulnsuite v0.3.0 also changed how a target is **run**: each state now gets its
+**own sidecars** on a private network, so a sidecar is reachable by its name
+(`db`) from its own state in every exposure mode, and the two states of one
+template never share a database. `run` and `build` accept the state
+(`vulnerable` / `patched`) anywhere among their arguments:
+`vulnsuite run grafana patched -detach`.
 
 ## Contributing a template
 

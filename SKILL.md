@@ -72,7 +72,13 @@ If the target only runs on a particular host — a specific CPU arch, or
 `/dev/kvm` for a nested VM (e.g. dockur/windows) — declare a `requires` block
 (`arch`, `kvm`, `host_os`, `emulation`) so vulnsuite skips it with a reason on
 hosts that cannot run it instead of hanging, and runs cross-arch images under
-emulation. A `/dev/kvm` device must be matched by `requires.kvm`.
+emulation. A `/dev/kvm` device must be matched by `requires.kvm`. If it needs
+**CPU features** (AVX-512, BMI2...), list them in `requires.cpu_flags`
+(`/proc/cpuinfo` names; this rules out emulation, since qemu lacks them); for
+any other host precondition (kernel version, cgroup v2, a sysctl) add a
+`requires.probe: { run, reason }` — a shell check run in the target's image
+that skips the target when it exits non-zero. `vulnsuite host` shows what the
+daemon's machine offers (vulnsuite v0.4.0+).
 
 
 Pick the cheapest mechanism that reproduces the flaw. This decides `base.kind`
@@ -82,16 +88,21 @@ and how each state is reached.
 | --- | --- | --- | --- |
 | Flaw is in a released version; fix is a newer version | `image` | base image (vulnerable tag) | `image:` override to the fixed tag |
 | Flaw needs a config to be reachable | `image` | `overlay` a vulnerable config | `overlay` the fixed config |
-| Flaw is an unreleased/RC commit | `source` (repo + commit) | build at commit | `image:` fixed tag, or a fix `patch` |
+| Flaw is an unreleased/RC commit | `source` (repo + commit) | build at commit | a fix `patch` (a per-state `image:` is rejected on a `source`/`build` base) |
 | No public image reproduces it (custom device, IoT, protocol) | `build` (local `build/`) | build `build/` as-is | `overlay` a patched source file, or a `patch` |
 
 Rules of thumb:
 
 - Prefer `image` — it is the most portable. **Pin the digest**
   (`docker manifest inspect <img> -v | grep -m1 digest`); an unpinned base is a
-  `validate` error.
+  `validate` error. Pin the digest of every **per-state `image:` override** and
+  every **sidecar** image too — since vulnsuite v0.3.0 they are errors too
+  (`unpinned-state-image`, `unpinned-sidecar`).
 - Use `overlay` when the same image is vulnerable or not depending on config
-  (Apache mod_status, an aliased directory, a `requirepass`).
+  (Apache mod_status, an aliased directory, a `requirepass`). `overlay[].src`
+  is relative to the template folder, `overlay[].dest` is a plain path (no
+  whitespace, quotes or `$`), and `overlay[].mode` is four octal digits
+  (`"0755"`).
 - Use `build` for anything with no reproducible public image — IoT devices,
   bespoke protocols, a vulnerable app you simulate in Python/Go sockets. The
   whole build context lives in the template's `build/` (reserve `src/` for a
@@ -176,6 +187,31 @@ Notes:
     flags. A header match counts as a strong assertion (no `weak-verify` warning).
 - Per-state `environment`, `command`, and `overlay` let one image serve both
   states (e.g. redis run with a per-state `redis.conf`).
+- **Race conditions** — verify with a `sequence` probe (vulnsuite v0.4.0):
+  ordered steps `exec` (add `container: <sidecar>` to run in a driver
+  sidecar), `freeze: {}` / `resume: {}` (pause the target), `sleep: { ms }`,
+  `expect_sanitizer: { kind, frame }` or `none`, and `expect_log: <regex>`,
+  with `attempts` / `min_hits` / `timeout`. Sanitizer steps need
+  `service.sanitizer.log_dir` (a `0777`/`1777` directory the ASan
+  `log_path` writes into). Nothing may run in or connect to the target while
+  it is frozen, and patched should carry an `expect_log` positive control.
+  A driver sidecar can be **built** from the template
+  (`build: { context: sidecars/driver }` instead of `image`/`digest`).
+- **Contract shape rules (vulnsuite v0.3.0/v0.4.0)** — the validator is strict, so
+  write the contract this way: `overlay[].src`, `patch`, `base.context` and
+  `base.dockerfile` are relative paths inside the template folder (no absolute
+  path, no `..`); `environment` keys are plain variable names
+  (`^[A-Za-z_][A-Za-z0-9_.-]*$`) and their values carry no control characters;
+  `service` declares the ports the healthcheck and the verify probes use, and a
+  probe `port` is 1-65535 with a `timeout` above 0; the file holds a single
+  YAML document with strict types (quote a number that should be a string:
+  `FOO: "1"`); and one folder carries one contract (`contract.yaml` — a
+  sibling `contract.yml` is ignored with a `shadowed-contract` warning).
+  A `source` base pins a full 40-character commit id, not a branch or a tag.
+  Since v0.4.0: a per-state `image:` only on an `image` base; `vuln_refs` and
+  dates are well-formed (`CVE-YYYY-NNNN`, lower-case `GHSA-...`, real
+  calendar dates); required strings are non-empty; an `overlay[].dest` does
+  not end in `/`; and `run`/`build` refuse a template `validate` rejects.
 - **Variant group** (optional) — if this target is one of several members of the
   *same* vulnerability (different runtimes, remediation strategies, or distro
   branches), give every member the same `group` handle, set `primary: true` on
