@@ -19,11 +19,10 @@ misconfig-sweep — every misconfiguration-class target in the corpus. A single 
 
 Selectors: `-class misconfig`
 
-Members: **7** default, **7** with `-variants`.
+Members: **6** default, **6** with `-variants`.
 
 | Target | Category | Via | Default |
 | --- | --- | --- | --- |
-| `elasticsearch-cve-2014-3120-dynamic-scripting` | databases | -class misconfig | ✓ |
 | `django-debug-enabled` | web-apps | -class misconfig | ✓ |
 | `flask-werkzeug-debugger` | web-apps | -class misconfig | ✓ |
 | `graphql-introspection-enabled` | web-apps | -class misconfig | ✓ |
@@ -58,7 +57,7 @@ nightly — broad nightly coverage set. Both shipped variant families plus every
 
 Selectors: `php2shell`, `sshole`, `-class misconfig`, `-class exposure`
 
-Members: **12** default, **22** with `-variants`.
+Members: **11** default, **21** with `-variants`.
 
 | Target | Category | Via | Default |
 | --- | --- | --- | --- |
@@ -74,7 +73,6 @@ Members: **12** default, **22** with `-variants`.
 | `openssh-9.9p2-alpine-3.21-cve-2026-123158` | network-services | `sshole` | `-variants` |
 | `openssh-10.0p1-alpine-3.22-cve-2026-123158` | network-services | `sshole` | `-variants` |
 | `openssh-10.2p1-alpine-3.23-cve-2026-123158` | network-services | `sshole` | `-variants` |
-| `elasticsearch-cve-2014-3120-dynamic-scripting` | databases | -class misconfig | ✓ |
 | `django-debug-enabled` | web-apps | -class misconfig | ✓ |
 | `flask-werkzeug-debugger` | web-apps | -class misconfig | ✓ |
 | `graphql-introspection-enabled` | web-apps | -class misconfig | ✓ |

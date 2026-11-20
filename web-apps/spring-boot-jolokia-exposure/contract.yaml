@@ -18,8 +18,9 @@ metadata:
     - https://docs.spring.io/spring-boot/docs/2.7.x/reference/html/actuator.html#actuator.jmx.jolokia
   maintainer: ruzfi
   added: "2026-10-14"
-  updated: "2026-11-17"
+  updated: "2026-11-21"
   fidelity: real
+  detection: scanner
   detected_by: ["nuclei:jolokia-info-disclosure"]
 
 base:
@@ -42,7 +43,7 @@ states:
           method: GET
           path: "/actuator/jolokia/read/java.lang:type=Memory"
           status: 200
-          body_matches: "java.lang:type=Memory"
+          body_matches: '"HeapMemoryUsage"'
   patched:
     environment:
       MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE: "health,info"
@@ -51,4 +52,4 @@ states:
           method: GET
           path: "/actuator/jolokia/read/java.lang:type=Memory"
           status_in: [404, 400]
-          body_absent: "java.lang:type=Memory"
+          body_absent: "HeapMemoryUsage"

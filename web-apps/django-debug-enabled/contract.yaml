@@ -17,7 +17,7 @@ metadata:
     - https://cwe.mitre.org/data/definitions/489.html
   maintainer: ruzfi
   added: "2026-10-14"
-  updated: "2026-11-17"
+  updated: "2026-11-20"
   fidelity: real
   detected_by: ["nuclei:django-debug-config-enabled"]
 
@@ -29,7 +29,7 @@ base:
 service:
   ports: [ { container: 8000, protocol: http } ]
   healthcheck:
-    http: { path: /, status: 404 }
+    http: { path: /__vulnsuite_readiness__, status: 404 }
     timeout: 90s
 
 states:
