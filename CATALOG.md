@@ -2,7 +2,7 @@
 
 # Catalog
 
-58 target(s). Regenerate with `python3 scripts/gen_catalog.py`.
+59 target(s). Regenerate with `python3 scripts/gen_catalog.py`.
 
 KEV is derived from `data/cisa-kev.txt` (CISA Known Exploited Vulnerabilities), refreshed by the cisa-kev-sync workflow; `?` means the catalog has not been synced yet.
 
@@ -35,6 +35,7 @@ Verified is `metadata.verification`: **no** means the contract is statically val
 | `openjdk-17.0.21-cve-2026-114938-version-upgrade-patch` | web-apps | `java4shell` · version-upgrade ★ | vuln | CVE-2026-114938 | no | critical | real | **no** | custom-only | 2026-11-19 |
 | `openjdk-17.0.21-cve-2026-114938-workaround-patch` | web-apps | `java4shell` · workaround | vuln | CVE-2026-114938 | no | critical | real | **no** | custom-only | 2026-11-19 |
 | `jenkins-2.441-cve-2024-23897` | web-apps | — | vuln | CVE-2024-23897 | **yes** | high | real | yes | unset | 2026-11-18 |
+| `metabase-0.40.4-cve-2021-41277` | web-apps | — | vuln | CVE-2021-41277 | **yes** | critical | real | 2026-11-20 | scanner | 2026-11-21 |
 | `nextcloud-collabora-code-cve-2026-110447` | web-apps | — | vuln | CVE-2026-110447 | **yes** | critical | real | yes | unset | 2026-11-17 |
 | `nexus3-3.21.1-cve-2020-10199` | web-apps | — | vuln | CVE-2020-10199 | **yes** | critical | real | yes | scanner | 2026-11-18 |
 | `nodejs-cve-2026-111497-express-version-upgrade-patch` | web-apps | — | vuln | CVE-2026-111497 | **yes** | critical | real | yes | scanner | 2026-11-17 |
