@@ -30,6 +30,8 @@ Group is the variant-family handle (`metadata.group`); members of a group render
 | `golang-1.27.2-cve-2026-111943-emudhra-compromised-ca` | web-apps | — | vuln | CVE-2026-111943 | no | critical | real | scanner | 2026-10-29 |
 | `grafana-8.3.0-cve-2021-43798` | web-apps | — | vuln | CVE-2021-43798 | **yes** | high | real | scanner | 2026-09-29 |
 | `graphql-introspection-enabled` | web-apps | — | misconfig | VS-MISCONF-GQL-INTRO | no | low | real | custom-only | 2026-09-29 |
+| `openjdk-17.0.21-cve-2026-114938-version-upgrade-patch` | web-apps | `java4shell` · version-upgrade ★ | vuln | CVE-2026-114938 | no | critical | real | custom-only | 2026-11-19 |
+| `openjdk-17.0.21-cve-2026-114938-workaround-patch` | web-apps | `java4shell` · workaround | vuln | CVE-2026-114938 | no | critical | real | custom-only | 2026-11-19 |
 | `jenkins-2.441-cve-2024-23897` | web-apps | — | vuln | CVE-2024-23897 | **yes** | high | real | unset | 2026-11-18 |
 | `nextcloud-collabora-code-cve-2026-110447` | web-apps | — | vuln | CVE-2026-110447 | **yes** | critical | real | unset | 2026-11-17 |
 | `nexus3-3.21.1-cve-2020-10199` | web-apps | — | vuln | CVE-2020-10199 | **yes** | critical | real | scanner | 2026-11-18 |
