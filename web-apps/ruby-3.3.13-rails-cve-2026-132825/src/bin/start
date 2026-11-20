@@ -1,0 +1,6 @@
+#!/bin/sh
+set -e
+LIBDEBUG="/usr/lib/$(uname -m)-linux-gnu/libc_malloc_debug.so.0"
+exec bundle exec thrust env \
+  LD_PRELOAD="$LIBDEBUG" GLIBC_TUNABLES=glibc.malloc.check=3 \
+  bundle exec puma -C config/puma.rb
