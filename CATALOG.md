@@ -2,7 +2,7 @@
 
 # Catalog
 
-55 target(s). Regenerate with `python3 scripts/gen_catalog.py`.
+56 target(s). Regenerate with `python3 scripts/gen_catalog.py`.
 
 KEV is derived from `data/cisa-kev.txt` (CISA Known Exploited Vulnerabilities), refreshed by the cisa-kev-sync workflow; `?` means the catalog has not been synced yet.
 
@@ -43,6 +43,7 @@ Group is the variant-family handle (`metadata.group`); members of a group render
 | `php-8.2-cve-2026-109618-multipart-rce-workaround-patch` | web-apps | `php2shell` · workaround | vuln | CVE-2026-109618, CVE-2026-109619 | **yes** | critical | real | unset | 2026-11-17 |
 | `ruby-4.0.9-rails-cve-2026-132825` | web-apps | `ruby2shell` · ruby-4-0 ★ | vuln | CVE-2026-132825 | no | critical | real | unset | 2026-11-19 |
 | `chatwoot-4.20.0-cve-2026-132825` | web-apps | `ruby2shell` · chatwoot-4-20 | vuln | CVE-2026-132825 | no | critical | real | unset | 2026-11-20 |
+| `gitlab-19.6.0-cve-2026-132825` | web-apps | `ruby2shell` · gitlab-19-6 | vuln | CVE-2026-132825 | no | critical | real | custom-only | 2026-11-20 |
 | `mastodon-4.7.5-cve-2026-132825` | web-apps | `ruby2shell` · mastodon-4-7 | vuln | CVE-2026-132825 | no | critical | real | unset | 2026-11-19 |
 | `openproject-17.9.7-cve-2026-132825` | web-apps | `ruby2shell` · openproject-17-9 | vuln | CVE-2026-132825 | no | critical | real | unset | 2026-11-19 |
 | `ruby-3.3.13-rails-cve-2026-132825` | web-apps | `ruby2shell` · ruby-3-3 | vuln | CVE-2026-132825 | no | critical | real | unset | 2026-11-19 |
