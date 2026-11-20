@@ -2,7 +2,7 @@
 
 # Catalog
 
-72 target(s). Regenerate with `python3 scripts/gen_catalog.py`.
+73 target(s). Regenerate with `python3 scripts/gen_catalog.py`.
 
 KEV is derived from `data/cisa-kev.txt` (CISA Known Exploited Vulnerabilities), refreshed by the cisa-kev-sync workflow; `?` means the catalog has not been synced yet.
 
@@ -49,6 +49,7 @@ Verified is `metadata.verification`: **no** means the contract is statically val
 | `nodejs-inspector-exposure` | web-apps | — | exposure, misconfig | VS-MISCONF-NODE-INSPECT | no | high | real | 2026-11-20 | custom-only | 2026-11-17 |
 | `openfire-4.7.4-cve-2023-32315` | web-apps | — | vuln | CVE-2023-32315 | **yes** | high | real | 2026-11-20 | scanner | 2026-11-20 |
 | `owncloud-10.13.0-graphapi-cve-2023-49103` | web-apps | — | vuln, exposure | CVE-2023-49103 | **yes** | critical | real | 2026-11-20 | scanner | 2026-11-21 |
+| `php-5.4.1-cgi-cve-2012-1823` | web-apps | — | vuln | CVE-2012-1823 | **yes** | critical | real | 2026-11-20 | unset | 2026-11-21 |
 | `php-fpm-status-exposure` | web-apps | — | exposure | VS-EXPOSED-PHPFPM-STATUS | no | low | real | 2026-11-20 | unset | 2026-11-17 |
 | `php-8.2-cve-2026-109618-multipart-rce-version-upgrade-patch` | web-apps | `php2shell` · version-upgrade ★ | vuln | CVE-2026-109618, CVE-2026-109619 | **yes** | critical | real | 2026-11-20 | scanner | 2026-11-20 |
 | `php-8.2-cve-2026-109618-multipart-rce-expose-php-off` | web-apps | `php2shell` · expose-php-off | vuln | CVE-2026-109618, CVE-2026-109619 | **yes** | critical | real | 2026-11-20 | unset | 2026-11-20 |
