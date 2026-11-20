@@ -2,7 +2,7 @@
 
 # Catalog
 
-43 target(s). Regenerate with `python3 scripts/gen_catalog.py`.
+44 target(s). Regenerate with `python3 scripts/gen_catalog.py`.
 
 KEV is derived from `data/cisa-kev.txt` (CISA Known Exploited Vulnerabilities), refreshed by the cisa-kev-sync workflow; `?` means the catalog has not been synced yet.
 
@@ -51,5 +51,6 @@ Group is the variant-family handle (`metadata.group`); members of a group render
 | `apache-mod-status-exposure` | web-servers | — | misconfig, exposure | VS-EXPOSED-APACHE-STATUS | no | low | real | unset | 2026-11-17 |
 | `nginx-1.31.8-http2-cve-2026-123007` | web-servers | `nginx2root-h2-window` · mainline-1-31 ★ | vuln | CVE-2026-123007 | no | critical | real | unset | 2026-11-19 |
 | `nginx-1.30.6-http2-cve-2026-123007` | web-servers | `nginx2root-h2-window` · stable-1-30 | vuln | CVE-2026-123007 | no | critical | real | unset | 2026-11-19 |
+| `nginx-1.31.8-mail-cve-2026-113425` | web-servers | `nginx2root-mail` · mainline-1-31 ★ | vuln | CVE-2026-113425 | no | critical | real | custom-only | 2026-11-20 |
 | `nginx-1.31.8-resolver-cve-2026-123634` | web-servers | `nginx2root-resolver` · mainline-1-31 ★ | vuln | CVE-2026-123634 | no | critical | real | custom-only | 2026-11-20 |
 | `nginx-1.30.6-resolver-cve-2026-123634` | web-servers | `nginx2root-resolver` · stable-1-30 | vuln | CVE-2026-123634 | no | critical | real | custom-only | 2026-11-20 |
