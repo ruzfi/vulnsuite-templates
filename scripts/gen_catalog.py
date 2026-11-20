@@ -69,6 +69,15 @@ def row(path: Path, kev: set[str]) -> tuple[tuple, str]:
     severity = meta.get("severity", "—")
     fidelity = meta.get("fidelity", "—")
     detection = meta.get("detection", "unset")
+    # Verified mirrors `vulnsuite list`: "no" for verification: unverified,
+    # else the date of the last `vulnsuite stamp` run, or "yes" with none.
+    verified_on = meta.get("verified_on") or {}
+    if meta.get("verification") == "unverified":
+        verified = "**no**"
+    elif verified_on.get("date"):
+        verified = str(verified_on["date"])
+    else:
+        verified = "yes"
     updated = meta.get("updated") or meta.get("added", "—")
     # Group cell: `handle` · variant, with ★ marking the group's primary member.
     if group:
@@ -81,7 +90,7 @@ def row(path: Path, kev: set[str]) -> tuple[tuple, str]:
         group_cell = "—"
     cell = (
         f"| `{tid}` | {category} | {group_cell} | {classes} | {cves} | {kev_cell} | "
-        f"{severity} | {fidelity} | {detection} | {updated} |"
+        f"{severity} | {fidelity} | {verified} | {detection} | {updated} |"
     )
     # Cluster grouped members together (by group handle), ungrouped by id;
     # within a group the primary sorts first, then variants alphabetically.
@@ -103,6 +112,12 @@ def render() -> str:
         "group render together, and ★ marks the group's primary member — the "
         "one a bare `-t <group>` selector resolves to."
     )
+    verified_note = (
+        "Verified is `metadata.verification`: **no** means the contract is "
+        "statically valid but nobody has run its states yet (it may need "
+        "hardware no maintainer has); a date is the last `vulnsuite stamp` "
+        "run that verified every state."
+    )
     lines = [
         HEADER,
         "",
@@ -114,8 +129,10 @@ def render() -> str:
         "",
         group_note,
         "",
-        "| Target | Category | Group | Class | CVEs | KEV | Severity | Fidelity | Detection | Updated |",
-        "| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |",
+        verified_note,
+        "",
+        "| Target | Category | Group | Class | CVEs | KEV | Severity | Fidelity | Verified | Detection | Updated |",
+        "| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |",
         *[cell for _, cell in rows],
         "",
     ]

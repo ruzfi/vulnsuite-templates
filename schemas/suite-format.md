@@ -36,7 +36,9 @@ prefix, never a bare handle.
 
 A filter line begins with `-` and uses the same filters as `vulnsuite list`:
 `-class`, `-tag`, `-category`/`-product`, `-cve`/`-no-cve`, `-ref`, `-year`,
-`-since`, `-fidelity`, `-kev`/`-no-kev`, `-arch`. A bad value (`-arch amd46`,
+`-since`, `-fidelity`, `-kev`/`-no-kev`, `-verified`/`-unverified`, `-arch`.
+A `-unverified` line tracks the targets nobody has run yet
+(`metadata.verification: unverified`, vulnsuite v0.5.0+). A bad value (`-arch amd46`,
 `-year 21`, a `-category` naming no template folder) is a usage error, not a
 filter that matches nothing. Multiple filters **on one line AND**
 (a target must match all of them). Separate lines **union (OR)**.

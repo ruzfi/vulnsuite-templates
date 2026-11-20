@@ -80,6 +80,12 @@ any other host precondition (kernel version, cgroup v2, a sysctl) add a
 that skips the target when it exits non-zero. `vulnsuite host` shows what the
 daemon's machine offers (vulnsuite v0.4.0+).
 
+**If you cannot run the target** (the host lacks its CPU features, say), set
+`verification: unverified` in `metadata` rather than a tag: `validate` warns,
+`list -unverified` lists it, and someone with a suitable host turns it into
+evidence with `vulnsuite stamp -t <id>` (writes `metadata.verified_on`; never
+write that by hand). vulnsuite v0.5.0+.
+
 
 Pick the cheapest mechanism that reproduces the flaw. This decides `base.kind`
 and how each state is reached.
