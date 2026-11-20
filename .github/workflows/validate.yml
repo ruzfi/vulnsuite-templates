@@ -24,16 +24,19 @@ jobs:
           echo "GOPRIVATE=github.com/ruzfi/*" >> "$GITHUB_ENV"
           git config --global url."https://x-access-token:${VULNSUITE_RO}@github.com/".insteadOf "https://github.com/"
       - name: install vulnsuite
-        run: go install github.com/ruzfi/vulnsuite/cmd/vulnsuite@main
+        # Pinned to the release the mirrored schema comes from
+        # (schemas/contract.schema.json <- vulnsuite v0.4.0). Bump both together.
+        run: go install github.com/ruzfi/vulnsuite/cmd/vulnsuite@v0.4.0
       - name: validate every template
-        # -allow-unpinned until every base carries a digest; drop it to enforce pinning.
+        # No -allow-unpinned: every base, state image and sidecar in this repo
+        # pins a digest, and since v0.3.0 the state images and sidecars are checked too.
         # No-op while the repo ships docs + schema only (no contract.yaml present).
         run: |
           if ! find . -name contract.yaml -not -path './.git/*' | grep -q .; then
             echo "No templates present; skipping vulnsuite validate."
             exit 0
           fi
-          vulnsuite -templates . validate -allow-unpinned
+          vulnsuite -templates . validate
   schema:
     runs-on: ubuntu-latest
     steps:

@@ -2,7 +2,7 @@
 
 A **suite** is a named, shareable list of selectors that `vulnsuite` stands up in
 one run. The suite *source* lives in this repo under `suites/`; vulnsuite core
-(v0.2.1+) owns resolution. A suite named `<name>` is the file `suites/<name>.txt`,
+(v0.2.1+; this repo targets v0.4.0) owns resolution. A suite named `<name>` is the file `suites/<name>.txt`,
 reached from the CLI with the explicit `suite:` prefix:
 
 ```bash
@@ -16,7 +16,8 @@ suite is just a named `-f` file.
 
 ## Grammar
 
-One **selector per line**. Blank lines and lines beginning with `#` are ignored.
+One **selector per line**. Blank lines and lines beginning with `#` are ignored,
+and a `#` preceded by a space or a tab starts a trailing comment.
 Each remaining line is one of:
 
 | Line | Resolves to | Example |
@@ -35,7 +36,9 @@ prefix, never a bare handle.
 
 A filter line begins with `-` and uses the same filters as `vulnsuite list`:
 `-class`, `-tag`, `-category`/`-product`, `-cve`/`-no-cve`, `-ref`, `-year`,
-`-since`, `-fidelity`, `-kev`/`-no-kev`. Multiple filters **on one line AND**
+`-since`, `-fidelity`, `-kev`/`-no-kev`, `-arch`. A bad value (`-arch amd46`,
+`-year 21`, a `-category` naming no template folder) is a usage error, not a
+filter that matches nothing. Multiple filters **on one line AND**
 (a target must match all of them). Separate lines **union (OR)**.
 
 ## Composition and ordering

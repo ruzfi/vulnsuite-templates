@@ -18,6 +18,7 @@ Requires PyYAML (pip install pyyaml).
 """
 from __future__ import annotations
 
+import datetime
 import sys
 from pathlib import Path
 
@@ -41,11 +42,12 @@ def load_kev() -> set[str]:
 
 
 class Target:
-    __slots__ = ("id", "category", "meta", "kev")
+    __slots__ = ("id", "category", "meta", "kev", "requires")
 
     def __init__(self, path: Path, kev: set[str]):
         data = yaml.safe_load(path.read_text()) or {}
         self.meta = data.get("metadata", {}) or {}
+        self.requires = data.get("requires", {}) or {}
         self.id = self.meta.get("id", path.parent.name)
         self.category = path.parent.parent.name
         refs = self.meta.get("vuln_refs", []) or []
@@ -74,64 +76,147 @@ def load_targets() -> list[Target]:
 
 # --- filter predicates (mirror `vulnsuite list` semantics) --------------------
 
-def _match_filter(t: Target, tokens: list[str]) -> bool:
-    """A filter line is a list of -flag [value] tokens that AND together."""
+# The taxonomy vulnsuite accepts. A filter line with anything else is a usage
+# error there (exit 2), so the linter rejects it here too.
+CLASSES = ("vuln", "misconfig", "exposure", "default-login", "weak-crypto")
+FIDELITIES = ("real", "simulated")
+# GOARCH names vulnsuite's -arch accepts; anything else is a usage error.
+GOARCHES = (
+    "386", "amd64", "arm", "arm64", "loong64", "mips", "mips64", "mips64le",
+    "mipsle", "ppc64", "ppc64le", "riscv64", "s390x", "wasm",
+)
+
+FLAGS = (
+    "-class", "-tag", "-category", "-product", "-fidelity", "-ref", "-year",
+    "-since", "-arch", "-cve", "-no-cve", "-kev", "-no-kev", "-refresh-kev",
+)
+BOOL_FLAGS = ("-cve", "-no-cve", "-kev", "-no-kev", "-refresh-kev")
+
+
+def _year(t: Target) -> str:
+    """The year vulnsuite derives for a target: the disclosure year when set,
+    else the earliest CVE-id year."""
+    disclosed = t.meta.get("disclosed", "") or ""
+    if len(disclosed) >= 4:
+        return disclosed[:4]
+    years = sorted(r.split("-")[1] for r in t.meta.get("vuln_refs", []) or [] if r.startswith("CVE-"))
+    return years[0] if years else ""
+
+
+def _disclosed_date(t: Target) -> str:
+    """The effective ISO date the -since filter compares against."""
+    disclosed = t.meta.get("disclosed", "") or ""
+    if disclosed:
+        return disclosed
+    y = _year(t)
+    return f"{y}-01-01" if y else ""
+
+
+def _validate_filter(tokens: list[str]) -> None:
+    """Reject a filter line vulnsuite itself would refuse (a typo is a usage
+    error there, not a filter that silently matches nothing)."""
+    values: dict[str, list[str]] = {}
+    flags = {t for t in tokens if t.startswith("-")}
     i = 0
     while i < len(tokens):
         tok = tokens[i]
-        val = tokens[i + 1] if i + 1 < len(tokens) else None
+        if not tok.startswith("-"):
+            raise ValueError(f"filter line has a stray argument: {tok!r}")
+        if tok in BOOL_FLAGS:
+            if i + 1 < len(tokens) and not tokens[i + 1].startswith("-"):
+                raise ValueError(f"filter flag {tok} takes no value")
+            i += 1
+            continue
+        if i + 1 >= len(tokens) or tokens[i + 1].startswith("-"):
+            raise ValueError(f"filter flag {tok} wants a value")
+        values.setdefault(tok, []).append(tokens[i + 1])
+        i += 2
+    unknown = flags - set(FLAGS)
+    if unknown:
+        raise ValueError(f"unknown filter token: {sorted(unknown)[0]}")
+    for v in values.get("-fidelity", []):
+        if v not in FIDELITIES:
+            raise ValueError(f"unknown -fidelity {v!r}; want one of {', '.join(FIDELITIES)}")
+    for v in values.get("-year", []):
+        if len(v) != 4 or not v.isdigit():
+            raise ValueError(f"-year wants a four-digit year (YYYY), got {v!r}")
+    for v in values.get("-since", []):
+        try:
+            datetime.date.fromisoformat(v)
+        except ValueError:
+            raise ValueError(f"-since wants an ISO date (YYYY-MM-DD), got {v!r}") from None
+    for v in values.get("-arch", []):
+        if v not in GOARCHES:
+            raise ValueError(f"unknown -arch {v!r}; want a GOARCH name such as amd64 or arm64")
+    for v in values.get("-class", []):
+        if v not in CLASSES:
+            raise ValueError(f"unknown -class {v!r}; want one of {', '.join(CLASSES)}")
+    if "-cve" in flags and "-no-cve" in flags:
+        raise ValueError("-cve and -no-cve are mutually exclusive")
+    if "-kev" in flags and "-no-kev" in flags:
+        raise ValueError("-kev and -no-kev are mutually exclusive")
 
-        def classes():
-            return t.meta.get("class", []) or []
 
-        if tok in ("-class",):
-            if val not in classes():
-                return False
-            i += 2
-        elif tok in ("-tag",):
-            if val not in (t.meta.get("tags", []) or []):
-                return False
-            i += 2
-        elif tok in ("-category", "-product"):
-            if t.category != val:
-                return False
-            i += 2
-        elif tok in ("-fidelity",):
-            if t.meta.get("fidelity") != val:
-                return False
-            i += 2
-        elif tok in ("-ref",):
-            if val not in (t.meta.get("vuln_refs", []) or []):
-                return False
-            i += 2
-        elif tok in ("-year",):
-            refs = t.meta.get("vuln_refs", []) or []
-            disclosed = t.meta.get("disclosed", "")
-            yr = disclosed[:4] if disclosed else ""
-            years = {r.split("-")[1] for r in refs if r.startswith("CVE-")}
-            if yr:
-                years.add(yr)
-            if val not in years:
-                return False
-            i += 2
-        elif tok == "-cve":
-            if not any(r.startswith("CVE-") for r in t.meta.get("vuln_refs", []) or []):
-                return False
+def _match_filter(t: Target, tokens: list[str]) -> bool:
+    """A filter line is a list of -flag [value] tokens that AND together."""
+    _validate_filter(tokens)
+    values: dict[str, list[str]] = {}
+    flags = {tok for tok in tokens if tok.startswith("-")}
+    i = 0
+    while i < len(tokens):
+        tok = tokens[i]
+        if tok in BOOL_FLAGS:
             i += 1
-        elif tok == "-no-cve":
-            if any(r.startswith("CVE-") for r in t.meta.get("vuln_refs", []) or []):
-                return False
-            i += 1
-        elif tok == "-kev":
-            if not t.kev:
-                return False
-            i += 1
-        elif tok == "-no-kev":
-            if t.kev:
-                return False
-            i += 1
-        else:
-            raise ValueError(f"unknown filter token: {tok}")
+            continue
+        values.setdefault(tok, []).append(tokens[i + 1])
+        i += 2
+
+    def classes():
+        return t.meta.get("class", []) or []
+
+    if "-class" in values and not any(v in classes() for v in values["-class"]):
+        return False
+    if "-tag" in values and not any(v in (t.meta.get("tags", []) or []) for v in values["-tag"]):
+        return False
+    if "-category" in values and t.category not in values["-category"]:
+        return False
+    if "-product" in values and t.category not in values["-product"]:
+        return False
+    if "-fidelity" in values and t.meta.get("fidelity") not in values["-fidelity"]:
+        return False
+    refs = t.meta.get("vuln_refs", []) or []
+    if "-ref" in values and not any(
+        any(r.lower() == v.lower() for r in refs) for v in values["-ref"]
+    ):
+        return False
+    if "-year" in values and _year(t) not in values["-year"]:
+        return False
+    if "-since" in values:
+        d = _disclosed_date(t)
+        if not d or d < values["-since"][0]:
+            return False
+    if "-arch" in values:
+        # vulnsuite: a target with no declared arch runs anywhere; otherwise it
+        # runs natively on a listed arch, or emulated when it allows it.
+        # Emulation defaults to allowed; cpu_flags rule it out (qemu does not
+        # provide them), and so does kvm.
+        req = t.requires
+        arches = req.get("arch", []) or []
+        emulation = (
+            not (req.get("cpu_flags") or [])
+            and req.get("emulation", True) is not False
+            and not req.get("kvm", False)
+        )
+        if arches and values["-arch"][0] not in arches and not emulation:
+            return False
+    if "-cve" in flags and not any(r.startswith("CVE-") for r in refs):
+        return False
+    if "-no-cve" in flags and any(r.startswith("CVE-") for r in refs):
+        return False
+    if "-kev" in flags and not t.kev:
+        return False
+    if "-no-kev" in flags and t.kev:
+        return False
     return True
 
 
@@ -152,6 +237,13 @@ def read_suite(name: str) -> tuple[str, list[str]]:
         if line.startswith("#"):
             if not seen_selector:
                 desc_lines.append(line.lstrip("#").strip())
+            continue
+        # vulnsuite: a comment starts at a "#" preceded by a space or a tab.
+        for j in range(1, len(line)):
+            if line[j] == "#" and line[j - 1] in " \t":
+                line = line[:j].strip()
+                break
+        if not line:
             continue
         seen_selector = True
         selectors.append(line)
@@ -183,6 +275,14 @@ def resolve_selector(
         return out
     if sel.startswith("-"):
         tokens = sel.split()
+        _validate_filter(tokens)
+        for i, tok in enumerate(tokens[:-1]):
+            # vulnsuite rejects a -category naming no template folder.
+            if tok in ("-category", "-product") and tokens[i + 1] not in categories:
+                raise ValueError(
+                    f"unknown -category {tokens[i + 1]!r}; the templates directory has "
+                    + ", ".join(sorted(categories))
+                )
         matched = [t for t in targets if _match_filter(t, tokens)]
         if not matched:
             raise ValueError(f"filter line matches no target: {sel!r}")

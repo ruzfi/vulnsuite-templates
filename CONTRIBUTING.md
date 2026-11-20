@@ -40,6 +40,35 @@ follows `<product>[-<version>][-<component>]-cve-<YYYY>-<NNNNN>[-<slug>]`.
 - [ ] `base` is **pinned**: an image `digest`, a source `commit`, or a
       self-contained `build` context. `vulnsuite validate` fails on an unpinned
       base. Get a digest with `docker buildx imagetools inspect <image>`.
+- [ ] **Every image in the contract is pinned by digest**: the `base` image,
+      each state's `image:` override (the patched tag) and every `sidecars`
+      image. Since v0.3.0 an unpinned state override is `unpinned-state-image`
+      and an unpinned sidecar is `unpinned-sidecar` — the same error as an
+      unpinned base.
+- [ ] A `source` base pins a **full commit id** (40 hex characters), not a
+      branch, a tag or an abbreviated id (`unpinned-base` / `short-commit`).
+- [ ] Every path the contract names is **relative to the template folder** and
+      stays inside it: `overlay[].src`, `patch`, `base.context` and
+      `base.dockerfile` (the last one inside the context). No absolute paths,
+      no `..`, and a symlink must resolve inside the folder
+      (`path-escapes-template`). `overlay[].dest` is a plain path — no
+      whitespace, quotes or `$` — absolute for an `image` base, a path in the
+      build context for a `source`/`build` base.
+- [ ] A per-state `image:` override only on an **`image` base** (v0.4.0): a
+      `source` or `build` base reaches `patched` with a `patch` or `overlay`.
+- [ ] `vuln_refs` are well-formed (`CVE-YYYY-NNNN`, lower-case `GHSA-...`,
+      `PREFIX-ID`) and every date is a real `YYYY-MM-DD` (v0.4.0).
+- [ ] A target that needs host CPU features declares **`requires.cpu_flags`**
+      (e.g. `[avx512f, avx512vbmi]`), and any other host precondition a
+      **`requires.probe`**, so a host without them skips it with a reason
+      instead of failing verify (v0.4.0; check a host with `vulnsuite host`).
+- [ ] A race-condition target verifies with a **`sequence`** probe, and its
+      patched sequence carries a positive control (`expect_log`) so a clean
+      result is not just a race that was never reached
+      (`race-no-positive-control`).
+- [ ] `environment` keys are plain variable names (`^[A-Za-z_][A-Za-z0-9_.-]*$`)
+      and `service` declares the ports the healthcheck and the verify probes
+      use (`no-ports`, `undeclared-port`).
 - [ ] `vulnerable` and `patched` differ by the **minimum** that toggles the flaw
       (a newer tag, one config directive, one patched file). If the diff is
       large, a scanner's discrimination is measuring more than the flaw.
@@ -146,7 +175,7 @@ members sort together under their handle and ★ marks the primary.
 
 ## Authoring a suite
 
-A **suite** is a named, shareable list of selectors vulnsuite (v0.2.1+) stands up
+A **suite** is a named, shareable list of selectors vulnsuite (v0.4.0+) stands up
 in one run — a pentest profile, a regression set, a demo. Add a file at
 `suites/<name>.txt`; it ships with the repo (`vulnsuite update-templates`) and is
 referenced with the explicit `suite:` prefix (`run -t suite:<name>`). The full
@@ -172,6 +201,12 @@ Checklist for a new or changed suite:
 - [ ] `python3 scripts/gen_suites.py` regenerates `SUITES.md` and passes its lint
       (no selector resolves to nothing, no unknown nested suite, no cycle). CI
       runs `--check` and fails if `SUITES.md` is stale.
+- [ ] Filter lines use only flags vulnsuite accepts (`-class`, `-tag`,
+      `-category`/`-product`, `-fidelity`, `-ref`, `-year`, `-since`, `-cve`,
+      `-no-cve`, `-kev`, `-no-kev`, `-arch`) and their values are valid —
+      vulnsuite rejects a bad value (`-fidelity reel`, `-year 21`,
+      `-arch amd46`, a `-category` with no template folder) as a usage error
+      rather than a filter that matches nothing.
 
 The shipped seeds are the pattern to copy:
 
