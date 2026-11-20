@@ -2,7 +2,7 @@
 
 # Catalog
 
-74 target(s). Regenerate with `python3 scripts/gen_catalog.py`.
+75 target(s). Regenerate with `python3 scripts/gen_catalog.py`.
 
 KEV is derived from `data/cisa-kev.txt` (CISA Known Exploited Vulnerabilities), refreshed by the cisa-kev-sync workflow; `?` means the catalog has not been synced yet.
 
@@ -65,6 +65,7 @@ Verified is `metadata.verification`: **no** means the contract is statically val
 | `solr-8.3.0-cve-2019-17558` | web-apps | — | vuln | CVE-2019-17558 | **yes** | high | real | 2026-11-20 | scanner | 2026-11-21 |
 | `spring-boot-actuator-env-exposure` | web-apps | — | exposure | VS-EXPOSED-SPRING-ENV | no | medium | real | 2026-11-20 | scanner | 2026-11-21 |
 | `spring-boot-jolokia-exposure` | web-apps | — | misconfig | VS-EXPOSED-JOLOKIA | no | high | real | 2026-11-20 | scanner | 2026-11-21 |
+| `spring-cloud-function-3.2.2-cve-2022-22963` | web-apps | — | vuln | CVE-2022-22963 | **yes** | critical | real | 2026-11-20 | scanner | 2026-11-21 |
 | `spring-cloud-gateway-3.1.0-cve-2022-22947` | web-apps | — | vuln | CVE-2022-22947 | **yes** | critical | real | 2026-11-20 | scanner | 2026-11-21 |
 | `wordpress-cve-2026-60137-wp-query-sqli` | web-apps | — | vuln | CVE-2026-60137 | **yes** | medium | real | 2026-11-20 | custom-only | 2026-11-20 |
 | `wordpress-cve-2026-63030-batch-rce` | web-apps | — | vuln | CVE-2026-63030 | **yes** | critical | real | 2026-11-20 | scanner | 2026-11-20 |
