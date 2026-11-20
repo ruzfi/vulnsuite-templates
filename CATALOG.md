@@ -2,7 +2,7 @@
 
 # Catalog
 
-78 target(s). Regenerate with `python3 scripts/gen_catalog.py`.
+79 target(s). Regenerate with `python3 scripts/gen_catalog.py`.
 
 KEV is derived from `data/cisa-kev.txt` (CISA Known Exploited Vulnerabilities), refreshed by the cisa-kev-sync workflow; `?` means the catalog has not been synced yet.
 
@@ -90,3 +90,4 @@ Verified is `metadata.verification`: **no** means the contract is statically val
 | `openssl-1.0.1f-heartbleed-cve-2014-0160` | web-servers | — | vuln | CVE-2014-0160 | **yes** | high | real | 2026-11-20 | scanner | 2026-11-21 |
 | `tomcat-8.5.21-put-jsp-cve-2017-12617` | web-servers | — | vuln | CVE-2017-12617 | **yes** | high | real | 2026-11-20 | scanner | 2026-11-21 |
 | `tomcat-9.0.30-ajp-cve-2020-1938` | web-servers | — | vuln | CVE-2020-1938 | **yes** | critical | real | 2026-11-20 | scanner | 2026-11-21 |
+| `tomcat-9.0.98-partial-put-cve-2025-24813` | web-servers | — | vuln | CVE-2025-24813 | **yes** | critical | real | 2026-11-20 | unset | 2026-11-21 |
