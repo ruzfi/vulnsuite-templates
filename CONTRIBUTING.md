@@ -62,6 +62,13 @@ follows `<product>[-<version>][-<component>]-cve-<YYYY>-<NNNNN>[-<slug>]`.
       (e.g. `[avx512f, avx512vbmi]`), and any other host precondition a
       **`requires.probe`**, so a host without them skips it with a reason
       instead of failing verify (v0.4.0; check a host with `vulnsuite host`).
+- [ ] A target you could not run yourself (it needs hardware you don't have)
+      sets **`verification: unverified`** in `metadata` instead of a free-form
+      tag. `validate` warns but runs every other check, and
+      `list -unverified` finds it. Whoever has a suitable host runs
+      `vulnsuite stamp -t <id>`, which writes `metadata.verified_on` only when
+      every state verifies ok; commit that with the run's output in the PR.
+      Don't write `verified_on` by hand (v0.5.0).
 - [ ] A race-condition target verifies with a **`sequence`** probe, and its
       patched sequence carries a positive control (`expect_log`) so a clean
       result is not just a race that was never reached
@@ -203,7 +210,8 @@ Checklist for a new or changed suite:
       runs `--check` and fails if `SUITES.md` is stale.
 - [ ] Filter lines use only flags vulnsuite accepts (`-class`, `-tag`,
       `-category`/`-product`, `-fidelity`, `-ref`, `-year`, `-since`, `-cve`,
-      `-no-cve`, `-kev`, `-no-kev`, `-arch`) and their values are valid —
+      `-no-cve`, `-kev`, `-no-kev`, `-verified`, `-unverified`, `-arch`) and
+      their values are valid —
       vulnsuite rejects a bad value (`-fidelity reel`, `-year 21`,
       `-arch amd46`, a `-category` with no template folder) as a usage error
       rather than a filter that matches nothing.

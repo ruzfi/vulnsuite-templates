@@ -89,8 +89,9 @@ GOARCHES = (
 FLAGS = (
     "-class", "-tag", "-category", "-product", "-fidelity", "-ref", "-year",
     "-since", "-arch", "-cve", "-no-cve", "-kev", "-no-kev", "-refresh-kev",
+    "-verified", "-unverified",
 )
-BOOL_FLAGS = ("-cve", "-no-cve", "-kev", "-no-kev", "-refresh-kev")
+BOOL_FLAGS = ("-cve", "-no-cve", "-kev", "-no-kev", "-refresh-kev", "-verified", "-unverified")
 
 
 def _year(t: Target) -> str:
@@ -155,6 +156,8 @@ def _validate_filter(tokens: list[str]) -> None:
         raise ValueError("-cve and -no-cve are mutually exclusive")
     if "-kev" in flags and "-no-kev" in flags:
         raise ValueError("-kev and -no-kev are mutually exclusive")
+    if "-verified" in flags and "-unverified" in flags:
+        raise ValueError("-verified and -unverified are mutually exclusive")
 
 
 def _match_filter(t: Target, tokens: list[str]) -> bool:
@@ -216,6 +219,12 @@ def _match_filter(t: Target, tokens: list[str]) -> bool:
     if "-kev" in flags and not t.kev:
         return False
     if "-no-kev" in flags and t.kev:
+        return False
+    # metadata.verification defaults to verified (vulnsuite >= v0.5.0).
+    unverified = t.meta.get("verification") == "unverified"
+    if "-verified" in flags and unverified:
+        return False
+    if "-unverified" in flags and not unverified:
         return False
     return True
 

@@ -13,7 +13,7 @@ vulnsuite build -t web-servers -j 4
 vulnsuite run -t apache-httpd-2.4.49-cve-2021-41773 -expose host
 ```
 
-Targets the **vulnsuite v0.4.0** contract: `schemas/contract.schema.json` is
+Targets the **vulnsuite v0.5.0** contract: `schemas/contract.schema.json` is
 mirrored from that release and the rules below are its validator's. See
 [Contract rules](#contract-rules-vulnsuite-v040) for what changed.
 
@@ -31,7 +31,7 @@ mirrored from that release and the rules below are its validator's. See
   src/               build context that builds the genuine upstream software
   build/             build context for a minimal harness app on a real stack
 suites/<name>.txt    named, shareable selector lists (vulnsuite `-t suite:<name>`)
-schemas/contract.schema.json   the contract schema (mirrored from vulnsuite v0.4.0)
+schemas/contract.schema.json   the contract schema (mirrored from vulnsuite v0.5.0)
 schemas/suite-format.md        the suite file format
 data/cisa-kev.txt    CISA KEV CVE-id snapshot (CI-maintained; feeds the KEV column)
 CATALOG.md           generated index of every target (never hand-edited)
@@ -308,6 +308,16 @@ vulnsuite v0.4.0 also adds contract features a template can use:
 
 `vulnsuite list -runnable` hides the targets this host cannot run, and
 `-json` skipped entries name the unmet requirement.
+
+vulnsuite v0.5.0 adds **`metadata.verification`**: a target nobody could run
+yet (it needs hardware no maintainer has) is marked `verification: unverified`.
+`validate` warns about it, `list -unverified` and a `-unverified` suite line
+select it, and CATALOG.md shows **no** in its Verified column. Whoever has a
+suitable host runs `vulnsuite stamp -t <id>`: it runs every state and, only
+when all verify ok, writes `metadata.verified_on` (date, vulnsuite version,
+host, the CPU flags checked) and sets `verification: verified`. The race
+`sequence` probes are also more robust in v0.5.0, and `validate` warns on an
+`expect_sanitizer` between `freeze` and `resume` (`sanitizer-while-frozen`).
 
 vulnsuite v0.3.0 also changed how a target is **run**: each state now gets its
 **own sidecars** on a private network, so a sidecar is reachable by its name

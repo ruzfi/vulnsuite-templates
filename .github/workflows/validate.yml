@@ -26,7 +26,7 @@ jobs:
       - name: install vulnsuite
         # Pinned to the release the mirrored schema comes from
         # (schemas/contract.schema.json <- vulnsuite v0.4.0). Bump both together.
-        run: go install github.com/ruzfi/vulnsuite/cmd/vulnsuite@v0.4.0
+        run: go install github.com/ruzfi/vulnsuite/cmd/vulnsuite@v0.5.0
       - name: validate every template
         # No -allow-unpinned: every base, state image and sidecar in this repo
         # pins a digest, and since v0.3.0 the state images and sidecars are checked too.
