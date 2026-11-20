@@ -1,0 +1,19 @@
+#!/bin/sh
+# nginx on :8080 in front of OpenProject's own web process (docker/prod/web:
+# `rails server -u puma`, config/puma.rb) on 127.0.0.1:3000. Puma runs under
+# glibc's heap checker in both states; its output goes to /tmp/puma.log so the
+# verify probe can read it. The schema is migrated first, as the compose
+# stack's `seeder` service does.
+set -e
+i=0
+until bundle exec rake db:migrate; do
+  i=$((i + 1)); [ "$i" -ge 30 ] && exit 1
+  echo "database not ready, retrying ($i)"; sleep 2
+done
+sed "s/__HOST_NAME__/$OPENPROJECT_HOST__NAME/" /etc/nginx/vulnsuite.conf > /tmp/nginx.conf
+nginx -c /tmp/nginx.conf
+: > /tmp/puma.log
+tail -n +1 -F /tmp/puma.log &
+LIBDEBUG="/usr/lib/$(uname -m)-linux-gnu/libc_malloc_debug.so.0"
+BIND=127.0.0.1 PORT=3000 LD_PRELOAD="$LIBDEBUG" GLIBC_TUNABLES=glibc.malloc.check=3 \
+  exec ./docker/prod/web >> /tmp/puma.log 2>&1

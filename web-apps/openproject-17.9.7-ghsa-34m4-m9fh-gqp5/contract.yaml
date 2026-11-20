@@ -1,0 +1,73 @@
+apiVersion: vulnsuite/v1
+kind: Target
+
+metadata:
+  id: openproject-17.9.7-ghsa-34m4-m9fh-gqp5
+  summary: >-
+    OpenProject 17.9.7's official slim image bundles Ruby 4.0.9, whose case
+    mapping writes one byte past a heap buffer when it upcases the sharp s
+    (0xDF) in an ISO-8859-x or Windows-125x string ("Ruby2Shell"). OpenProject
+    reaches it without authentication through Rails' Rack::MethodOverride,
+    which upcases a multipart _method field whose part declares a legacy
+    charset. The vendor image runs behind nginx; 17.9.8 ships the fixed Ruby
+    4.0.10.
+  vuln_refs: [GHSA-34m4-m9fh-gqp5]
+  cwe: [CWE-193, CWE-122]
+  severity: critical
+  class: [vuln]
+  group: ruby2shell
+  variant: openproject-17-9
+  tags: [openproject, ruby, rails, rack, puma, heap-overflow, memory-corruption, rce, ruby2shell, real, version, needs-db]
+  references:
+    - https://github.com/ruby/ruby/security/advisories/GHSA-34m4-m9fh-gqp5
+    - https://www.openproject.org/docs/release-notes/17-9-8/
+    - https://github.com/ruby/ruby/pull/20005
+    - https://verialabs.com/ruby2shell/
+  maintainer: ruzfi
+  added: "2026-11-19"
+  disclosed: "2026-11-19"
+  fidelity: real
+  detected_by: ["nuclei:ruby2shell-casemap-overflow"]
+
+base:
+  kind: build
+  context: src
+  dockerfile: Dockerfile
+
+service:
+  ports:
+    - { container: 8080, protocol: http }
+  environment:
+    DATABASE_URL: postgres://openproject:openproject@db/openproject
+    SECRET_KEY_BASE: c556e8df582dfe3e64a6ac21405d0e3edfd8d3683446a1a3cf668ff2e2859668e3533ef685293ff869a6d89d6e546946e7e3a5834f55f89dcfa70bbfc215f8d2
+    OPENPROJECT_HOST__NAME: openproject.vulnsuite.test
+    OPENPROJECT_HTTPS: "false"
+  sidecars:
+    - name: db
+      image: postgres:17-alpine
+      digest: sha256:526f86d93c6ea08fd3f1fe5605650cacc781b2c6013169a0ad8f42c7d3d84f32
+      environment:
+        POSTGRES_USER: openproject
+        POSTGRES_PASSWORD: openproject
+        POSTGRES_DB: openproject
+  healthcheck:
+    http: { path: /health_check, status: 200 }
+    timeout: 300s
+
+states:
+  vulnerable:
+    verify:
+      - exec:
+          run: "/usr/local/bin/verify-ruby2shell --expect-vulnerable"
+          expect_exit: 0
+          stdout_matches: 'PASS vulnerable: case-map heap buffer overflowed by an unauthenticated request; glibc=malloc\w*: memory corruption; frame=mapping_buffer_free.*sink=rack/method_override\.rb:\d+; response=none\(\w+\); worker=respawned'
+          timeout: 90
+  patched:
+    overlay:
+      - { src: files/patched/Dockerfile, dest: Dockerfile }
+    verify:
+      - exec:
+          run: "/usr/local/bin/verify-ruby2shell --expect-patched"
+          expect_exit: 0
+          stdout_matches: 'PASS patched: same request handled without heap corruption; glibc=clean; response=422'
+          timeout: 90
