@@ -2,7 +2,7 @@
 
 # Catalog
 
-123 target(s). Regenerate with `python3 scripts/gen_catalog.py`.
+125 target(s). Regenerate with `python3 scripts/gen_catalog.py`.
 
 KEV is derived from `data/cisa-kev.txt` (CISA Known Exploited Vulnerabilities), refreshed by the cisa-kev-sync workflow; `?` means the catalog has not been synced yet.
 
