@@ -2,7 +2,7 @@
 
 # Catalog
 
-128 target(s). Regenerate with `python3 scripts/gen_catalog.py`.
+129 target(s). Regenerate with `python3 scripts/gen_catalog.py`.
 
 KEV is derived from `data/cisa-kev.txt` (CISA Known Exploited Vulnerabilities), refreshed by the cisa-kev-sync workflow; `?` means the catalog has not been synced yet.
 
@@ -26,7 +26,7 @@ Verified is `metadata.verification`: **no** means the contract is statically val
 | `erlang-otp-27.3.2-ssh-cve-2025-32433` | network-services | — | vuln | CVE-2025-32433 | **yes** | critical | real | 2026-11-20 | scanner | 2026-11-21 |
 | `inetutils-2.7-telnetd-cve-2026-24061` | network-services | — | vuln | CVE-2026-24061 | **yes** | critical | real | 2026-11-20 | unset | 2026-11-21 |
 | `opensmtpd-6.6.1p1-cve-2020-7247` | network-services | — | vuln | CVE-2020-7247 | **yes** | critical | real | 2026-11-21 | unset | 2026-11-21 |
-| `openssh-7.6p1-cve-2018-15473` | network-services | — | vuln | CVE-2018-15473 | no | medium | real | 2026-11-20 | custom-only | 2026-11-20 |
+| `openssh-7.7p1-cve-2018-15473` | network-services | — | vuln | CVE-2018-15473 | no | medium | real | 2026-11-21 | custom-only | 2026-11-21 |
 | `proftpd-1.3.5-cve-2015-3306` | network-services | — | vuln | CVE-2015-3306 | **yes** | critical | real | 2026-11-20 | scanner | 2026-11-21 |
 | `samba-4.6.3-cve-2017-7494` | network-services | — | vuln | CVE-2017-7494 | **yes** | critical | real | 2026-11-21 | unset | 2026-11-21 |
 | `openssh-10.3p1-alpine-3.24-cve-2026-123158` | network-services | `sshole` · alpine-3-24 ★ | vuln | CVE-2026-123158 | **yes** | high | real | 2026-11-20 | scanner | 2026-11-06 |
@@ -60,7 +60,7 @@ Verified is `metadata.verification`: **no** means the contract is statically val
 | `geoserver-2.23.5-cve-2024-36401` | web-apps | — | vuln | CVE-2024-36401, GHSA-6jj6-gm7p-fcvv | **yes** | critical | real | 2026-11-21 | scanner | 2026-11-21 |
 | `geoserver-2.25.5-cve-2025-58360` | web-apps | — | vuln | CVE-2025-58360, GHSA-fjf5-xgmq-5525 | **yes** | high | real | 2026-11-21 | scanner | 2026-11-21 |
 | `ghostscript-9.21-cve-2017-8291` | web-apps | — | vuln | CVE-2017-8291 | **yes** | high | real | 2026-11-21 | custom-only | 2026-11-21 |
-| `golang-1.27.2-cve-2026-111943-emudhra-compromised-ca` | web-apps | — | vuln | CVE-2026-111943 | no | medium | real | 2026-11-20 | scanner | 2026-11-20 |
+| `golang-1.27.2-cve-2026-111943-emudhra-compromised-ca` | web-apps | — | vuln | CVE-2026-111943 | no | medium | real | 2026-11-21 | custom-only | 2026-11-21 |
 | `grafana-8.3.0-cve-2021-43798` | web-apps | — | vuln | CVE-2021-43798 | **yes** | high | real | 2026-11-20 | scanner | 2026-09-29 |
 | `graphql-introspection-enabled` | web-apps | — | misconfig | VS-MISCONF-GQL-INTRO | no | low | real | 2026-11-20 | custom-only | 2026-09-29 |
 | `imagemagick-6.9.3-9-cve-2016-3714` | web-apps | — | vuln | CVE-2016-3714 | **yes** | high | real | 2026-11-20 | custom-only | 2026-11-21 |
@@ -126,6 +126,7 @@ Verified is `metadata.verification`: **no** means the contract is statically val
 | `bash-4.3-cgi-cve-2014-6271` | web-servers | — | vuln | CVE-2014-6271 | **yes** | critical | real | 2026-11-20 | scanner | 2026-11-21 |
 | `goahead-3.6.4-cve-2017-17562` | web-servers | — | vuln | CVE-2017-17562 | **yes** | high | real | 2026-11-21 | scanner | 2026-11-21 |
 | `jboss-as-6.1.0-http-invoker-cve-2017-12149` | web-servers | — | vuln | CVE-2017-12149 | **yes** | critical | real | 2026-11-21 | unset | 2026-11-21 |
+| `nginx-emudhra-compromised-ca-exposure` | web-servers | — | exposure | VS-EXPOSED-EMUDHRA-CA | no | medium | real | 2026-11-21 | scanner | 2026-11-21 |
 | `nginx-1.31.8-http2-conn-cve-2026-123633` | web-servers | `nginx2root-h2-conn` · mainline-1-31 ★ | vuln | CVE-2026-123633 | no | critical | real | 2026-11-20 | custom-only | 2026-11-20 |
 | `nginx-1.30.6-http2-conn-cve-2026-123633` | web-servers | `nginx2root-h2-conn` · stable-1-30 | vuln | CVE-2026-123633 | no | critical | real | 2026-11-20 | custom-only | 2026-11-20 |
 | `nginx-1.31.8-http2-cve-2026-123007` | web-servers | `nginx2root-h2-window` · mainline-1-31 ★ | vuln | CVE-2026-123007 | no | critical | real | 2026-11-20 | unset | 2026-11-20 |
