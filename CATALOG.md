@@ -2,7 +2,7 @@
 
 # Catalog
 
-101 target(s). Regenerate with `python3 scripts/gen_catalog.py`.
+102 target(s). Regenerate with `python3 scripts/gen_catalog.py`.
 
 KEV is derived from `data/cisa-kev.txt` (CISA Known Exploited Vulnerabilities), refreshed by the cisa-kev-sync workflow; `?` means the catalog has not been synced yet.
 
@@ -73,6 +73,7 @@ Verified is `metadata.verification`: **no** means the contract is statically val
 | `php-8.2-cve-2026-109618-multipart-rce-expose-php-off` | web-apps | `php2shell` · expose-php-off | vuln | CVE-2026-109618, CVE-2026-109619 | **yes** | critical | real | 2026-11-20 | unset | 2026-11-20 |
 | `php-8.2-cve-2026-109618-multipart-rce-workaround-patch` | web-apps | `php2shell` · workaround | vuln | CVE-2026-109618, CVE-2026-109619 | **yes** | critical | real | 2026-11-20 | unset | 2026-11-20 |
 | `phpunit-5.6.2-cve-2017-9841` | web-apps | — | vuln | CVE-2017-9841 | **yes** | critical | real | 2026-11-20 | scanner | 2026-11-21 |
+| `rails-5.2.2-cve-2019-5418` | web-apps | — | vuln | CVE-2019-5418 | **yes** | high | real | 2026-11-21 | scanner | 2026-11-21 |
 | `ruby-4.0.9-rails-cve-2026-132825` | web-apps | `ruby2shell` · ruby-4-0 ★ | vuln | CVE-2026-132825 | no | critical | real | 2026-11-20 | unset | 2026-11-19 |
 | `chatwoot-4.20.0-cve-2026-132825` | web-apps | `ruby2shell` · chatwoot-4-20 | vuln | CVE-2026-132825 | no | critical | real | 2026-11-20 | unset | 2026-11-20 |
 | `gitlab-19.6.0-cve-2026-132825` | web-apps | `ruby2shell` · gitlab-19-6 | vuln | CVE-2026-132825 | no | critical | real | 2026-11-20 | custom-only | 2026-11-20 |
