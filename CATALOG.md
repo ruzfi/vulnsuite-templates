@@ -2,7 +2,7 @@
 
 # Catalog
 
-130 target(s). Regenerate with `python3 scripts/gen_catalog.py`.
+137 target(s). Regenerate with `python3 scripts/gen_catalog.py`.
 
 KEV is derived from `data/cisa-kev.txt` (CISA Known Exploited Vulnerabilities), refreshed by the cisa-kev-sync workflow; `?` means the catalog has not been synced yet.
 
@@ -28,6 +28,7 @@ Verified is `metadata.verification`: **no** means the contract is statically val
 | `opensmtpd-6.6.1p1-cve-2020-7247` | network-services | — | vuln | CVE-2020-7247 | **yes** | critical | real | 2026-11-21 | unset | 2026-11-21 |
 | `openssh-7.7p1-cve-2018-15473` | network-services | — | vuln | CVE-2018-15473 | no | medium | real | 2026-11-21 | custom-only | 2026-11-21 |
 | `proftpd-1.3.5-cve-2015-3306` | network-services | — | vuln | CVE-2015-3306 | **yes** | critical | real | 2026-11-20 | scanner | 2026-11-21 |
+| `salt-2019.2.3-cve-2020-11651` | network-services | — | vuln | CVE-2020-11651, CVE-2020-11652 | **yes** | critical | real | 2026-11-21 | custom-only | 2026-11-21 |
 | `samba-4.6.3-cve-2017-7494` | network-services | — | vuln | CVE-2017-7494 | **yes** | critical | real | 2026-11-21 | unset | 2026-11-21 |
 | `openssh-10.3p1-alpine-3.24-cve-2026-123158` | network-services | `sshole` · alpine-3-24 ★ | vuln | CVE-2026-123158 | **yes** | high | real | 2026-11-20 | scanner | 2026-11-06 |
 | `openssh-9.0p1-alpine-3.16-cve-2026-123158` | network-services | `sshole` · alpine-3-16 | vuln | CVE-2026-123158 | **yes** | high | real | 2026-11-20 | scanner | 2026-11-06 |
@@ -48,6 +49,7 @@ Verified is `metadata.verification`: **no** means the contract is statically val
 | `apache-ofbiz-18.12.14-cve-2024-38856` | web-apps | — | vuln | CVE-2024-38856 | **yes** | high | real | 2026-11-21 | scanner | 2026-11-21 |
 | `apache-shiro-1.2.4-cve-2016-4437` | web-apps | — | vuln | CVE-2016-4437 | **yes** | critical | real | 2026-11-21 | scanner | 2026-11-21 |
 | `apache-spark-3.2.1-cve-2022-33891` | web-apps | — | vuln | CVE-2022-33891 | **yes** | high | real | 2026-11-21 | unset | 2026-11-21 |
+| `apisix-2.12.0-cve-2022-24112` | web-apps | — | vuln | CVE-2022-24112 | **yes** | critical | real | 2026-11-21 | unset | 2026-11-21 |
 | `cacti-1.2.22-cve-2022-46169` | web-apps | — | vuln | CVE-2022-46169 | **yes** | critical | real | 2026-11-21 | unset | 2026-11-21 |
 | `craftcms-5.5.1.1-cve-2024-56145` | web-apps | — | vuln | CVE-2024-56145 | **yes** | critical | real | 2026-11-21 | scanner | 2026-11-21 |
 | `craftcms-5.6.16-cve-2025-32432` | web-apps | — | vuln | CVE-2025-32432 | **yes** | critical | real | 2026-11-21 | scanner | 2026-11-21 |
@@ -61,6 +63,7 @@ Verified is `metadata.verification`: **no** means the contract is statically val
 | `geoserver-2.23.5-cve-2024-36401` | web-apps | — | vuln | CVE-2024-36401, GHSA-6jj6-gm7p-fcvv | **yes** | critical | real | 2026-11-21 | scanner | 2026-11-21 |
 | `geoserver-2.25.5-cve-2025-58360` | web-apps | — | vuln | CVE-2025-58360, GHSA-fjf5-xgmq-5525 | **yes** | high | real | 2026-11-21 | scanner | 2026-11-21 |
 | `ghostscript-9.21-cve-2017-8291` | web-apps | — | vuln | CVE-2017-8291 | **yes** | high | real | 2026-11-21 | custom-only | 2026-11-21 |
+| `gitea-1.27.0-cve-2026-60004` | web-apps | — | vuln | CVE-2026-60004 | **yes** | critical | real | 2026-11-21 | unset | 2026-11-21 |
 | `golang-1.27.2-cve-2026-111943-emudhra-compromised-ca` | web-apps | — | vuln | CVE-2026-111943 | no | medium | real | 2026-11-21 | custom-only | 2026-11-21 |
 | `grafana-8.3.0-cve-2021-43798` | web-apps | — | vuln | CVE-2021-43798 | **yes** | high | real | 2026-11-20 | scanner | 2026-09-29 |
 | `graphql-introspection-enabled` | web-apps | — | misconfig | VS-MISCONF-GQL-INTRO | no | low | real | 2026-11-20 | custom-only | 2026-09-29 |
@@ -71,9 +74,12 @@ Verified is `metadata.verification`: **no** means the contract is statically val
 | `joomla-4.2.7-cve-2023-23752` | web-apps | — | vuln | CVE-2023-23752 | **yes** | medium | real | 2026-11-21 | scanner | 2026-11-21 |
 | `kibana-6.5.4-cve-2019-7609` | web-apps | — | vuln | CVE-2019-7609 | **yes** | critical | real | 2026-11-21 | unset | 2026-11-21 |
 | `langflow-1.2.0-cve-2025-3248` | web-apps | — | vuln | CVE-2025-3248 | **yes** | critical | real | 2026-11-20 | scanner | 2026-11-21 |
+| `langflow-1.6.9-cve-2025-34291` | web-apps | — | vuln, misconfig | CVE-2025-34291 | **yes** | critical | real | 2026-11-21 | scanner | 2026-11-21 |
+| `langflow-1.8.4-cve-2026-33017` | web-apps | — | vuln | CVE-2026-33017 | **yes** | critical | real | 2026-11-21 | scanner | 2026-11-21 |
 | `laravel-ignition-2.5.1-cve-2021-3129` | web-apps | — | vuln | CVE-2021-3129 | **yes** | critical | real | 2026-11-20 | scanner | 2026-11-21 |
 | `livewire-3.6.3-cve-2025-54068` | web-apps | — | vuln | CVE-2025-54068 | **yes** | critical | real | 2026-11-21 | scanner | 2026-11-21 |
 | `metabase-0.40.4-cve-2021-41277` | web-apps | — | vuln | CVE-2021-41277 | **yes** | critical | real | 2026-11-20 | scanner | 2026-11-21 |
+| `metabase-0.58.23-cve-2026-72898` | web-apps | — | vuln | CVE-2026-72898 | **yes** | critical | real | 2026-11-21 | unset | 2026-11-21 |
 | `mongo-express-0.53.0-cve-2019-10758` | web-apps | — | vuln | CVE-2019-10758 | **yes** | critical | real | 2026-11-21 | scanner | 2026-11-21 |
 | `nextcloud-collabora-code-cve-2026-110447` | web-apps | — | vuln | CVE-2026-110447 | **yes** | critical | real | 2026-11-21 | scanner | 2026-11-21 |
 | `nexus3-3.14.0-cve-2019-7238` | web-apps | — | vuln | CVE-2019-7238 | **yes** | critical | real | 2026-11-21 | scanner | 2026-11-21 |
@@ -102,6 +108,7 @@ Verified is `metadata.verification`: **no** means the contract is statically val
 | `openproject-17.9.7-cve-2026-132825` | web-apps | `ruby2shell` · openproject-17-9 | vuln | CVE-2026-132825 | no | critical | real | 2026-11-20 | unset | 2026-11-19 |
 | `ruby-3.3.13-rails-cve-2026-132825` | web-apps | `ruby2shell` · ruby-3-3 | vuln | CVE-2026-132825 | no | critical | real | 2026-11-20 | unset | 2026-11-19 |
 | `ruby-3.4.12-rails-cve-2026-132825` | web-apps | `ruby2shell` · ruby-3-4 | vuln | CVE-2026-132825 | no | critical | real | 2026-11-20 | unset | 2026-11-19 |
+| `salt-3002-api-cve-2020-16846` | web-apps | — | vuln | CVE-2020-16846, CVE-2020-25592 | **yes** | critical | real | 2026-11-21 | scanner | 2026-11-21 |
 | `solr-8.1.1-cve-2019-0193` | web-apps | — | vuln | CVE-2019-0193 | **yes** | high | real | 2026-11-20 | unset | 2026-11-21 |
 | `solr-8.11.0-log4j-cve-2021-44228` | web-apps | — | vuln | CVE-2021-44228 | **yes** | critical | real | 2026-11-21 | scanner | 2026-11-21 |
 | `solr-8.3.0-cve-2019-17558` | web-apps | — | vuln | CVE-2019-17558 | **yes** | high | real | 2026-11-20 | scanner | 2026-11-21 |
