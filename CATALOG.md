@@ -41,6 +41,7 @@ Verified is `metadata.verification`: **no** means the contract is statically val
 | `apache-shiro-1.2.4-cve-2016-4437` | web-apps | — | vuln | CVE-2016-4437 | **yes** | critical | real | 2026-11-21 | scanner | 2026-11-21 |
 | `cacti-1.2.22-cve-2022-46169` | web-apps | — | vuln | CVE-2022-46169 | **yes** | critical | real | 2026-11-21 | unset | 2026-11-21 |
 | `django-debug-enabled` | web-apps | — | misconfig | VS-MISCONF-DJANGO-DEBUG | no | medium | real | 2026-11-20 | unset | 2026-11-20 |
+| `drupal-7.58-cve-2018-7602` | web-apps | — | vuln | CVE-2018-7602 | **yes** | high | real | 2026-11-21 | scanner | 2026-11-21 |
 | `drupal-8.5.0-cve-2018-7600` | web-apps | — | vuln | CVE-2018-7600 | **yes** | critical | real | 2026-11-21 | scanner | 2026-11-21 |
 | `drupal-8.6.9-rest-cve-2019-6340` | web-apps | — | vuln | CVE-2019-6340 | **yes** | high | real | 2026-11-21 | unset | 2026-11-21 |
 | `exiftool-12.23-cve-2021-22204` | web-apps | — | vuln | CVE-2021-22204 | **yes** | medium | real | 2026-11-21 | custom-only | 2026-11-21 |
