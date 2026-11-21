@@ -2,7 +2,7 @@
 
 # Catalog
 
-114 target(s). Regenerate with `python3 scripts/gen_catalog.py`.
+115 target(s). Regenerate with `python3 scripts/gen_catalog.py`.
 
 KEV is derived from `data/cisa-kev.txt` (CISA Known Exploited Vulnerabilities), refreshed by the cisa-kev-sync workflow; `?` means the catalog has not been synced yet.
 
@@ -92,6 +92,7 @@ Verified is `metadata.verification`: **no** means the contract is statically val
 | `solr-8.1.1-cve-2019-0193` | web-apps | — | vuln | CVE-2019-0193 | **yes** | high | real | 2026-11-20 | unset | 2026-11-21 |
 | `solr-8.11.0-log4j-cve-2021-44228` | web-apps | — | vuln | CVE-2021-44228 | **yes** | critical | real | 2026-11-21 | scanner | 2026-11-21 |
 | `solr-8.3.0-cve-2019-17558` | web-apps | — | vuln | CVE-2019-17558 | **yes** | high | real | 2026-11-20 | scanner | 2026-11-21 |
+| `spreadsheet-parseexcel-0.65-cve-2023-7101` | web-apps | — | vuln | CVE-2023-7101 | **yes** | high | real | 2026-11-21 | custom-only | 2026-11-21 |
 | `spring-boot-actuator-env-exposure` | web-apps | — | exposure | VS-EXPOSED-SPRING-ENV | no | medium | real | 2026-11-20 | scanner | 2026-11-21 |
 | `spring-boot-jolokia-exposure` | web-apps | — | misconfig | VS-EXPOSED-JOLOKIA | no | high | real | 2026-11-20 | scanner | 2026-11-21 |
 | `spring-cloud-function-3.2.2-cve-2022-22963` | web-apps | — | vuln | CVE-2022-22963 | **yes** | critical | real | 2026-11-20 | scanner | 2026-11-21 |
