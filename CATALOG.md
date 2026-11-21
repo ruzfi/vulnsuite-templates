@@ -2,7 +2,7 @@
 
 # Catalog
 
-149 target(s). Regenerate with `python3 scripts/gen_catalog.py`.
+156 target(s). Regenerate with `python3 scripts/gen_catalog.py`.
 
 KEV is derived from `data/cisa-kev.txt` (CISA Known Exploited Vulnerabilities), refreshed by the cisa-kev-sync workflow; `?` means the catalog has not been synced yet.
 
@@ -65,6 +65,8 @@ Verified is `metadata.verification`: **no** means the contract is statically val
 | `geoserver-2.25.5-cve-2025-58360` | web-apps | — | vuln | CVE-2025-58360, GHSA-fjf5-xgmq-5525 | **yes** | high | real | 2026-11-21 | scanner | 2026-11-21 |
 | `ghostscript-9.21-cve-2017-8291` | web-apps | — | vuln | CVE-2017-8291 | **yes** | high | real | 2026-11-21 | custom-only | 2026-11-21 |
 | `gitea-1.27.0-cve-2026-60004` | web-apps | — | vuln | CVE-2026-60004 | **yes** | critical | real | 2026-11-21 | unset | 2026-11-21 |
+| `gitlab-13.10.2-cve-2021-22205` | web-apps | — | vuln | CVE-2021-22205 | **yes** | critical | real | 2026-11-21 | scanner | 2026-11-21 |
+| `gitlab-19.1.7-cve-2026-85706` | web-apps | — | vuln | CVE-2026-85706 | **yes** | critical | real | 2026-11-21 | scanner | 2026-11-21 |
 | `golang-1.27.2-cve-2026-111943-emudhra-compromised-ca` | web-apps | — | vuln | CVE-2026-111943 | no | medium | real | 2026-11-21 | custom-only | 2026-11-21 |
 | `gpustack-2.1.2-cve-2026-102895` | web-apps | — | vuln | CVE-2026-102895, GHSA-gj9m-f8ph-pmhr | **yes** | critical | real | 2026-11-21 | custom-only | 2026-11-21 |
 | `grafana-8.3.0-cve-2021-43798` | web-apps | — | vuln | CVE-2021-43798 | **yes** | high | real | 2026-11-20 | scanner | 2026-09-29 |
@@ -130,6 +132,11 @@ Verified is `metadata.verification`: **no** means the contract is statically val
 | `struts-2.3.28-dmi-cve-2016-3081` | web-apps | — | vuln | CVE-2016-3081 | **yes** | high | real | 2026-11-21 | scanner | 2026-11-21 |
 | `struts-2.3.32-struts1-plugin-cve-2017-9791` | web-apps | — | vuln | CVE-2017-9791 | **yes** | critical | real | 2026-11-21 | scanner | 2026-11-21 |
 | `struts-2.5.12-rest-xstream-cve-2017-9805` | web-apps | — | vuln | CVE-2017-9805 | **yes** | high | real | 2026-11-21 | unset | 2026-11-21 |
+| `struts2-2.2.3-cve-2012-0391` | web-apps | — | vuln | CVE-2012-0391 | **yes** | critical | real | 2026-11-21 | custom-only | 2026-11-21 |
+| `struts2-2.3.15-cve-2013-2251` | web-apps | — | vuln | CVE-2013-2251 | **yes** | critical | real | 2026-11-21 | scanner | 2026-11-21 |
+| `struts2-2.3.31-cve-2017-5638` | web-apps | — | vuln | CVE-2017-5638 | **yes** | critical | real | 2026-11-21 | scanner | 2026-11-21 |
+| `struts2-2.3.34-cve-2018-11776` | web-apps | — | vuln | CVE-2018-11776 | **yes** | high | real | 2026-11-21 | scanner | 2026-11-21 |
+| `struts2-2.5.25-cve-2020-17530` | web-apps | — | vuln | CVE-2020-17530 | **yes** | critical | real | 2026-11-21 | scanner | 2026-11-21 |
 | `systeminformation-5.3.0-cve-2021-21315` | web-apps | — | vuln | CVE-2021-21315, GHSA-2m8v-572m-ff2v | **yes** | high | real | 2026-11-21 | scanner | 2026-11-21 |
 | `wazuh-4.9.0-cve-2025-24016` | web-apps | — | vuln | CVE-2025-24016 | **yes** | critical | real | 2026-11-21 | unset | 2026-11-21 |
 | `webmin-1.920-cve-2019-15107` | web-apps | — | vuln | CVE-2019-15107 | **yes** | critical | real | 2026-11-20 | scanner | 2026-11-21 |
