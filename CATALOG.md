@@ -87,9 +87,9 @@ Verified is `metadata.verification`: **no** means the contract is statically val
 | `php-5.4.1-cgi-cve-2012-1823` | web-apps | — | vuln | CVE-2012-1823 | **yes** | critical | real | 2026-11-20 | unset | 2026-11-21 |
 | `php-7.2.23-fpm-cve-2019-11043` | web-apps | — | vuln | CVE-2019-11043 | **yes** | high | real | 2026-11-20 | scanner | 2026-11-21 |
 | `php-fpm-status-exposure` | web-apps | — | exposure | VS-EXPOSED-PHPFPM-STATUS | no | low | real | 2026-11-20 | unset | 2026-11-17 |
-| `php-8.2-cve-2026-109618-multipart-rce-version-upgrade-patch` | web-apps | `php2shell` · version-upgrade ★ | vuln | CVE-2026-109618, CVE-2026-109619 | **yes** | critical | real | 2026-11-20 | scanner | 2026-11-20 |
-| `php-8.2-cve-2026-109618-multipart-rce-expose-php-off` | web-apps | `php2shell` · expose-php-off | vuln | CVE-2026-109618, CVE-2026-109619 | **yes** | critical | real | 2026-11-20 | unset | 2026-11-20 |
-| `php-8.2-cve-2026-109618-multipart-rce-workaround-patch` | web-apps | `php2shell` · workaround | vuln | CVE-2026-109618, CVE-2026-109619 | **yes** | critical | real | 2026-11-20 | unset | 2026-11-20 |
+| `php-8.2-cve-2026-109618-multipart-rce-version-upgrade-patch` | web-apps | `php2shell` · version-upgrade ★ | vuln | CVE-2026-109618, CVE-2026-109619 | **yes** | critical | real | 2026-11-21 | scanner | 2026-11-21 |
+| `php-8.2-cve-2026-109618-multipart-rce-expose-php-off` | web-apps | `php2shell` · expose-php-off | vuln | CVE-2026-109618, CVE-2026-109619 | **yes** | critical | real | 2026-11-21 | scanner | 2026-11-21 |
+| `php-8.2-cve-2026-109618-multipart-rce-workaround-patch` | web-apps | `php2shell` · workaround | vuln | CVE-2026-109618, CVE-2026-109619 | **yes** | critical | real | 2026-11-21 | scanner | 2026-11-21 |
 | `phpunit-5.6.2-cve-2017-9841` | web-apps | — | vuln | CVE-2017-9841 | **yes** | critical | real | 2026-11-20 | scanner | 2026-11-21 |
 | `rails-5.2.2-cve-2019-5418` | web-apps | — | vuln | CVE-2019-5418 | **yes** | high | real | 2026-11-21 | scanner | 2026-11-21 |
 | `roundcube-1.4.3-cve-2020-12641` | web-apps | — | vuln | CVE-2020-12641 | **yes** | critical | real | 2026-11-21 | unset | 2026-11-21 |
