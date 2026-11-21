@@ -2,7 +2,7 @@
 
 # Catalog
 
-116 target(s). Regenerate with `python3 scripts/gen_catalog.py`.
+117 target(s). Regenerate with `python3 scripts/gen_catalog.py`.
 
 KEV is derived from `data/cisa-kev.txt` (CISA Known Exploited Vulnerabilities), refreshed by the cisa-kev-sync workflow; `?` means the catalog has not been synced yet.
 
@@ -61,6 +61,7 @@ Verified is `metadata.verification`: **no** means the contract is statically val
 | `kibana-6.5.4-cve-2019-7609` | web-apps | — | vuln | CVE-2019-7609 | **yes** | critical | real | 2026-11-21 | unset | 2026-11-21 |
 | `langflow-1.2.0-cve-2025-3248` | web-apps | — | vuln | CVE-2025-3248 | **yes** | critical | real | 2026-11-20 | scanner | 2026-11-21 |
 | `laravel-ignition-2.5.1-cve-2021-3129` | web-apps | — | vuln | CVE-2021-3129 | **yes** | critical | real | 2026-11-20 | scanner | 2026-11-21 |
+| `livewire-3.6.3-cve-2025-54068` | web-apps | — | vuln | CVE-2025-54068 | **yes** | critical | real | 2026-11-21 | scanner | 2026-11-21 |
 | `metabase-0.40.4-cve-2021-41277` | web-apps | — | vuln | CVE-2021-41277 | **yes** | critical | real | 2026-11-20 | scanner | 2026-11-21 |
 | `mongo-express-0.53.0-cve-2019-10758` | web-apps | — | vuln | CVE-2019-10758 | **yes** | critical | real | 2026-11-21 | scanner | 2026-11-21 |
 | `nextcloud-collabora-code-cve-2026-110447` | web-apps | — | vuln | CVE-2026-110447 | **yes** | critical | real | 2026-11-20 | unset | 2026-11-17 |
