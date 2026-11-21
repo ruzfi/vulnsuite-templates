@@ -2,7 +2,7 @@
 
 # Catalog
 
-103 target(s). Regenerate with `python3 scripts/gen_catalog.py`.
+108 target(s). Regenerate with `python3 scripts/gen_catalog.py`.
 
 KEV is derived from `data/cisa-kev.txt` (CISA Known Exploited Vulnerabilities), refreshed by the cisa-kev-sync workflow; `?` means the catalog has not been synced yet.
 
@@ -39,6 +39,7 @@ Verified is `metadata.verification`: **no** means the contract is statically val
 | `apache-flink-1.11.2-cve-2020-17519` | web-apps | — | vuln | CVE-2020-17519 | **yes** | critical | real | 2026-11-20 | scanner | 2026-11-20 |
 | `apache-ofbiz-18.12.14-cve-2024-38856` | web-apps | — | vuln | CVE-2024-38856 | **yes** | high | real | 2026-11-21 | scanner | 2026-11-21 |
 | `apache-shiro-1.2.4-cve-2016-4437` | web-apps | — | vuln | CVE-2016-4437 | **yes** | critical | real | 2026-11-21 | scanner | 2026-11-21 |
+| `cacti-1.2.22-cve-2022-46169` | web-apps | — | vuln | CVE-2022-46169 | **yes** | critical | real | 2026-11-21 | unset | 2026-11-21 |
 | `django-debug-enabled` | web-apps | — | misconfig | VS-MISCONF-DJANGO-DEBUG | no | medium | real | 2026-11-20 | unset | 2026-11-20 |
 | `drupal-8.5.0-cve-2018-7600` | web-apps | — | vuln | CVE-2018-7600 | **yes** | critical | real | 2026-11-21 | scanner | 2026-11-21 |
 | `drupal-8.6.9-rest-cve-2019-6340` | web-apps | — | vuln | CVE-2019-6340 | **yes** | high | real | 2026-11-21 | unset | 2026-11-21 |
@@ -55,9 +56,12 @@ Verified is `metadata.verification`: **no** means the contract is statically val
 | `openjdk-17.0.21-cve-2026-114938-version-upgrade-patch` | web-apps | `java4shell` · version-upgrade ★ | vuln | CVE-2026-114938 | no | critical | real | **no** | custom-only | 2026-11-19 |
 | `openjdk-17.0.21-cve-2026-114938-workaround-patch` | web-apps | `java4shell` · workaround | vuln | CVE-2026-114938 | no | critical | real | **no** | custom-only | 2026-11-19 |
 | `jenkins-2.441-cve-2024-23897` | web-apps | — | vuln | CVE-2024-23897 | **yes** | critical | real | 2026-11-20 | scanner | 2026-11-20 |
+| `joomla-4.2.7-cve-2023-23752` | web-apps | — | vuln | CVE-2023-23752 | **yes** | medium | real | 2026-11-21 | scanner | 2026-11-21 |
+| `kibana-6.5.4-cve-2019-7609` | web-apps | — | vuln | CVE-2019-7609 | **yes** | critical | real | 2026-11-21 | unset | 2026-11-21 |
 | `langflow-1.2.0-cve-2025-3248` | web-apps | — | vuln | CVE-2025-3248 | **yes** | critical | real | 2026-11-20 | scanner | 2026-11-21 |
 | `laravel-ignition-2.5.1-cve-2021-3129` | web-apps | — | vuln | CVE-2021-3129 | **yes** | critical | real | 2026-11-20 | scanner | 2026-11-21 |
 | `metabase-0.40.4-cve-2021-41277` | web-apps | — | vuln | CVE-2021-41277 | **yes** | critical | real | 2026-11-20 | scanner | 2026-11-21 |
+| `mongo-express-0.53.0-cve-2019-10758` | web-apps | — | vuln | CVE-2019-10758 | **yes** | critical | real | 2026-11-21 | scanner | 2026-11-21 |
 | `nextcloud-collabora-code-cve-2026-110447` | web-apps | — | vuln | CVE-2026-110447 | **yes** | critical | real | 2026-11-20 | unset | 2026-11-17 |
 | `nexus3-3.14.0-cve-2019-7238` | web-apps | — | vuln | CVE-2019-7238 | **yes** | critical | real | 2026-11-21 | scanner | 2026-11-21 |
 | `nexus3-3.21.1-cve-2020-10199` | web-apps | — | vuln | CVE-2020-10199 | **yes** | high | real | 2026-11-20 | scanner | 2026-11-20 |
@@ -96,6 +100,7 @@ Verified is `metadata.verification`: **no** means the contract is statically val
 | `wordpress-cve-2026-63030-batch-rce` | web-apps | — | vuln | CVE-2026-63030 | **yes** | critical | real | 2026-11-20 | scanner | 2026-11-20 |
 | `wordpress-cve-2026-87902-page-template-traversal` | web-apps | — | vuln | CVE-2026-87902 | **yes** | critical | real | 2026-11-20 | scanner | 2026-11-18 |
 | `xstream-1.4.17-cve-2021-39144` | web-apps | — | vuln | CVE-2021-39144, GHSA-j9h8-phrw-h4fh | **yes** | high | real | 2026-11-21 | scanner | 2026-11-21 |
+| `xwiki-15.10.10-cve-2025-24893` | web-apps | — | vuln | CVE-2025-24893 | **yes** | critical | real | 2026-11-21 | scanner | 2026-11-21 |
 | `apache-httpd-2.4.49-cve-2021-41773` | web-servers | — | vuln | CVE-2021-41773 | **yes** | high | real | 2026-11-20 | scanner | 2026-11-20 |
 | `apache-httpd-2.4.50-cve-2021-42013` | web-servers | — | vuln | CVE-2021-42013 | **yes** | critical | real | 2026-11-20 | scanner | 2026-11-20 |
 | `apache-mod-status-exposure` | web-servers | — | misconfig, exposure | VS-EXPOSED-APACHE-STATUS | no | low | real | 2026-11-20 | unset | 2026-11-17 |
