@@ -2,7 +2,7 @@
 
 # Catalog
 
-123 target(s). Regenerate with `python3 scripts/gen_catalog.py`.
+125 target(s). Regenerate with `python3 scripts/gen_catalog.py`.
 
 KEV is derived from `data/cisa-kev.txt` (CISA Known Exploited Vulnerabilities), refreshed by the cisa-kev-sync workflow; `?` means the catalog has not been synced yet.
 
@@ -18,6 +18,8 @@ Verified is `metadata.verification`: **no** means the contract is statically val
 | `couchbase-server-5.5.1-cve-2020-9039` | databases | — | vuln | CVE-2020-9039 | no | critical | real | 2026-11-20 | scanner | 2026-10-28 |
 | `elasticsearch-1.4.2-cve-2015-1427-groovy-sandbox` | databases | — | vuln | CVE-2015-1427 | **yes** | critical | real | 2026-11-20 | scanner | 2026-11-21 |
 | `elasticsearch-cve-2014-3120-dynamic-scripting` | databases | — | vuln | CVE-2014-3120 | **yes** | high | real | 2026-11-20 | scanner | 2026-11-20 |
+| `minio-2023-03-13-cve-2023-28432` | databases | — | vuln | CVE-2023-28432 | **yes** | high | real | 2026-11-21 | scanner | 2026-11-21 |
+| `minio-2023-03-13-cve-2023-28434` | databases | — | vuln | CVE-2023-28434 | **yes** | high | real | 2026-11-21 | unset | 2026-11-21 |
 | `redis-debian-cve-2022-0543` | databases | — | vuln | CVE-2022-0543 | **yes** | critical | real | 2026-11-20 | scanner | 2026-11-21 |
 | `apache-activemq-5.17.5-cve-2023-46604` | network-services | — | vuln | CVE-2023-46604 | **yes** | critical | real | 2026-11-20 | scanner | 2026-11-21 |
 | `apache-rocketmq-5.1.0-cve-2023-33246` | network-services | — | vuln | CVE-2023-33246 | **yes** | critical | real | 2026-11-21 | scanner | 2026-11-21 |
