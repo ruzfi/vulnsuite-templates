@@ -2,7 +2,7 @@
 
 # Catalog
 
-138 target(s). Regenerate with `python3 scripts/gen_catalog.py`.
+143 target(s). Regenerate with `python3 scripts/gen_catalog.py`.
 
 KEV is derived from `data/cisa-kev.txt` (CISA Known Exploited Vulnerabilities), refreshed by the cisa-kev-sync workflow; `?` means the catalog has not been synced yet.
 
@@ -49,6 +49,7 @@ Verified is `metadata.verification`: **no** means the contract is statically val
 | `apache-ofbiz-18.12.14-cve-2024-38856` | web-apps | — | vuln | CVE-2024-38856 | **yes** | high | real | 2026-11-21 | scanner | 2026-11-21 |
 | `apache-shiro-1.2.4-cve-2016-4437` | web-apps | — | vuln | CVE-2016-4437 | **yes** | critical | real | 2026-11-21 | scanner | 2026-11-21 |
 | `apache-spark-3.2.1-cve-2022-33891` | web-apps | — | vuln | CVE-2022-33891 | **yes** | high | real | 2026-11-21 | unset | 2026-11-21 |
+| `apache-superset-2.0.1-cve-2023-27524` | web-apps | — | vuln | CVE-2023-27524 | **yes** | high | real | 2026-11-21 | unset | 2026-11-21 |
 | `apisix-2.12.0-cve-2022-24112` | web-apps | — | vuln | CVE-2022-24112 | **yes** | critical | real | 2026-11-21 | unset | 2026-11-21 |
 | `cacti-1.2.22-cve-2022-46169` | web-apps | — | vuln | CVE-2022-46169 | **yes** | critical | real | 2026-11-21 | unset | 2026-11-21 |
 | `craftcms-5.5.1.1-cve-2024-56145` | web-apps | — | vuln | CVE-2024-56145 | **yes** | critical | real | 2026-11-21 | scanner | 2026-11-21 |
@@ -72,12 +73,15 @@ Verified is `metadata.verification`: **no** means the contract is statically val
 | `openjdk-17.0.21-cve-2026-114938-version-upgrade-patch` | web-apps | `java4shell` · version-upgrade ★ | vuln | CVE-2026-114938 | no | critical | real | **no** | custom-only | 2026-11-19 |
 | `openjdk-17.0.21-cve-2026-114938-workaround-patch` | web-apps | `java4shell` · workaround | vuln | CVE-2026-114938 | no | critical | real | **no** | custom-only | 2026-11-19 |
 | `jenkins-2.441-cve-2024-23897` | web-apps | — | vuln | CVE-2024-23897 | **yes** | critical | real | 2026-11-20 | scanner | 2026-11-20 |
+| `jenkins-script-security-1.53-cve-2019-1003029` | web-apps | — | vuln | CVE-2019-1003029 | **yes** | critical | real | 2026-11-21 | custom-only | 2026-11-21 |
+| `jenkins-workflow-cps-2.63-cve-2019-1003030` | web-apps | — | vuln | CVE-2019-1003030 | **yes** | critical | real | 2026-11-21 | scanner | 2026-11-21 |
 | `joomla-4.2.7-cve-2023-23752` | web-apps | — | vuln | CVE-2023-23752 | **yes** | medium | real | 2026-11-21 | scanner | 2026-11-21 |
 | `kibana-6.5.4-cve-2019-7609` | web-apps | — | vuln | CVE-2019-7609 | **yes** | critical | real | 2026-11-21 | unset | 2026-11-21 |
 | `langflow-1.2.0-cve-2025-3248` | web-apps | — | vuln | CVE-2025-3248 | **yes** | critical | real | 2026-11-20 | scanner | 2026-11-21 |
 | `langflow-1.6.9-cve-2025-34291` | web-apps | — | vuln, misconfig | CVE-2025-34291 | **yes** | critical | real | 2026-11-21 | scanner | 2026-11-21 |
 | `langflow-1.8.4-cve-2026-33017` | web-apps | — | vuln | CVE-2026-33017 | **yes** | critical | real | 2026-11-21 | scanner | 2026-11-21 |
 | `laravel-ignition-2.5.1-cve-2021-3129` | web-apps | — | vuln | CVE-2021-3129 | **yes** | critical | real | 2026-11-20 | scanner | 2026-11-21 |
+| `litellm-1.83.7-cve-2026-40217` | web-apps | — | vuln | CVE-2026-40217, GHSA-wxxx-gvqv-xp7p | **yes** | high | real | 2026-11-21 | scanner | 2026-11-21 |
 | `livewire-3.6.3-cve-2025-54068` | web-apps | — | vuln | CVE-2025-54068 | **yes** | critical | real | 2026-11-21 | scanner | 2026-11-21 |
 | `metabase-0.40.4-cve-2021-41277` | web-apps | — | vuln | CVE-2021-41277 | **yes** | critical | real | 2026-11-20 | scanner | 2026-11-21 |
 | `metabase-0.58.23-cve-2026-72898` | web-apps | — | vuln | CVE-2026-72898 | **yes** | critical | real | 2026-11-21 | unset | 2026-11-21 |
@@ -121,6 +125,7 @@ Verified is `metadata.verification`: **no** means the contract is statically val
 | `spring-data-commons-2.0.5-cve-2018-1273` | web-apps | — | vuln | CVE-2018-1273 | **yes** | critical | real | 2026-11-21 | unset | 2026-11-21 |
 | `spring-framework-5.3.17-cve-2022-22965` | web-apps | — | vuln | CVE-2022-22965 | **yes** | critical | real | 2026-11-21 | scanner | 2026-11-21 |
 | `systeminformation-5.3.0-cve-2021-21315` | web-apps | — | vuln | CVE-2021-21315, GHSA-2m8v-572m-ff2v | **yes** | high | real | 2026-11-21 | scanner | 2026-11-21 |
+| `wazuh-4.9.0-cve-2025-24016` | web-apps | — | vuln | CVE-2025-24016 | **yes** | critical | real | 2026-11-21 | unset | 2026-11-21 |
 | `webmin-1.920-cve-2019-15107` | web-apps | — | vuln | CVE-2019-15107 | **yes** | critical | real | 2026-11-20 | scanner | 2026-11-21 |
 | `wordpress-cve-2026-60137-wp-query-sqli` | web-apps | — | vuln | CVE-2026-60137 | **yes** | medium | real | 2026-11-21 | custom-only | 2026-11-21 |
 | `wordpress-cve-2026-63030-batch-rce` | web-apps | — | vuln | CVE-2026-63030 | **yes** | critical | real | 2026-11-21 | scanner | 2026-11-21 |
