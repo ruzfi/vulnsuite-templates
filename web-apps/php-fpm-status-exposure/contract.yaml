@@ -6,7 +6,8 @@ metadata:
     PHP-FPM does not expose its pool status page by default, but setting
     pm.status_path and routing it through the web server publishes pool
     internals (active processes, request URIs, scripts) to anyone (CWE-200).
-    Verified benignly by detecting the status page.
+    Verified benignly by reading the probe's own request URI back out of the
+    full per-process status.
   vuln_refs: [VS-EXPOSED-PHPFPM-STATUS]
   cwe: [CWE-200]
   severity: low
@@ -17,11 +18,12 @@ metadata:
     - https://cwe.mitre.org/data/definitions/200.html
   maintainer: ruzfi
   added: "2026-10-14"
-  updated: "2026-11-17"
+  updated: "2026-11-21"
   fidelity: real
+  detection: scanner
   detected_by: ["nuclei:php-fpm-status"]
   verified_on:
-    date: "2026-11-20"
+    date: "2026-11-21"
     vulnsuite: v0.5.0
     host: linux/arm64
     states: [vulnerable, patched]
@@ -44,15 +46,16 @@ states:
     verify:
       - http:
           method: GET
-          path: "/status?full"
+          path: "/status?json&full&vs=7f3a9c"
           status: 200
-          body_matches: "pool:"
+          body_matches: '(?s)"process manager":"dynamic".*"request uri":"\\/status\?json&full&vs=7f3a9c"'
   patched:
     environment:
       FPM_STATUS: "0"
     verify:
       - http:
           method: GET
-          path: "/status?full"
-          status_in: [404, 403]
-          body_absent: "pool:"
+          path: "/status?json&full&vs=7f3a9c"
+          status: 404
+          body_matches: "File not found"
+          body_absent: "process manager"

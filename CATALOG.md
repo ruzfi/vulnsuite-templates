@@ -2,7 +2,7 @@
 
 # Catalog
 
-128 target(s). Regenerate with `python3 scripts/gen_catalog.py`.
+129 target(s). Regenerate with `python3 scripts/gen_catalog.py`.
 
 KEV is derived from `data/cisa-kev.txt` (CISA Known Exploited Vulnerabilities), refreshed by the cisa-kev-sync workflow; `?` means the catalog has not been synced yet.
 
@@ -26,7 +26,7 @@ Verified is `metadata.verification`: **no** means the contract is statically val
 | `erlang-otp-27.3.2-ssh-cve-2025-32433` | network-services | — | vuln | CVE-2025-32433 | **yes** | critical | real | 2026-11-20 | scanner | 2026-11-21 |
 | `inetutils-2.7-telnetd-cve-2026-24061` | network-services | — | vuln | CVE-2026-24061 | **yes** | critical | real | 2026-11-20 | unset | 2026-11-21 |
 | `opensmtpd-6.6.1p1-cve-2020-7247` | network-services | — | vuln | CVE-2020-7247 | **yes** | critical | real | 2026-11-21 | unset | 2026-11-21 |
-| `openssh-7.6p1-cve-2018-15473` | network-services | — | vuln | CVE-2018-15473 | no | medium | real | 2026-11-20 | custom-only | 2026-11-20 |
+| `openssh-7.7p1-cve-2018-15473` | network-services | — | vuln | CVE-2018-15473 | no | medium | real | 2026-11-21 | custom-only | 2026-11-21 |
 | `proftpd-1.3.5-cve-2015-3306` | network-services | — | vuln | CVE-2015-3306 | **yes** | critical | real | 2026-11-20 | scanner | 2026-11-21 |
 | `samba-4.6.3-cve-2017-7494` | network-services | — | vuln | CVE-2017-7494 | **yes** | critical | real | 2026-11-21 | unset | 2026-11-21 |
 | `openssh-10.3p1-alpine-3.24-cve-2026-123158` | network-services | `sshole` · alpine-3-24 ★ | vuln | CVE-2026-123158 | **yes** | high | real | 2026-11-20 | scanner | 2026-11-06 |
@@ -50,17 +50,17 @@ Verified is `metadata.verification`: **no** means the contract is statically val
 | `cacti-1.2.22-cve-2022-46169` | web-apps | — | vuln | CVE-2022-46169 | **yes** | critical | real | 2026-11-21 | unset | 2026-11-21 |
 | `craftcms-5.5.1.1-cve-2024-56145` | web-apps | — | vuln | CVE-2024-56145 | **yes** | critical | real | 2026-11-21 | scanner | 2026-11-21 |
 | `craftcms-5.6.16-cve-2025-32432` | web-apps | — | vuln | CVE-2025-32432 | **yes** | critical | real | 2026-11-21 | scanner | 2026-11-21 |
-| `django-debug-enabled` | web-apps | — | misconfig | VS-MISCONF-DJANGO-DEBUG | no | medium | real | 2026-11-20 | unset | 2026-11-20 |
+| `django-debug-enabled` | web-apps | — | misconfig | VS-MISCONF-DJANGO-DEBUG | no | medium | real | 2026-11-21 | scanner | 2026-11-21 |
 | `drupal-7.58-cve-2018-7602` | web-apps | — | vuln | CVE-2018-7602 | **yes** | high | real | 2026-11-21 | scanner | 2026-11-21 |
 | `drupal-8.5.0-cve-2018-7600` | web-apps | — | vuln | CVE-2018-7600 | **yes** | critical | real | 2026-11-21 | scanner | 2026-11-21 |
 | `drupal-8.6.9-rest-cve-2019-6340` | web-apps | — | vuln | CVE-2019-6340 | **yes** | high | real | 2026-11-21 | unset | 2026-11-21 |
 | `exiftool-12.23-cve-2021-22204` | web-apps | — | vuln | CVE-2021-22204 | **yes** | medium | real | 2026-11-21 | custom-only | 2026-11-21 |
-| `exposed-git-repository` | web-apps | — | exposure | VS-EXPOSED-GIT | no | high | real | 2026-11-20 | unset | 2026-10-26 |
-| `flask-werkzeug-debugger` | web-apps | — | misconfig | VS-MISCONF-FLASK-DEBUG | no | high | real | 2026-11-20 | unset | 2026-11-17 |
+| `exposed-git-repository` | web-apps | — | exposure | VS-EXPOSED-GIT | no | high | real | 2026-11-21 | scanner | 2026-11-21 |
+| `flask-werkzeug-debugger` | web-apps | — | misconfig | VS-MISCONF-FLASK-DEBUG | no | high | real | 2026-11-21 | scanner | 2026-11-21 |
 | `geoserver-2.23.5-cve-2024-36401` | web-apps | — | vuln | CVE-2024-36401, GHSA-6jj6-gm7p-fcvv | **yes** | critical | real | 2026-11-21 | scanner | 2026-11-21 |
 | `geoserver-2.25.5-cve-2025-58360` | web-apps | — | vuln | CVE-2025-58360, GHSA-fjf5-xgmq-5525 | **yes** | high | real | 2026-11-21 | scanner | 2026-11-21 |
 | `ghostscript-9.21-cve-2017-8291` | web-apps | — | vuln | CVE-2017-8291 | **yes** | high | real | 2026-11-21 | custom-only | 2026-11-21 |
-| `golang-1.27.2-cve-2026-111943-emudhra-compromised-ca` | web-apps | — | vuln | CVE-2026-111943 | no | medium | real | 2026-11-20 | scanner | 2026-11-20 |
+| `golang-1.27.2-cve-2026-111943-emudhra-compromised-ca` | web-apps | — | vuln | CVE-2026-111943 | no | medium | real | 2026-11-21 | custom-only | 2026-11-21 |
 | `grafana-8.3.0-cve-2021-43798` | web-apps | — | vuln | CVE-2021-43798 | **yes** | high | real | 2026-11-20 | scanner | 2026-09-29 |
 | `graphql-introspection-enabled` | web-apps | — | misconfig | VS-MISCONF-GQL-INTRO | no | low | real | 2026-11-20 | custom-only | 2026-09-29 |
 | `imagemagick-6.9.3-9-cve-2016-3714` | web-apps | — | vuln | CVE-2016-3714 | **yes** | high | real | 2026-11-20 | custom-only | 2026-11-21 |
@@ -86,7 +86,7 @@ Verified is `metadata.verification`: **no** means the contract is statically val
 | `pear-archive-tar-1.4.11-cve-2020-36193` | web-apps | — | vuln | CVE-2020-36193 | **yes** | high | real | 2026-11-21 | custom-only | 2026-11-21 |
 | `php-5.4.1-cgi-cve-2012-1823` | web-apps | — | vuln | CVE-2012-1823 | **yes** | critical | real | 2026-11-20 | unset | 2026-11-21 |
 | `php-7.2.23-fpm-cve-2019-11043` | web-apps | — | vuln | CVE-2019-11043 | **yes** | high | real | 2026-11-20 | scanner | 2026-11-21 |
-| `php-fpm-status-exposure` | web-apps | — | exposure | VS-EXPOSED-PHPFPM-STATUS | no | low | real | 2026-11-20 | unset | 2026-11-17 |
+| `php-fpm-status-exposure` | web-apps | — | exposure | VS-EXPOSED-PHPFPM-STATUS | no | low | real | 2026-11-21 | scanner | 2026-11-21 |
 | `php-8.2-cve-2026-109618-multipart-rce-version-upgrade-patch` | web-apps | `php2shell` · version-upgrade ★ | vuln | CVE-2026-109618, CVE-2026-109619 | **yes** | critical | real | 2026-11-20 | scanner | 2026-11-20 |
 | `php-8.2-cve-2026-109618-multipart-rce-expose-php-off` | web-apps | `php2shell` · expose-php-off | vuln | CVE-2026-109618, CVE-2026-109619 | **yes** | critical | real | 2026-11-20 | unset | 2026-11-20 |
 | `php-8.2-cve-2026-109618-multipart-rce-workaround-patch` | web-apps | `php2shell` · workaround | vuln | CVE-2026-109618, CVE-2026-109619 | **yes** | critical | real | 2026-11-20 | unset | 2026-11-20 |
@@ -126,6 +126,7 @@ Verified is `metadata.verification`: **no** means the contract is statically val
 | `bash-4.3-cgi-cve-2014-6271` | web-servers | — | vuln | CVE-2014-6271 | **yes** | critical | real | 2026-11-20 | scanner | 2026-11-21 |
 | `goahead-3.6.4-cve-2017-17562` | web-servers | — | vuln | CVE-2017-17562 | **yes** | high | real | 2026-11-21 | scanner | 2026-11-21 |
 | `jboss-as-6.1.0-http-invoker-cve-2017-12149` | web-servers | — | vuln | CVE-2017-12149 | **yes** | critical | real | 2026-11-21 | unset | 2026-11-21 |
+| `nginx-emudhra-compromised-ca-exposure` | web-servers | — | exposure | VS-EXPOSED-EMUDHRA-CA | no | medium | real | 2026-11-21 | scanner | 2026-11-21 |
 | `nginx-1.31.8-http2-conn-cve-2026-123633` | web-servers | `nginx2root-h2-conn` · mainline-1-31 ★ | vuln | CVE-2026-123633 | no | critical | real | 2026-11-20 | custom-only | 2026-11-20 |
 | `nginx-1.30.6-http2-conn-cve-2026-123633` | web-servers | `nginx2root-h2-conn` · stable-1-30 | vuln | CVE-2026-123633 | no | critical | real | 2026-11-20 | custom-only | 2026-11-20 |
 | `nginx-1.31.8-http2-cve-2026-123007` | web-servers | `nginx2root-h2-window` · mainline-1-31 ★ | vuln | CVE-2026-123007 | no | critical | real | 2026-11-20 | unset | 2026-11-20 |
