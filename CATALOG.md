@@ -2,7 +2,7 @@
 
 # Catalog
 
-144 target(s). Regenerate with `python3 scripts/gen_catalog.py`.
+145 target(s). Regenerate with `python3 scripts/gen_catalog.py`.
 
 KEV is derived from `data/cisa-kev.txt` (CISA Known Exploited Vulnerabilities), refreshed by the cisa-kev-sync workflow; `?` means the catalog has not been synced yet.
 
@@ -76,6 +76,7 @@ Verified is `metadata.verification`: **no** means the contract is statically val
 | `jenkins-script-security-1.53-cve-2019-1003029` | web-apps | — | vuln | CVE-2019-1003029 | **yes** | critical | real | 2026-11-21 | custom-only | 2026-11-21 |
 | `jenkins-workflow-cps-2.63-cve-2019-1003030` | web-apps | — | vuln | CVE-2019-1003030 | **yes** | critical | real | 2026-11-21 | scanner | 2026-11-21 |
 | `joomla-4.2.7-cve-2023-23752` | web-apps | — | vuln | CVE-2023-23752 | **yes** | medium | real | 2026-11-21 | scanner | 2026-11-21 |
+| `kestra-1.0.44-cve-2026-49869` | web-apps | — | vuln | CVE-2026-49869, GHSA-5vc5-wxxq-3fjx | **yes** | critical | real | 2026-11-21 | custom-only | 2026-11-21 |
 | `kibana-6.5.4-cve-2019-7609` | web-apps | — | vuln | CVE-2019-7609 | **yes** | critical | real | 2026-11-21 | unset | 2026-11-21 |
 | `langflow-1.2.0-cve-2025-3248` | web-apps | — | vuln | CVE-2025-3248 | **yes** | critical | real | 2026-11-20 | scanner | 2026-11-21 |
 | `langflow-1.6.9-cve-2025-34291` | web-apps | — | vuln, misconfig | CVE-2025-34291 | **yes** | critical | real | 2026-11-21 | scanner | 2026-11-21 |
