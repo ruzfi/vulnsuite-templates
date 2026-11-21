@@ -2,7 +2,7 @@
 
 # Catalog
 
-97 target(s). Regenerate with `python3 scripts/gen_catalog.py`.
+101 target(s). Regenerate with `python3 scripts/gen_catalog.py`.
 
 KEV is derived from `data/cisa-kev.txt` (CISA Known Exploited Vulnerabilities), refreshed by the cisa-kev-sync workflow; `?` means the catalog has not been synced yet.
 
@@ -42,10 +42,12 @@ Verified is `metadata.verification`: **no** means the contract is statically val
 | `django-debug-enabled` | web-apps | — | misconfig | VS-MISCONF-DJANGO-DEBUG | no | medium | real | 2026-11-20 | unset | 2026-11-20 |
 | `drupal-8.5.0-cve-2018-7600` | web-apps | — | vuln | CVE-2018-7600 | **yes** | critical | real | 2026-11-21 | scanner | 2026-11-21 |
 | `drupal-8.6.9-rest-cve-2019-6340` | web-apps | — | vuln | CVE-2019-6340 | **yes** | high | real | 2026-11-21 | unset | 2026-11-21 |
+| `exiftool-12.23-cve-2021-22204` | web-apps | — | vuln | CVE-2021-22204 | **yes** | medium | real | 2026-11-21 | custom-only | 2026-11-21 |
 | `exposed-git-repository` | web-apps | — | exposure | VS-EXPOSED-GIT | no | high | real | 2026-11-20 | unset | 2026-10-26 |
 | `flask-werkzeug-debugger` | web-apps | — | misconfig | VS-MISCONF-FLASK-DEBUG | no | high | real | 2026-11-20 | unset | 2026-11-17 |
 | `geoserver-2.23.5-cve-2024-36401` | web-apps | — | vuln | CVE-2024-36401, GHSA-6jj6-gm7p-fcvv | **yes** | critical | real | 2026-11-21 | scanner | 2026-11-21 |
 | `geoserver-2.25.5-cve-2025-58360` | web-apps | — | vuln | CVE-2025-58360, GHSA-fjf5-xgmq-5525 | **yes** | high | real | 2026-11-21 | scanner | 2026-11-21 |
+| `ghostscript-9.21-cve-2017-8291` | web-apps | — | vuln | CVE-2017-8291 | **yes** | high | real | 2026-11-21 | custom-only | 2026-11-21 |
 | `golang-1.27.2-cve-2026-111943-emudhra-compromised-ca` | web-apps | — | vuln | CVE-2026-111943 | no | medium | real | 2026-11-20 | scanner | 2026-11-20 |
 | `grafana-8.3.0-cve-2021-43798` | web-apps | — | vuln | CVE-2021-43798 | **yes** | high | real | 2026-11-20 | scanner | 2026-09-29 |
 | `graphql-introspection-enabled` | web-apps | — | misconfig | VS-MISCONF-GQL-INTRO | no | low | real | 2026-11-20 | custom-only | 2026-09-29 |
@@ -91,10 +93,12 @@ Verified is `metadata.verification`: **no** means the contract is statically val
 | `wordpress-cve-2026-60137-wp-query-sqli` | web-apps | — | vuln | CVE-2026-60137 | **yes** | medium | real | 2026-11-20 | custom-only | 2026-11-20 |
 | `wordpress-cve-2026-63030-batch-rce` | web-apps | — | vuln | CVE-2026-63030 | **yes** | critical | real | 2026-11-20 | scanner | 2026-11-20 |
 | `wordpress-cve-2026-87902-page-template-traversal` | web-apps | — | vuln | CVE-2026-87902 | **yes** | critical | real | 2026-11-20 | scanner | 2026-11-18 |
+| `xstream-1.4.17-cve-2021-39144` | web-apps | — | vuln | CVE-2021-39144, GHSA-j9h8-phrw-h4fh | **yes** | high | real | 2026-11-21 | scanner | 2026-11-21 |
 | `apache-httpd-2.4.49-cve-2021-41773` | web-servers | — | vuln | CVE-2021-41773 | **yes** | high | real | 2026-11-20 | scanner | 2026-11-20 |
 | `apache-httpd-2.4.50-cve-2021-42013` | web-servers | — | vuln | CVE-2021-42013 | **yes** | critical | real | 2026-11-20 | scanner | 2026-11-20 |
 | `apache-mod-status-exposure` | web-servers | — | misconfig, exposure | VS-EXPOSED-APACHE-STATUS | no | low | real | 2026-11-20 | unset | 2026-11-17 |
 | `bash-4.3-cgi-cve-2014-6271` | web-servers | — | vuln | CVE-2014-6271 | **yes** | critical | real | 2026-11-20 | scanner | 2026-11-21 |
+| `goahead-3.6.4-cve-2017-17562` | web-servers | — | vuln | CVE-2017-17562 | **yes** | high | real | 2026-11-21 | scanner | 2026-11-21 |
 | `nginx-1.31.8-http2-conn-cve-2026-123633` | web-servers | `nginx2root-h2-conn` · mainline-1-31 ★ | vuln | CVE-2026-123633 | no | critical | real | 2026-11-20 | custom-only | 2026-11-20 |
 | `nginx-1.30.6-http2-conn-cve-2026-123633` | web-servers | `nginx2root-h2-conn` · stable-1-30 | vuln | CVE-2026-123633 | no | critical | real | 2026-11-20 | custom-only | 2026-11-20 |
 | `nginx-1.31.8-http2-cve-2026-123007` | web-servers | `nginx2root-h2-window` · mainline-1-31 ★ | vuln | CVE-2026-123007 | no | critical | real | 2026-11-20 | unset | 2026-11-20 |
