@@ -121,6 +121,7 @@ Verified is `metadata.verification`: **no** means the contract is statically val
 | `spring-data-commons-2.0.5-cve-2018-1273` | web-apps | — | vuln | CVE-2018-1273 | **yes** | critical | real | 2026-11-21 | unset | 2026-11-21 |
 | `spring-framework-5.3.17-cve-2022-22965` | web-apps | — | vuln | CVE-2022-22965 | **yes** | critical | real | 2026-11-21 | scanner | 2026-11-21 |
 | `systeminformation-5.3.0-cve-2021-21315` | web-apps | — | vuln | CVE-2021-21315, GHSA-2m8v-572m-ff2v | **yes** | high | real | 2026-11-21 | scanner | 2026-11-21 |
+| `wazuh-4.9.0-cve-2025-24016` | web-apps | — | vuln | CVE-2025-24016 | **yes** | critical | real | 2026-11-21 | unset | 2026-11-21 |
 | `webmin-1.920-cve-2019-15107` | web-apps | — | vuln | CVE-2019-15107 | **yes** | critical | real | 2026-11-20 | scanner | 2026-11-21 |
 | `wordpress-cve-2026-60137-wp-query-sqli` | web-apps | — | vuln | CVE-2026-60137 | **yes** | medium | real | 2026-11-21 | custom-only | 2026-11-21 |
 | `wordpress-cve-2026-63030-batch-rce` | web-apps | — | vuln | CVE-2026-63030 | **yes** | critical | real | 2026-11-21 | scanner | 2026-11-21 |
