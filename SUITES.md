@@ -19,13 +19,14 @@ misconfig-sweep — every misconfiguration-class target in the corpus. A single 
 
 Selectors: `-class misconfig`
 
-Members: **6** default, **6** with `-variants`.
+Members: **7** default, **7** with `-variants`.
 
 | Target | Category | Via | Default |
 | --- | --- | --- | --- |
 | `django-debug-enabled` | web-apps | -class misconfig | ✓ |
 | `flask-werkzeug-debugger` | web-apps | -class misconfig | ✓ |
 | `graphql-introspection-enabled` | web-apps | -class misconfig | ✓ |
+| `langflow-1.6.9-cve-2025-34291` | web-apps | -class misconfig | ✓ |
 | `nodejs-inspector-exposure` | web-apps | -class misconfig | ✓ |
 | `spring-boot-jolokia-exposure` | web-apps | -class misconfig | ✓ |
 | `apache-mod-status-exposure` | web-servers | -class misconfig | ✓ |
@@ -57,7 +58,7 @@ nightly — broad nightly coverage set. Both shipped variant families plus every
 
 Selectors: `php2shell`, `sshole`, `-class misconfig`, `-class exposure`
 
-Members: **13** default, **23** with `-variants`.
+Members: **14** default, **24** with `-variants`.
 
 | Target | Category | Via | Default |
 | --- | --- | --- | --- |
@@ -76,6 +77,7 @@ Members: **13** default, **23** with `-variants`.
 | `django-debug-enabled` | web-apps | -class misconfig | ✓ |
 | `flask-werkzeug-debugger` | web-apps | -class misconfig | ✓ |
 | `graphql-introspection-enabled` | web-apps | -class misconfig | ✓ |
+| `langflow-1.6.9-cve-2025-34291` | web-apps | -class misconfig | ✓ |
 | `nodejs-inspector-exposure` | web-apps | -class misconfig | ✓ |
 | `spring-boot-jolokia-exposure` | web-apps | -class misconfig | ✓ |
 | `apache-mod-status-exposure` | web-servers | -class misconfig | ✓ |
