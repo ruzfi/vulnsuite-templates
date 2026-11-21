@@ -22,11 +22,13 @@ Verified is `metadata.verification`: **no** means the contract is statically val
 | `minio-2023-03-13-cve-2023-28434` | databases | — | vuln | CVE-2023-28434 | **yes** | high | real | 2026-11-21 | unset | 2026-11-21 |
 | `redis-debian-cve-2022-0543` | databases | — | vuln | CVE-2022-0543 | **yes** | critical | real | 2026-11-20 | scanner | 2026-11-21 |
 | `apache-activemq-5.17.5-cve-2023-46604` | network-services | — | vuln | CVE-2023-46604 | **yes** | critical | real | 2026-11-20 | scanner | 2026-11-21 |
+| `apache-rocketmq-5.1.0-cve-2023-33246` | network-services | — | vuln | CVE-2023-33246 | **yes** | critical | real | 2026-11-21 | scanner | 2026-11-21 |
 | `erlang-otp-27.3.2-ssh-cve-2025-32433` | network-services | — | vuln | CVE-2025-32433 | **yes** | critical | real | 2026-11-20 | scanner | 2026-11-21 |
 | `inetutils-2.7-telnetd-cve-2026-24061` | network-services | — | vuln | CVE-2026-24061 | **yes** | critical | real | 2026-11-20 | unset | 2026-11-21 |
 | `opensmtpd-6.6.1p1-cve-2020-7247` | network-services | — | vuln | CVE-2020-7247 | **yes** | critical | real | 2026-11-21 | unset | 2026-11-21 |
 | `openssh-7.6p1-cve-2018-15473` | network-services | — | vuln | CVE-2018-15473 | no | medium | real | 2026-11-20 | custom-only | 2026-11-20 |
 | `proftpd-1.3.5-cve-2015-3306` | network-services | — | vuln | CVE-2015-3306 | **yes** | critical | real | 2026-11-20 | scanner | 2026-11-21 |
+| `samba-4.6.3-cve-2017-7494` | network-services | — | vuln | CVE-2017-7494 | **yes** | critical | real | 2026-11-21 | unset | 2026-11-21 |
 | `openssh-10.3p1-alpine-3.24-cve-2026-123158` | network-services | `sshole` · alpine-3-24 ★ | vuln | CVE-2026-123158 | **yes** | high | real | 2026-11-20 | scanner | 2026-11-06 |
 | `openssh-9.0p1-alpine-3.16-cve-2026-123158` | network-services | `sshole` · alpine-3-16 | vuln | CVE-2026-123158 | **yes** | high | real | 2026-11-20 | scanner | 2026-11-06 |
 | `openssh-9.1p1-alpine-3.17-cve-2026-123158` | network-services | `sshole` · alpine-3-17 | vuln | CVE-2026-123158 | **yes** | high | real | 2026-11-20 | scanner | 2026-11-06 |
