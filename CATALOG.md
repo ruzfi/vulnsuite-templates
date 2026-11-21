@@ -2,7 +2,7 @@
 
 # Catalog
 
-138 target(s). Regenerate with `python3 scripts/gen_catalog.py`.
+139 target(s). Regenerate with `python3 scripts/gen_catalog.py`.
 
 KEV is derived from `data/cisa-kev.txt` (CISA Known Exploited Vulnerabilities), refreshed by the cisa-kev-sync workflow; `?` means the catalog has not been synced yet.
 
@@ -49,6 +49,7 @@ Verified is `metadata.verification`: **no** means the contract is statically val
 | `apache-ofbiz-18.12.14-cve-2024-38856` | web-apps | — | vuln | CVE-2024-38856 | **yes** | high | real | 2026-11-21 | scanner | 2026-11-21 |
 | `apache-shiro-1.2.4-cve-2016-4437` | web-apps | — | vuln | CVE-2016-4437 | **yes** | critical | real | 2026-11-21 | scanner | 2026-11-21 |
 | `apache-spark-3.2.1-cve-2022-33891` | web-apps | — | vuln | CVE-2022-33891 | **yes** | high | real | 2026-11-21 | unset | 2026-11-21 |
+| `apache-superset-2.0.1-cve-2023-27524` | web-apps | — | vuln | CVE-2023-27524 | **yes** | high | real | 2026-11-21 | unset | 2026-11-21 |
 | `apisix-2.12.0-cve-2022-24112` | web-apps | — | vuln | CVE-2022-24112 | **yes** | critical | real | 2026-11-21 | unset | 2026-11-21 |
 | `cacti-1.2.22-cve-2022-46169` | web-apps | — | vuln | CVE-2022-46169 | **yes** | critical | real | 2026-11-21 | unset | 2026-11-21 |
 | `craftcms-5.5.1.1-cve-2024-56145` | web-apps | — | vuln | CVE-2024-56145 | **yes** | critical | real | 2026-11-21 | scanner | 2026-11-21 |
