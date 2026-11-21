@@ -5,8 +5,9 @@ metadata:
   summary: >-
     A Flask app is safe by default, but running it with debug enabled exposes
     the Werkzeug interactive debugger: any unhandled error returns a traceback
-    page with an (RCE-capable) console (CWE-489). Verified benignly by detecting
-    the debugger traceback page, never by using the console.
+    page with an (RCE-capable) console (CWE-489). Verified benignly by reaching
+    the (PIN-locked) /console page and the debugger's own resources, never by
+    executing code in the console.
   vuln_refs: [VS-MISCONF-FLASK-DEBUG]
   cwe: [CWE-489]
   severity: high
@@ -18,11 +19,12 @@ metadata:
     - https://owasp.org/www-community/vulnerabilities/Improper_Error_Handling
   maintainer: ruzfi
   added: "2026-10-14"
-  updated: "2026-11-17"
+  updated: "2026-11-21"
   fidelity: real
+  detection: scanner
   detected_by: ["nuclei:flask-werkzeug-debug"]
   verified_on:
-    date: "2026-11-20"
+    date: "2026-11-21"
     vulnsuite: v0.5.0
     host: linux/arm64
     states: [vulnerable, patched]
@@ -45,15 +47,28 @@ states:
     verify:
       - http:
           method: GET
-          path: "/"
-          status: 500
-          body_matches: "Werkzeug powered traceback interpreter"
+          path: "/console"
+          status: 200
+          body_matches: "(?s)CONSOLE_MODE = true.*EVALEX = true"
+      - http:
+          method: GET
+          path: "/?__debugger__=yes&cmd=resource&f=debugger.js"
+          status: 200
+          header_matches: { Content-Type: "javascript" }
+          body_matches: "createInteractiveConsole"
   patched:
     environment:
       APP_DEBUG: "0"
     verify:
       - http:
           method: GET
-          path: "/"
+          path: "/console"
+          status: 404
+          body_matches: "The requested URL was not found on the server"
+          body_absent: "EVALEX"
+      - http:
+          method: GET
+          path: "/?__debugger__=yes&cmd=resource&f=debugger.js"
           status: 500
-          body_absent: "Werkzeug powered traceback interpreter"
+          body_matches: "The server encountered an internal error"
+          body_absent: "createInteractiveConsole"

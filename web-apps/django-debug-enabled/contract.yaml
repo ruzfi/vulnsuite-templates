@@ -5,8 +5,8 @@ metadata:
   summary: >-
     Django is safe by default, but deploying with DEBUG=True turns every error
     page into a detailed report that leaks settings, the URLconf and the
-    environment (CWE-489 / CWE-215). Verified benignly by detecting the DEBUG
-    404 page, not by harvesting the leaked settings.
+    environment (CWE-489 / CWE-215). Verified benignly by reading the leaked
+    URLconf off a DEBUG 404 page, not by harvesting the leaked settings.
   vuln_refs: [VS-MISCONF-DJANGO-DEBUG]
   cwe: [CWE-489, CWE-215]
   severity: medium
@@ -17,11 +17,12 @@ metadata:
     - https://cwe.mitre.org/data/definitions/489.html
   maintainer: ruzfi
   added: "2026-10-14"
-  updated: "2026-11-20"
+  updated: "2026-11-21"
   fidelity: real
+  detection: scanner
   detected_by: ["nuclei:django-debug-config-enabled"]
   verified_on:
-    date: "2026-11-20"
+    date: "2026-11-21"
     vulnsuite: v0.5.0
     host: linux/arm64
     states: [vulnerable, patched]
@@ -44,15 +45,16 @@ states:
     verify:
       - http:
           method: GET
-          path: "/NON_EXISTING_PATH/"
+          path: "/vulnsuite-probe-unrouted/"
           status: 404
-          body_matches: "Django tried these URL patterns"
+          body_matches: "(?s)admin/.*seeing this error because you have <code>DEBUG = True</code>"
   patched:
     environment:
       DJANGO_DEBUG: "0"
     verify:
       - http:
           method: GET
-          path: "/NON_EXISTING_PATH/"
+          path: "/vulnsuite-probe-unrouted/"
           status: 404
-          body_absent: "Django tried these URL patterns"
+          body_matches: "<h1>Not Found</h1><p>The requested resource was not found on this server.</p>"
+          body_absent: "DEBUG = True"

@@ -2,7 +2,10 @@ apiVersion: vulnsuite/v1
 kind: Target
 metadata:
   id: exposed-git-repository
-  summary: A deployed .git directory served over HTTP, leaking source and a deploy token.
+  summary: >-
+    A deployed .git directory served over HTTP: the repository (HEAD, refs and
+    loose objects) can be fetched and the source rebuilt, and .git/config leaks
+    a deploy token in the remote URL.
   vuln_refs: [VS-EXPOSED-GIT]
   cwe: [CWE-538]
   severity: high
@@ -12,11 +15,12 @@ metadata:
     - https://owasp.org/www-community/attacks/Source_code_disclosure
   maintainer: ruzfi
   added: "2026-09-29"
-  updated: "2026-10-26"
+  updated: "2026-11-21"
   fidelity: real
+  detection: scanner
   detected_by: ["nuclei:git-config"]
   verified_on:
-    date: "2026-11-20"
+    date: "2026-11-21"
     vulnsuite: v0.5.0
     host: linux/arm64
     states: [vulnerable, patched]
@@ -32,11 +36,26 @@ states:
     overlay:
       - { src: files/vulnerable/default.conf, dest: /etc/nginx/conf.d/default.conf }
       - { src: files/common/git/config, dest: /usr/share/nginx/html/.git/config }
+      - { src: files/common/git/HEAD, dest: /usr/share/nginx/html/.git/HEAD }
+      - { src: files/common/git/refs/heads/main, dest: /usr/share/nginx/html/.git/refs/heads/main }
+      - { src: files/common/git/objects/ce/a9abacd7642e2c38a1aa39f591e31bc0af7fc0, dest: /usr/share/nginx/html/.git/objects/ce/a9abacd7642e2c38a1aa39f591e31bc0af7fc0 }
+      - { src: files/common/git/objects/5d/ac4bcae5ba0c2992dd51aefccfbf623e68401b, dest: /usr/share/nginx/html/.git/objects/5d/ac4bcae5ba0c2992dd51aefccfbf623e68401b }
+      - { src: files/common/git/objects/b4/5b9037b209e3cbb84a9b7e21bf0ae3544391ce, dest: /usr/share/nginx/html/.git/objects/b4/5b9037b209e3cbb84a9b7e21bf0ae3544391ce }
     verify:
-      - http: { method: GET, path: "/.git/config", status: 200, body_matches: "repositoryformatversion" }
+      - http: { method: GET, path: "/.git/HEAD", status: 200, body_matches: "^ref: refs/heads/main" }
+      - http: { method: GET, path: "/.git/refs/heads/main", status: 200, body_matches: "^cea9abacd7642e2c38a1aa39f591e31bc0af7fc0" }
+      - http: { method: GET, path: "/.git/objects/b4/5b9037b209e3cbb84a9b7e21bf0ae3544391ce", status: 200, header_matches: { Content-Length: "^270$" } }
+      - http: { method: GET, path: "/.git/config", status: 200, body_matches: "https://deploy-token:s3cr3t@git\\.internal/" }
   patched:
     overlay:
       - { src: files/patched/default.conf, dest: /etc/nginx/conf.d/default.conf }
       - { src: files/common/git/config, dest: /usr/share/nginx/html/.git/config }
+      - { src: files/common/git/HEAD, dest: /usr/share/nginx/html/.git/HEAD }
+      - { src: files/common/git/refs/heads/main, dest: /usr/share/nginx/html/.git/refs/heads/main }
+      - { src: files/common/git/objects/ce/a9abacd7642e2c38a1aa39f591e31bc0af7fc0, dest: /usr/share/nginx/html/.git/objects/ce/a9abacd7642e2c38a1aa39f591e31bc0af7fc0 }
+      - { src: files/common/git/objects/5d/ac4bcae5ba0c2992dd51aefccfbf623e68401b, dest: /usr/share/nginx/html/.git/objects/5d/ac4bcae5ba0c2992dd51aefccfbf623e68401b }
+      - { src: files/common/git/objects/b4/5b9037b209e3cbb84a9b7e21bf0ae3544391ce, dest: /usr/share/nginx/html/.git/objects/b4/5b9037b209e3cbb84a9b7e21bf0ae3544391ce }
     verify:
-      - http: { method: GET, path: "/.git/config", status_in: [403], body_absent: "repositoryformatversion" }
+      - http: { method: GET, path: "/.git/HEAD", status: 403, body_matches: "403 Forbidden", body_absent: "refs/heads" }
+      - http: { method: GET, path: "/.git/objects/b4/5b9037b209e3cbb84a9b7e21bf0ae3544391ce", status: 403, body_matches: "403 Forbidden" }
+      - http: { method: GET, path: "/.git/config", status: 403, body_matches: "403 Forbidden", body_absent: "deploy-token" }
