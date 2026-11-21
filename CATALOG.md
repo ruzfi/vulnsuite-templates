@@ -77,8 +77,8 @@ Verified is `metadata.verification`: **no** means the contract is statically val
 | `nextcloud-collabora-code-cve-2026-110447` | web-apps | — | vuln | CVE-2026-110447 | **yes** | critical | real | 2026-11-20 | unset | 2026-11-17 |
 | `nexus3-3.14.0-cve-2019-7238` | web-apps | — | vuln | CVE-2019-7238 | **yes** | critical | real | 2026-11-21 | scanner | 2026-11-21 |
 | `nexus3-3.21.1-cve-2020-10199` | web-apps | — | vuln | CVE-2020-10199 | **yes** | high | real | 2026-11-20 | scanner | 2026-11-20 |
-| `nodejs-cve-2026-111497-express-version-upgrade-patch` | web-apps | — | vuln | CVE-2026-111497 | **yes** | critical | real | 2026-11-20 | scanner | 2026-11-20 |
-| `nodejs-cve-2026-111497-express-workaround-patch` | web-apps | — | vuln | CVE-2026-111497 | **yes** | critical | real | 2026-11-20 | scanner | 2026-11-20 |
+| `nodejs-cve-2026-111497-express-version-upgrade-patch` | web-apps | `node2shell` · version-upgrade ★ | vuln | CVE-2026-111497 | **yes** | critical | real | 2026-11-21 | scanner | 2026-11-21 |
+| `nodejs-cve-2026-111497-express-workaround-patch` | web-apps | `node2shell` · workaround | vuln | CVE-2026-111497 | **yes** | critical | real | 2026-11-21 | scanner | 2026-11-21 |
 | `nodejs-inspector-exposure` | web-apps | — | exposure, misconfig | VS-MISCONF-NODE-INSPECT | no | high | real | 2026-11-20 | custom-only | 2026-11-17 |
 | `openfire-4.7.4-cve-2023-32315` | web-apps | — | vuln | CVE-2023-32315 | **yes** | high | real | 2026-11-20 | scanner | 2026-11-20 |
 | `owncloud-10.13.0-graphapi-cve-2023-49103` | web-apps | — | vuln, exposure | CVE-2023-49103 | **yes** | critical | real | 2026-11-20 | scanner | 2026-11-21 |
