@@ -74,7 +74,7 @@ Verified is `metadata.verification`: **no** means the contract is statically val
 | `livewire-3.6.3-cve-2025-54068` | web-apps | — | vuln | CVE-2025-54068 | **yes** | critical | real | 2026-11-21 | scanner | 2026-11-21 |
 | `metabase-0.40.4-cve-2021-41277` | web-apps | — | vuln | CVE-2021-41277 | **yes** | critical | real | 2026-11-20 | scanner | 2026-11-21 |
 | `mongo-express-0.53.0-cve-2019-10758` | web-apps | — | vuln | CVE-2019-10758 | **yes** | critical | real | 2026-11-21 | scanner | 2026-11-21 |
-| `nextcloud-collabora-code-cve-2026-110447` | web-apps | — | vuln | CVE-2026-110447 | **yes** | critical | real | 2026-11-20 | unset | 2026-11-17 |
+| `nextcloud-collabora-code-cve-2026-110447` | web-apps | — | vuln | CVE-2026-110447 | **yes** | critical | real | 2026-11-21 | scanner | 2026-11-21 |
 | `nexus3-3.14.0-cve-2019-7238` | web-apps | — | vuln | CVE-2019-7238 | **yes** | critical | real | 2026-11-21 | scanner | 2026-11-21 |
 | `nexus3-3.21.1-cve-2020-10199` | web-apps | — | vuln | CVE-2020-10199 | **yes** | high | real | 2026-11-20 | scanner | 2026-11-20 |
 | `nodejs-cve-2026-111497-express-version-upgrade-patch` | web-apps | — | vuln | CVE-2026-111497 | **yes** | critical | real | 2026-11-20 | scanner | 2026-11-20 |
