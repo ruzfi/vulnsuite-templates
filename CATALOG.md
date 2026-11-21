@@ -2,7 +2,7 @@
 
 # Catalog
 
-119 target(s). Regenerate with `python3 scripts/gen_catalog.py`.
+120 target(s). Regenerate with `python3 scripts/gen_catalog.py`.
 
 KEV is derived from `data/cisa-kev.txt` (CISA Known Exploited Vulnerabilities), refreshed by the cisa-kev-sync workflow; `?` means the catalog has not been synced yet.
 
@@ -36,6 +36,7 @@ Verified is `metadata.verification`: **no** means the contract is statically val
 | `openssh-10.2p1-alpine-3.23-cve-2026-123158` | network-services | `sshole` · alpine-3-23 | vuln | CVE-2026-123158 | **yes** | high | real | 2026-11-20 | scanner | 2026-11-06 |
 | `activemq-5.11.1-fileserver-cve-2016-3088` | web-apps | — | vuln | CVE-2016-3088 | **yes** | critical | real | 2026-11-20 | scanner | 2026-11-21 |
 | `adminer-4.7.8-cve-2021-21311` | web-apps | — | vuln | CVE-2021-21311 | **yes** | high | real | 2026-11-20 | unset | 2026-11-21 |
+| `apache-activemq-6.2.2-jolokia-cve-2026-34197` | web-apps | — | vuln | CVE-2026-34197 | **yes** | high | real | 2026-11-21 | scanner | 2026-11-21 |
 | `apache-flink-1.11.2-cve-2020-17519` | web-apps | — | vuln | CVE-2020-17519 | **yes** | critical | real | 2026-11-20 | scanner | 2026-11-20 |
 | `apache-ofbiz-18.12.14-cve-2024-38856` | web-apps | — | vuln | CVE-2024-38856 | **yes** | high | real | 2026-11-21 | scanner | 2026-11-21 |
 | `apache-shiro-1.2.4-cve-2016-4437` | web-apps | — | vuln | CVE-2016-4437 | **yes** | critical | real | 2026-11-21 | scanner | 2026-11-21 |
