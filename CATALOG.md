@@ -2,7 +2,7 @@
 
 # Catalog
 
-82 target(s). Regenerate with `python3 scripts/gen_catalog.py`.
+83 target(s). Regenerate with `python3 scripts/gen_catalog.py`.
 
 KEV is derived from `data/cisa-kev.txt` (CISA Known Exploited Vulnerabilities), refreshed by the cisa-kev-sync workflow; `?` means the catalog has not been synced yet.
 
@@ -17,6 +17,7 @@ Verified is `metadata.verification`: **no** means the contract is statically val
 | `elasticsearch-1.4.2-cve-2015-1427-groovy-sandbox` | databases | — | vuln | CVE-2015-1427 | **yes** | critical | real | 2026-11-20 | scanner | 2026-11-21 |
 | `elasticsearch-cve-2014-3120-dynamic-scripting` | databases | — | vuln | CVE-2014-3120 | **yes** | high | real | 2026-11-20 | scanner | 2026-11-20 |
 | `redis-debian-cve-2022-0543` | databases | — | vuln | CVE-2022-0543 | **yes** | critical | real | 2026-11-20 | scanner | 2026-11-21 |
+| `apache-activemq-5.17.5-cve-2023-46604` | network-services | — | vuln | CVE-2023-46604 | **yes** | critical | real | 2026-11-20 | scanner | 2026-11-21 |
 | `erlang-otp-27.3.2-ssh-cve-2025-32433` | network-services | — | vuln | CVE-2025-32433 | **yes** | critical | real | 2026-11-20 | scanner | 2026-11-21 |
 | `inetutils-2.7-telnetd-cve-2026-24061` | network-services | — | vuln | CVE-2026-24061 | **yes** | critical | real | 2026-11-20 | unset | 2026-11-21 |
 | `openssh-7.6p1-cve-2018-15473` | network-services | — | vuln | CVE-2018-15473 | no | medium | real | 2026-11-20 | custom-only | 2026-11-20 |
