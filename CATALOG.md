@@ -2,7 +2,7 @@
 
 # Catalog
 
-130 target(s). Regenerate with `python3 scripts/gen_catalog.py`.
+132 target(s). Regenerate with `python3 scripts/gen_catalog.py`.
 
 KEV is derived from `data/cisa-kev.txt` (CISA Known Exploited Vulnerabilities), refreshed by the cisa-kev-sync workflow; `?` means the catalog has not been synced yet.
 
@@ -28,6 +28,7 @@ Verified is `metadata.verification`: **no** means the contract is statically val
 | `opensmtpd-6.6.1p1-cve-2020-7247` | network-services | — | vuln | CVE-2020-7247 | **yes** | critical | real | 2026-11-21 | unset | 2026-11-21 |
 | `openssh-7.7p1-cve-2018-15473` | network-services | — | vuln | CVE-2018-15473 | no | medium | real | 2026-11-21 | custom-only | 2026-11-21 |
 | `proftpd-1.3.5-cve-2015-3306` | network-services | — | vuln | CVE-2015-3306 | **yes** | critical | real | 2026-11-20 | scanner | 2026-11-21 |
+| `salt-2019.2.3-cve-2020-11651` | network-services | — | vuln | CVE-2020-11651, CVE-2020-11652 | **yes** | critical | real | 2026-11-21 | custom-only | 2026-11-21 |
 | `samba-4.6.3-cve-2017-7494` | network-services | — | vuln | CVE-2017-7494 | **yes** | critical | real | 2026-11-21 | unset | 2026-11-21 |
 | `openssh-10.3p1-alpine-3.24-cve-2026-123158` | network-services | `sshole` · alpine-3-24 ★ | vuln | CVE-2026-123158 | **yes** | high | real | 2026-11-20 | scanner | 2026-11-06 |
 | `openssh-9.0p1-alpine-3.16-cve-2026-123158` | network-services | `sshole` · alpine-3-16 | vuln | CVE-2026-123158 | **yes** | high | real | 2026-11-20 | scanner | 2026-11-06 |
@@ -102,6 +103,7 @@ Verified is `metadata.verification`: **no** means the contract is statically val
 | `openproject-17.9.7-cve-2026-132825` | web-apps | `ruby2shell` · openproject-17-9 | vuln | CVE-2026-132825 | no | critical | real | 2026-11-20 | unset | 2026-11-19 |
 | `ruby-3.3.13-rails-cve-2026-132825` | web-apps | `ruby2shell` · ruby-3-3 | vuln | CVE-2026-132825 | no | critical | real | 2026-11-20 | unset | 2026-11-19 |
 | `ruby-3.4.12-rails-cve-2026-132825` | web-apps | `ruby2shell` · ruby-3-4 | vuln | CVE-2026-132825 | no | critical | real | 2026-11-20 | unset | 2026-11-19 |
+| `salt-3002-api-cve-2020-16846` | web-apps | — | vuln | CVE-2020-16846, CVE-2020-25592 | **yes** | critical | real | 2026-11-21 | scanner | 2026-11-21 |
 | `solr-8.1.1-cve-2019-0193` | web-apps | — | vuln | CVE-2019-0193 | **yes** | high | real | 2026-11-20 | unset | 2026-11-21 |
 | `solr-8.11.0-log4j-cve-2021-44228` | web-apps | — | vuln | CVE-2021-44228 | **yes** | critical | real | 2026-11-21 | scanner | 2026-11-21 |
 | `solr-8.3.0-cve-2019-17558` | web-apps | — | vuln | CVE-2019-17558 | **yes** | high | real | 2026-11-20 | scanner | 2026-11-21 |
