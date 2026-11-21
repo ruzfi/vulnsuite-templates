@@ -2,7 +2,7 @@
 
 # Catalog
 
-116 target(s). Regenerate with `python3 scripts/gen_catalog.py`.
+120 target(s). Regenerate with `python3 scripts/gen_catalog.py`.
 
 KEV is derived from `data/cisa-kev.txt` (CISA Known Exploited Vulnerabilities), refreshed by the cisa-kev-sync workflow; `?` means the catalog has not been synced yet.
 
@@ -41,6 +41,8 @@ Verified is `metadata.verification`: **no** means the contract is statically val
 | `apache-ofbiz-18.12.14-cve-2024-38856` | web-apps | — | vuln | CVE-2024-38856 | **yes** | high | real | 2026-11-21 | scanner | 2026-11-21 |
 | `apache-shiro-1.2.4-cve-2016-4437` | web-apps | — | vuln | CVE-2016-4437 | **yes** | critical | real | 2026-11-21 | scanner | 2026-11-21 |
 | `cacti-1.2.22-cve-2022-46169` | web-apps | — | vuln | CVE-2022-46169 | **yes** | critical | real | 2026-11-21 | unset | 2026-11-21 |
+| `craftcms-5.5.1.1-cve-2024-56145` | web-apps | — | vuln | CVE-2024-56145 | **yes** | critical | real | 2026-11-21 | scanner | 2026-11-21 |
+| `craftcms-5.6.16-cve-2025-32432` | web-apps | — | vuln | CVE-2025-32432 | **yes** | critical | real | 2026-11-21 | scanner | 2026-11-21 |
 | `django-debug-enabled` | web-apps | — | misconfig | VS-MISCONF-DJANGO-DEBUG | no | medium | real | 2026-11-20 | unset | 2026-11-20 |
 | `drupal-7.58-cve-2018-7602` | web-apps | — | vuln | CVE-2018-7602 | **yes** | high | real | 2026-11-21 | scanner | 2026-11-21 |
 | `drupal-8.5.0-cve-2018-7600` | web-apps | — | vuln | CVE-2018-7600 | **yes** | critical | real | 2026-11-21 | scanner | 2026-11-21 |
@@ -62,6 +64,7 @@ Verified is `metadata.verification`: **no** means the contract is statically val
 | `kibana-6.5.4-cve-2019-7609` | web-apps | — | vuln | CVE-2019-7609 | **yes** | critical | real | 2026-11-21 | unset | 2026-11-21 |
 | `langflow-1.2.0-cve-2025-3248` | web-apps | — | vuln | CVE-2025-3248 | **yes** | critical | real | 2026-11-20 | scanner | 2026-11-21 |
 | `laravel-ignition-2.5.1-cve-2021-3129` | web-apps | — | vuln | CVE-2021-3129 | **yes** | critical | real | 2026-11-20 | scanner | 2026-11-21 |
+| `livewire-3.6.3-cve-2025-54068` | web-apps | — | vuln | CVE-2025-54068 | **yes** | critical | real | 2026-11-21 | scanner | 2026-11-21 |
 | `metabase-0.40.4-cve-2021-41277` | web-apps | — | vuln | CVE-2021-41277 | **yes** | critical | real | 2026-11-20 | scanner | 2026-11-21 |
 | `mongo-express-0.53.0-cve-2019-10758` | web-apps | — | vuln | CVE-2019-10758 | **yes** | critical | real | 2026-11-21 | scanner | 2026-11-21 |
 | `nextcloud-collabora-code-cve-2026-110447` | web-apps | — | vuln | CVE-2026-110447 | **yes** | critical | real | 2026-11-20 | unset | 2026-11-17 |
@@ -82,6 +85,7 @@ Verified is `metadata.verification`: **no** means the contract is statically val
 | `php-8.2-cve-2026-109618-multipart-rce-workaround-patch` | web-apps | `php2shell` · workaround | vuln | CVE-2026-109618, CVE-2026-109619 | **yes** | critical | real | 2026-11-20 | unset | 2026-11-20 |
 | `phpunit-5.6.2-cve-2017-9841` | web-apps | — | vuln | CVE-2017-9841 | **yes** | critical | real | 2026-11-20 | scanner | 2026-11-21 |
 | `rails-5.2.2-cve-2019-5418` | web-apps | — | vuln | CVE-2019-5418 | **yes** | high | real | 2026-11-21 | scanner | 2026-11-21 |
+| `roundcube-1.4.3-cve-2020-12641` | web-apps | — | vuln | CVE-2020-12641 | **yes** | critical | real | 2026-11-21 | unset | 2026-11-21 |
 | `roundcube-1.6.10-cve-2025-49113` | web-apps | — | vuln | CVE-2025-49113 | **yes** | critical | real | 2026-11-21 | scanner | 2026-11-21 |
 | `ruby-4.0.9-rails-cve-2026-132825` | web-apps | `ruby2shell` · ruby-4-0 ★ | vuln | CVE-2026-132825 | no | critical | real | 2026-11-20 | unset | 2026-11-19 |
 | `chatwoot-4.20.0-cve-2026-132825` | web-apps | `ruby2shell` · chatwoot-4-20 | vuln | CVE-2026-132825 | no | critical | real | 2026-11-20 | unset | 2026-11-20 |
