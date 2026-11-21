@@ -2,7 +2,7 @@
 
 # Catalog
 
-91 target(s). Regenerate with `python3 scripts/gen_catalog.py`.
+92 target(s). Regenerate with `python3 scripts/gen_catalog.py`.
 
 KEV is derived from `data/cisa-kev.txt` (CISA Known Exploited Vulnerabilities), refreshed by the cisa-kev-sync workflow; `?` means the catalog has not been synced yet.
 
@@ -52,6 +52,7 @@ Verified is `metadata.verification`: **no** means the contract is statically val
 | `laravel-ignition-2.5.1-cve-2021-3129` | web-apps | — | vuln | CVE-2021-3129 | **yes** | critical | real | 2026-11-20 | scanner | 2026-11-21 |
 | `metabase-0.40.4-cve-2021-41277` | web-apps | — | vuln | CVE-2021-41277 | **yes** | critical | real | 2026-11-20 | scanner | 2026-11-21 |
 | `nextcloud-collabora-code-cve-2026-110447` | web-apps | — | vuln | CVE-2026-110447 | **yes** | critical | real | 2026-11-20 | unset | 2026-11-17 |
+| `nexus3-3.14.0-cve-2019-7238` | web-apps | — | vuln | CVE-2019-7238 | **yes** | critical | real | 2026-11-21 | scanner | 2026-11-21 |
 | `nexus3-3.21.1-cve-2020-10199` | web-apps | — | vuln | CVE-2020-10199 | **yes** | high | real | 2026-11-20 | scanner | 2026-11-20 |
 | `nodejs-cve-2026-111497-express-version-upgrade-patch` | web-apps | — | vuln | CVE-2026-111497 | **yes** | critical | real | 2026-11-20 | scanner | 2026-11-20 |
 | `nodejs-cve-2026-111497-express-workaround-patch` | web-apps | — | vuln | CVE-2026-111497 | **yes** | critical | real | 2026-11-20 | scanner | 2026-11-20 |
