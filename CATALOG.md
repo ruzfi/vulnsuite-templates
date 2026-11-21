@@ -2,7 +2,7 @@
 
 # Catalog
 
-99 target(s). Regenerate with `python3 scripts/gen_catalog.py`.
+100 target(s). Regenerate with `python3 scripts/gen_catalog.py`.
 
 KEV is derived from `data/cisa-kev.txt` (CISA Known Exploited Vulnerabilities), refreshed by the cisa-kev-sync workflow; `?` means the catalog has not been synced yet.
 
@@ -92,6 +92,7 @@ Verified is `metadata.verification`: **no** means the contract is statically val
 | `wordpress-cve-2026-60137-wp-query-sqli` | web-apps | — | vuln | CVE-2026-60137 | **yes** | medium | real | 2026-11-20 | custom-only | 2026-11-20 |
 | `wordpress-cve-2026-63030-batch-rce` | web-apps | — | vuln | CVE-2026-63030 | **yes** | critical | real | 2026-11-20 | scanner | 2026-11-20 |
 | `wordpress-cve-2026-87902-page-template-traversal` | web-apps | — | vuln | CVE-2026-87902 | **yes** | critical | real | 2026-11-20 | scanner | 2026-11-18 |
+| `xstream-1.4.17-cve-2021-39144` | web-apps | — | vuln | CVE-2021-39144, GHSA-j9h8-phrw-h4fh | **yes** | high | real | 2026-11-21 | scanner | 2026-11-21 |
 | `apache-httpd-2.4.49-cve-2021-41773` | web-servers | — | vuln | CVE-2021-41773 | **yes** | high | real | 2026-11-20 | scanner | 2026-11-20 |
 | `apache-httpd-2.4.50-cve-2021-42013` | web-servers | — | vuln | CVE-2021-42013 | **yes** | critical | real | 2026-11-20 | scanner | 2026-11-20 |
 | `apache-mod-status-exposure` | web-servers | — | misconfig, exposure | VS-EXPOSED-APACHE-STATUS | no | low | real | 2026-11-20 | unset | 2026-11-17 |
