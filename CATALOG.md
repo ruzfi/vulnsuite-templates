@@ -2,7 +2,7 @@
 
 # Catalog
 
-145 target(s). Regenerate with `python3 scripts/gen_catalog.py`.
+147 target(s). Regenerate with `python3 scripts/gen_catalog.py`.
 
 KEV is derived from `data/cisa-kev.txt` (CISA Known Exploited Vulnerabilities), refreshed by the cisa-kev-sync workflow; `?` means the catalog has not been synced yet.
 
@@ -65,6 +65,8 @@ Verified is `metadata.verification`: **no** means the contract is statically val
 | `geoserver-2.25.5-cve-2025-58360` | web-apps | — | vuln | CVE-2025-58360, GHSA-fjf5-xgmq-5525 | **yes** | high | real | 2026-11-21 | scanner | 2026-11-21 |
 | `ghostscript-9.21-cve-2017-8291` | web-apps | — | vuln | CVE-2017-8291 | **yes** | high | real | 2026-11-21 | custom-only | 2026-11-21 |
 | `gitea-1.27.0-cve-2026-60004` | web-apps | — | vuln | CVE-2026-60004 | **yes** | critical | real | 2026-11-21 | unset | 2026-11-21 |
+| `gitlab-13.10.2-cve-2021-22205` | web-apps | — | vuln | CVE-2021-22205 | **yes** | critical | real | 2026-11-21 | scanner | 2026-11-21 |
+| `gitlab-19.1.7-cve-2026-85706` | web-apps | — | vuln | CVE-2026-85706 | **yes** | critical | real | 2026-11-21 | scanner | 2026-11-21 |
 | `golang-1.27.2-cve-2026-111943-emudhra-compromised-ca` | web-apps | — | vuln | CVE-2026-111943 | no | medium | real | 2026-11-21 | custom-only | 2026-11-21 |
 | `gpustack-2.1.2-cve-2026-102895` | web-apps | — | vuln | CVE-2026-102895, GHSA-gj9m-f8ph-pmhr | **yes** | critical | real | 2026-11-21 | custom-only | 2026-11-21 |
 | `grafana-8.3.0-cve-2021-43798` | web-apps | — | vuln | CVE-2021-43798 | **yes** | high | real | 2026-11-20 | scanner | 2026-09-29 |
