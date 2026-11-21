@@ -2,7 +2,7 @@
 
 # Catalog
 
-109 target(s). Regenerate with `python3 scripts/gen_catalog.py`.
+115 target(s). Regenerate with `python3 scripts/gen_catalog.py`.
 
 KEV is derived from `data/cisa-kev.txt` (CISA Known Exploited Vulnerabilities), refreshed by the cisa-kev-sync workflow; `?` means the catalog has not been synced yet.
 
@@ -41,6 +41,7 @@ Verified is `metadata.verification`: **no** means the contract is statically val
 | `apache-shiro-1.2.4-cve-2016-4437` | web-apps | — | vuln | CVE-2016-4437 | **yes** | critical | real | 2026-11-21 | scanner | 2026-11-21 |
 | `cacti-1.2.22-cve-2022-46169` | web-apps | — | vuln | CVE-2022-46169 | **yes** | critical | real | 2026-11-21 | unset | 2026-11-21 |
 | `django-debug-enabled` | web-apps | — | misconfig | VS-MISCONF-DJANGO-DEBUG | no | medium | real | 2026-11-20 | unset | 2026-11-20 |
+| `drupal-7.58-cve-2018-7602` | web-apps | — | vuln | CVE-2018-7602 | **yes** | high | real | 2026-11-21 | scanner | 2026-11-21 |
 | `drupal-8.5.0-cve-2018-7600` | web-apps | — | vuln | CVE-2018-7600 | **yes** | critical | real | 2026-11-21 | scanner | 2026-11-21 |
 | `drupal-8.6.9-rest-cve-2019-6340` | web-apps | — | vuln | CVE-2019-6340 | **yes** | high | real | 2026-11-21 | unset | 2026-11-21 |
 | `exiftool-12.23-cve-2021-22204` | web-apps | — | vuln | CVE-2021-22204 | **yes** | medium | real | 2026-11-21 | custom-only | 2026-11-21 |
@@ -70,6 +71,8 @@ Verified is `metadata.verification`: **no** means the contract is statically val
 | `nodejs-inspector-exposure` | web-apps | — | exposure, misconfig | VS-MISCONF-NODE-INSPECT | no | high | real | 2026-11-20 | custom-only | 2026-11-17 |
 | `openfire-4.7.4-cve-2023-32315` | web-apps | — | vuln | CVE-2023-32315 | **yes** | high | real | 2026-11-20 | scanner | 2026-11-20 |
 | `owncloud-10.13.0-graphapi-cve-2023-49103` | web-apps | — | vuln, exposure | CVE-2023-49103 | **yes** | critical | real | 2026-11-20 | scanner | 2026-11-21 |
+| `pear-archive-tar-1.4.10-cve-2020-28949` | web-apps | — | vuln | CVE-2020-28949, CVE-2020-28948 | **yes** | high | real | 2026-11-21 | custom-only | 2026-11-21 |
+| `pear-archive-tar-1.4.11-cve-2020-36193` | web-apps | — | vuln | CVE-2020-36193 | **yes** | high | real | 2026-11-21 | custom-only | 2026-11-21 |
 | `php-5.4.1-cgi-cve-2012-1823` | web-apps | — | vuln | CVE-2012-1823 | **yes** | critical | real | 2026-11-20 | unset | 2026-11-21 |
 | `php-7.2.23-fpm-cve-2019-11043` | web-apps | — | vuln | CVE-2019-11043 | **yes** | high | real | 2026-11-20 | scanner | 2026-11-21 |
 | `php-fpm-status-exposure` | web-apps | — | exposure | VS-EXPOSED-PHPFPM-STATUS | no | low | real | 2026-11-20 | unset | 2026-11-17 |
@@ -96,10 +99,13 @@ Verified is `metadata.verification`: **no** means the contract is statically val
 | `spring-cloud-gateway-3.1.0-cve-2022-22947` | web-apps | — | vuln | CVE-2022-22947 | **yes** | critical | real | 2026-11-20 | scanner | 2026-11-21 |
 | `spring-data-commons-2.0.5-cve-2018-1273` | web-apps | — | vuln | CVE-2018-1273 | **yes** | critical | real | 2026-11-21 | unset | 2026-11-21 |
 | `spring-framework-5.3.17-cve-2022-22965` | web-apps | — | vuln | CVE-2022-22965 | **yes** | critical | real | 2026-11-21 | scanner | 2026-11-21 |
+| `systeminformation-5.3.0-cve-2021-21315` | web-apps | — | vuln | CVE-2021-21315, GHSA-2m8v-572m-ff2v | **yes** | high | real | 2026-11-21 | scanner | 2026-11-21 |
 | `webmin-1.920-cve-2019-15107` | web-apps | — | vuln | CVE-2019-15107 | **yes** | critical | real | 2026-11-20 | scanner | 2026-11-21 |
 | `wordpress-cve-2026-60137-wp-query-sqli` | web-apps | — | vuln | CVE-2026-60137 | **yes** | medium | real | 2026-11-20 | custom-only | 2026-11-20 |
 | `wordpress-cve-2026-63030-batch-rce` | web-apps | — | vuln | CVE-2026-63030 | **yes** | critical | real | 2026-11-20 | scanner | 2026-11-20 |
 | `wordpress-cve-2026-87902-page-template-traversal` | web-apps | — | vuln | CVE-2026-87902 | **yes** | critical | real | 2026-11-20 | scanner | 2026-11-18 |
+| `wordpress-duplicator-1.3.26-cve-2020-11738` | web-apps | — | vuln | CVE-2020-11738 | **yes** | high | real | 2026-11-21 | scanner | 2026-11-21 |
+| `wp-file-manager-6.8-cve-2020-25213` | web-apps | — | vuln | CVE-2020-25213 | **yes** | critical | real | 2026-11-21 | scanner | 2026-11-21 |
 | `xstream-1.4.17-cve-2021-39144` | web-apps | — | vuln | CVE-2021-39144, GHSA-j9h8-phrw-h4fh | **yes** | high | real | 2026-11-21 | scanner | 2026-11-21 |
 | `xwiki-15.10.10-cve-2025-24893` | web-apps | — | vuln | CVE-2025-24893 | **yes** | critical | real | 2026-11-21 | scanner | 2026-11-21 |
 | `apache-httpd-2.4.49-cve-2021-41773` | web-servers | — | vuln | CVE-2021-41773 | **yes** | high | real | 2026-11-20 | scanner | 2026-11-20 |
