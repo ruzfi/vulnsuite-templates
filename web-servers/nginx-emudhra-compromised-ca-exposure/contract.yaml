@@ -1,0 +1,61 @@
+apiVersion: vulnsuite/v1
+kind: Target
+
+metadata:
+  id: nginx-emudhra-compromised-ca-exposure
+  summary: >-
+    nginx serves HTTPS with a certificate chain through one of the eight
+    compromised eMudhra intermediates (EM DV TLS CA - G3B, whose private key
+    is trivially recoverable and which is revoked and distrusted); the fixed
+    state serves the same site with a certificate from a clean CA.
+  vuln_refs: [VS-EXPOSED-EMUDHRA-CA]
+  cwe: [CWE-295]
+  severity: medium
+  class: [exposure]
+  tags: [nginx, tls, x509, emudhra, compromised-ca, certificate]
+  references:
+    - https://emudhra.we-have-a-problem.com/
+    - https://emudhra.we-have-a-problem.com/impacted-intermediates.json
+    - https://emudhra.we-have-a-problem.com/roots.json
+    - https://bugzilla.mozilla.org/show_bug.cgi?id=2083449
+    - https://github.com/projectdiscovery/nuclei-templates/blob/main/ssl/emudhra-compromised-ca.yaml
+  maintainer: ruzfi
+  added: "2026-11-21"
+  fidelity: real
+  detection: scanner
+  detected_by: ["nuclei:emudhra-compromised-ca"]
+  verified_on:
+    date: "2026-11-21"
+    vulnsuite: v0.5.0
+    host: linux/arm64
+    states: [vulnerable, patched]
+
+base:
+  kind: build
+  context: build
+  dockerfile: Dockerfile
+
+service:
+  ports:
+    - { container: 443, protocol: https }
+  healthcheck:
+    http: { path: /, status: 200 }
+    timeout: 60s
+
+states:
+  vulnerable:
+    verify:
+      - http: { path: /, status: 200, body_matches: "^VS-PORTAL customer portal" }
+      - exec:
+          run: "/app/tlscheck --expect-compromised"
+          stdout_matches: '^PASS: 127\.0\.0\.1:443 presents a leaf signed by a compromised eMudhra intermediate key \(spki sha256 ebed6475c2c2d80fcb199f3fe8dd6e6b3ce60b77eb15d4e42c3dec0c6f5b5105\), chaining to emSign Root TLS CA - G3'
+          timeout: 30
+  patched:
+    overlay:
+      - { src: files/patched/default.conf, dest: default.conf }
+    verify:
+      - http: { path: /, status: 200, body_matches: "^VS-PORTAL customer portal" }
+      - exec:
+          run: "/app/tlscheck --expect-clean"
+          stdout_matches: '^PASS: 127\.0\.0\.1:443 presents a chain that verifies to the clean test root; no compromised eMudhra key in the presented chain'
+          timeout: 30

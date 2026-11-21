@@ -1,0 +1,2 @@
+# Hand-built loose objects (zlib data): never normalise line endings.
+files/common/git/objects/** binary
