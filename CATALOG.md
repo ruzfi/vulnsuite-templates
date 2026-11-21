@@ -80,6 +80,7 @@ Verified is `metadata.verification`: **no** means the contract is statically val
 | `spring-boot-jolokia-exposure` | web-apps | — | misconfig | VS-EXPOSED-JOLOKIA | no | high | real | 2026-11-20 | scanner | 2026-11-21 |
 | `spring-cloud-function-3.2.2-cve-2022-22963` | web-apps | — | vuln | CVE-2022-22963 | **yes** | critical | real | 2026-11-20 | scanner | 2026-11-21 |
 | `spring-cloud-gateway-3.1.0-cve-2022-22947` | web-apps | — | vuln | CVE-2022-22947 | **yes** | critical | real | 2026-11-20 | scanner | 2026-11-21 |
+| `spring-data-commons-2.0.5-cve-2018-1273` | web-apps | — | vuln | CVE-2018-1273 | **yes** | critical | real | 2026-11-21 | unset | 2026-11-21 |
 | `spring-framework-5.3.17-cve-2022-22965` | web-apps | — | vuln | CVE-2022-22965 | **yes** | critical | real | 2026-11-21 | scanner | 2026-11-21 |
 | `webmin-1.920-cve-2019-15107` | web-apps | — | vuln | CVE-2019-15107 | **yes** | critical | real | 2026-11-20 | scanner | 2026-11-21 |
 | `wordpress-cve-2026-60137-wp-query-sqli` | web-apps | — | vuln | CVE-2026-60137 | **yes** | medium | real | 2026-11-20 | custom-only | 2026-11-20 |
