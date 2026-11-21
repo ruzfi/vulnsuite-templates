@@ -49,6 +49,7 @@ Verified is `metadata.verification`: **no** means the contract is statically val
 | `apache-ofbiz-18.12.14-cve-2024-38856` | web-apps | — | vuln | CVE-2024-38856 | **yes** | high | real | 2026-11-21 | scanner | 2026-11-21 |
 | `apache-shiro-1.2.4-cve-2016-4437` | web-apps | — | vuln | CVE-2016-4437 | **yes** | critical | real | 2026-11-21 | scanner | 2026-11-21 |
 | `apache-spark-3.2.1-cve-2022-33891` | web-apps | — | vuln | CVE-2022-33891 | **yes** | high | real | 2026-11-21 | unset | 2026-11-21 |
+| `apache-superset-2.0.1-cve-2023-27524` | web-apps | — | vuln | CVE-2023-27524 | **yes** | high | real | 2026-11-21 | unset | 2026-11-21 |
 | `apisix-2.12.0-cve-2022-24112` | web-apps | — | vuln | CVE-2022-24112 | **yes** | critical | real | 2026-11-21 | unset | 2026-11-21 |
 | `cacti-1.2.22-cve-2022-46169` | web-apps | — | vuln | CVE-2022-46169 | **yes** | critical | real | 2026-11-21 | unset | 2026-11-21 |
 | `craftcms-5.5.1.1-cve-2024-56145` | web-apps | — | vuln | CVE-2024-56145 | **yes** | critical | real | 2026-11-21 | scanner | 2026-11-21 |
@@ -122,6 +123,7 @@ Verified is `metadata.verification`: **no** means the contract is statically val
 | `spring-data-commons-2.0.5-cve-2018-1273` | web-apps | — | vuln | CVE-2018-1273 | **yes** | critical | real | 2026-11-21 | unset | 2026-11-21 |
 | `spring-framework-5.3.17-cve-2022-22965` | web-apps | — | vuln | CVE-2022-22965 | **yes** | critical | real | 2026-11-21 | scanner | 2026-11-21 |
 | `systeminformation-5.3.0-cve-2021-21315` | web-apps | — | vuln | CVE-2021-21315, GHSA-2m8v-572m-ff2v | **yes** | high | real | 2026-11-21 | scanner | 2026-11-21 |
+| `wazuh-4.9.0-cve-2025-24016` | web-apps | — | vuln | CVE-2025-24016 | **yes** | critical | real | 2026-11-21 | unset | 2026-11-21 |
 | `webmin-1.920-cve-2019-15107` | web-apps | — | vuln | CVE-2019-15107 | **yes** | critical | real | 2026-11-20 | scanner | 2026-11-21 |
 | `wordpress-cve-2026-60137-wp-query-sqli` | web-apps | — | vuln | CVE-2026-60137 | **yes** | medium | real | 2026-11-21 | custom-only | 2026-11-21 |
 | `wordpress-cve-2026-63030-batch-rce` | web-apps | — | vuln | CVE-2026-63030 | **yes** | critical | real | 2026-11-21 | scanner | 2026-11-21 |
