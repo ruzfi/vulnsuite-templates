@@ -2,7 +2,7 @@
 
 # Catalog
 
-79 target(s). Regenerate with `python3 scripts/gen_catalog.py`.
+84 target(s). Regenerate with `python3 scripts/gen_catalog.py`.
 
 KEV is derived from `data/cisa-kev.txt` (CISA Known Exploited Vulnerabilities), refreshed by the cisa-kev-sync workflow; `?` means the catalog has not been synced yet.
 
@@ -17,6 +17,7 @@ Verified is `metadata.verification`: **no** means the contract is statically val
 | `elasticsearch-1.4.2-cve-2015-1427-groovy-sandbox` | databases | — | vuln | CVE-2015-1427 | **yes** | critical | real | 2026-11-20 | scanner | 2026-11-21 |
 | `elasticsearch-cve-2014-3120-dynamic-scripting` | databases | — | vuln | CVE-2014-3120 | **yes** | high | real | 2026-11-20 | scanner | 2026-11-20 |
 | `redis-debian-cve-2022-0543` | databases | — | vuln | CVE-2022-0543 | **yes** | critical | real | 2026-11-20 | scanner | 2026-11-21 |
+| `apache-activemq-5.17.5-cve-2023-46604` | network-services | — | vuln | CVE-2023-46604 | **yes** | critical | real | 2026-11-20 | scanner | 2026-11-21 |
 | `erlang-otp-27.3.2-ssh-cve-2025-32433` | network-services | — | vuln | CVE-2025-32433 | **yes** | critical | real | 2026-11-20 | scanner | 2026-11-21 |
 | `inetutils-2.7-telnetd-cve-2026-24061` | network-services | — | vuln | CVE-2026-24061 | **yes** | critical | real | 2026-11-20 | unset | 2026-11-21 |
 | `openssh-7.6p1-cve-2018-15473` | network-services | — | vuln | CVE-2018-15473 | no | medium | real | 2026-11-20 | custom-only | 2026-11-20 |
@@ -30,6 +31,7 @@ Verified is `metadata.verification`: **no** means the contract is statically val
 | `openssh-9.9p2-alpine-3.21-cve-2026-123158` | network-services | `sshole` · alpine-3-21 | vuln | CVE-2026-123158 | **yes** | high | real | 2026-11-20 | scanner | 2026-11-06 |
 | `openssh-10.0p1-alpine-3.22-cve-2026-123158` | network-services | `sshole` · alpine-3-22 | vuln | CVE-2026-123158 | **yes** | high | real | 2026-11-20 | scanner | 2026-11-06 |
 | `openssh-10.2p1-alpine-3.23-cve-2026-123158` | network-services | `sshole` · alpine-3-23 | vuln | CVE-2026-123158 | **yes** | high | real | 2026-11-20 | scanner | 2026-11-06 |
+| `activemq-5.11.1-fileserver-cve-2016-3088` | web-apps | — | vuln | CVE-2016-3088 | **yes** | critical | real | 2026-11-20 | scanner | 2026-11-21 |
 | `adminer-4.7.8-cve-2021-21311` | web-apps | — | vuln | CVE-2021-21311 | **yes** | high | real | 2026-11-20 | unset | 2026-11-21 |
 | `apache-flink-1.11.2-cve-2020-17519` | web-apps | — | vuln | CVE-2020-17519 | **yes** | critical | real | 2026-11-20 | scanner | 2026-11-20 |
 | `django-debug-enabled` | web-apps | — | misconfig | VS-MISCONF-DJANGO-DEBUG | no | medium | real | 2026-11-20 | unset | 2026-11-20 |
@@ -38,6 +40,7 @@ Verified is `metadata.verification`: **no** means the contract is statically val
 | `golang-1.27.2-cve-2026-111943-emudhra-compromised-ca` | web-apps | — | vuln | CVE-2026-111943 | no | medium | real | 2026-11-20 | scanner | 2026-11-20 |
 | `grafana-8.3.0-cve-2021-43798` | web-apps | — | vuln | CVE-2021-43798 | **yes** | high | real | 2026-11-20 | scanner | 2026-09-29 |
 | `graphql-introspection-enabled` | web-apps | — | misconfig | VS-MISCONF-GQL-INTRO | no | low | real | 2026-11-20 | custom-only | 2026-09-29 |
+| `imagemagick-6.9.3-9-cve-2016-3714` | web-apps | — | vuln | CVE-2016-3714 | **yes** | high | real | 2026-11-20 | custom-only | 2026-11-21 |
 | `openjdk-17.0.21-cve-2026-114938-version-upgrade-patch` | web-apps | `java4shell` · version-upgrade ★ | vuln | CVE-2026-114938 | no | critical | real | **no** | custom-only | 2026-11-19 |
 | `openjdk-17.0.21-cve-2026-114938-workaround-patch` | web-apps | `java4shell` · workaround | vuln | CVE-2026-114938 | no | critical | real | **no** | custom-only | 2026-11-19 |
 | `jenkins-2.441-cve-2024-23897` | web-apps | — | vuln | CVE-2024-23897 | **yes** | critical | real | 2026-11-20 | scanner | 2026-11-20 |
@@ -65,6 +68,7 @@ Verified is `metadata.verification`: **no** means the contract is statically val
 | `openproject-17.9.7-cve-2026-132825` | web-apps | `ruby2shell` · openproject-17-9 | vuln | CVE-2026-132825 | no | critical | real | 2026-11-20 | unset | 2026-11-19 |
 | `ruby-3.3.13-rails-cve-2026-132825` | web-apps | `ruby2shell` · ruby-3-3 | vuln | CVE-2026-132825 | no | critical | real | 2026-11-20 | unset | 2026-11-19 |
 | `ruby-3.4.12-rails-cve-2026-132825` | web-apps | `ruby2shell` · ruby-3-4 | vuln | CVE-2026-132825 | no | critical | real | 2026-11-20 | unset | 2026-11-19 |
+| `solr-8.1.1-cve-2019-0193` | web-apps | — | vuln | CVE-2019-0193 | **yes** | high | real | 2026-11-20 | unset | 2026-11-21 |
 | `solr-8.3.0-cve-2019-17558` | web-apps | — | vuln | CVE-2019-17558 | **yes** | high | real | 2026-11-20 | scanner | 2026-11-21 |
 | `spring-boot-actuator-env-exposure` | web-apps | — | exposure | VS-EXPOSED-SPRING-ENV | no | medium | real | 2026-11-20 | scanner | 2026-11-21 |
 | `spring-boot-jolokia-exposure` | web-apps | — | misconfig | VS-EXPOSED-JOLOKIA | no | high | real | 2026-11-20 | scanner | 2026-11-21 |
@@ -91,3 +95,4 @@ Verified is `metadata.verification`: **no** means the contract is statically val
 | `openssl-1.0.1f-heartbleed-cve-2014-0160` | web-servers | — | vuln | CVE-2014-0160 | **yes** | high | real | 2026-11-20 | scanner | 2026-11-21 |
 | `tomcat-8.5.21-put-jsp-cve-2017-12617` | web-servers | — | vuln | CVE-2017-12617 | **yes** | high | real | 2026-11-20 | scanner | 2026-11-21 |
 | `tomcat-9.0.30-ajp-cve-2020-1938` | web-servers | — | vuln | CVE-2020-1938 | **yes** | critical | real | 2026-11-20 | scanner | 2026-11-21 |
+| `tomcat-9.0.98-partial-put-cve-2025-24813` | web-servers | — | vuln | CVE-2025-24813 | **yes** | critical | real | 2026-11-20 | unset | 2026-11-21 |
