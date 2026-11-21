@@ -2,7 +2,7 @@
 
 # Catalog
 
-142 target(s). Regenerate with `python3 scripts/gen_catalog.py`.
+143 target(s). Regenerate with `python3 scripts/gen_catalog.py`.
 
 KEV is derived from `data/cisa-kev.txt` (CISA Known Exploited Vulnerabilities), refreshed by the cisa-kev-sync workflow; `?` means the catalog has not been synced yet.
 
@@ -66,6 +66,7 @@ Verified is `metadata.verification`: **no** means the contract is statically val
 | `ghostscript-9.21-cve-2017-8291` | web-apps | — | vuln | CVE-2017-8291 | **yes** | high | real | 2026-11-21 | custom-only | 2026-11-21 |
 | `gitea-1.27.0-cve-2026-60004` | web-apps | — | vuln | CVE-2026-60004 | **yes** | critical | real | 2026-11-21 | unset | 2026-11-21 |
 | `golang-1.27.2-cve-2026-111943-emudhra-compromised-ca` | web-apps | — | vuln | CVE-2026-111943 | no | medium | real | 2026-11-21 | custom-only | 2026-11-21 |
+| `gpustack-2.1.2-cve-2026-102895` | web-apps | — | vuln | CVE-2026-102895, GHSA-gj9m-f8ph-pmhr | **yes** | critical | real | 2026-11-21 | custom-only | 2026-11-21 |
 | `grafana-8.3.0-cve-2021-43798` | web-apps | — | vuln | CVE-2021-43798 | **yes** | high | real | 2026-11-20 | scanner | 2026-09-29 |
 | `graphql-introspection-enabled` | web-apps | — | misconfig | VS-MISCONF-GQL-INTRO | no | low | real | 2026-11-20 | custom-only | 2026-09-29 |
 | `imagemagick-6.9.3-9-cve-2016-3714` | web-apps | — | vuln | CVE-2016-3714 | **yes** | high | real | 2026-11-20 | custom-only | 2026-11-21 |
