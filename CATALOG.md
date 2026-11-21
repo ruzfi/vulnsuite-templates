@@ -2,7 +2,7 @@
 
 # Catalog
 
-145 target(s). Regenerate with `python3 scripts/gen_catalog.py`.
+150 target(s). Regenerate with `python3 scripts/gen_catalog.py`.
 
 KEV is derived from `data/cisa-kev.txt` (CISA Known Exploited Vulnerabilities), refreshed by the cisa-kev-sync workflow; `?` means the catalog has not been synced yet.
 
@@ -126,6 +126,11 @@ Verified is `metadata.verification`: **no** means the contract is statically val
 | `spring-cloud-gateway-3.1.0-cve-2022-22947` | web-apps | — | vuln | CVE-2022-22947 | **yes** | critical | real | 2026-11-20 | scanner | 2026-11-21 |
 | `spring-data-commons-2.0.5-cve-2018-1273` | web-apps | — | vuln | CVE-2018-1273 | **yes** | critical | real | 2026-11-21 | unset | 2026-11-21 |
 | `spring-framework-5.3.17-cve-2022-22965` | web-apps | — | vuln | CVE-2022-22965 | **yes** | critical | real | 2026-11-21 | scanner | 2026-11-21 |
+| `struts2-2.2.3-cve-2012-0391` | web-apps | — | vuln | CVE-2012-0391 | **yes** | critical | real | 2026-11-21 | custom-only | 2026-11-21 |
+| `struts2-2.3.15-cve-2013-2251` | web-apps | — | vuln | CVE-2013-2251 | **yes** | critical | real | 2026-11-21 | scanner | 2026-11-21 |
+| `struts2-2.3.31-cve-2017-5638` | web-apps | — | vuln | CVE-2017-5638 | **yes** | critical | real | 2026-11-21 | scanner | 2026-11-21 |
+| `struts2-2.3.34-cve-2018-11776` | web-apps | — | vuln | CVE-2018-11776 | **yes** | high | real | 2026-11-21 | scanner | 2026-11-21 |
+| `struts2-2.5.25-cve-2020-17530` | web-apps | — | vuln | CVE-2020-17530 | **yes** | critical | real | 2026-11-21 | scanner | 2026-11-21 |
 | `systeminformation-5.3.0-cve-2021-21315` | web-apps | — | vuln | CVE-2021-21315, GHSA-2m8v-572m-ff2v | **yes** | high | real | 2026-11-21 | scanner | 2026-11-21 |
 | `wazuh-4.9.0-cve-2025-24016` | web-apps | — | vuln | CVE-2025-24016 | **yes** | critical | real | 2026-11-21 | unset | 2026-11-21 |
 | `webmin-1.920-cve-2019-15107` | web-apps | — | vuln | CVE-2019-15107 | **yes** | critical | real | 2026-11-20 | scanner | 2026-11-21 |
