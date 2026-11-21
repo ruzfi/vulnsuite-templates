@@ -2,7 +2,7 @@
 
 # Catalog
 
-141 target(s). Regenerate with `python3 scripts/gen_catalog.py`.
+142 target(s). Regenerate with `python3 scripts/gen_catalog.py`.
 
 KEV is derived from `data/cisa-kev.txt` (CISA Known Exploited Vulnerabilities), refreshed by the cisa-kev-sync workflow; `?` means the catalog has not been synced yet.
 
@@ -80,6 +80,7 @@ Verified is `metadata.verification`: **no** means the contract is statically val
 | `langflow-1.6.9-cve-2025-34291` | web-apps | — | vuln, misconfig | CVE-2025-34291 | **yes** | critical | real | 2026-11-21 | scanner | 2026-11-21 |
 | `langflow-1.8.4-cve-2026-33017` | web-apps | — | vuln | CVE-2026-33017 | **yes** | critical | real | 2026-11-21 | scanner | 2026-11-21 |
 | `laravel-ignition-2.5.1-cve-2021-3129` | web-apps | — | vuln | CVE-2021-3129 | **yes** | critical | real | 2026-11-20 | scanner | 2026-11-21 |
+| `litellm-1.83.7-cve-2026-40217` | web-apps | — | vuln | CVE-2026-40217, GHSA-wxxx-gvqv-xp7p | **yes** | high | real | 2026-11-21 | scanner | 2026-11-21 |
 | `livewire-3.6.3-cve-2025-54068` | web-apps | — | vuln | CVE-2025-54068 | **yes** | critical | real | 2026-11-21 | scanner | 2026-11-21 |
 | `metabase-0.40.4-cve-2021-41277` | web-apps | — | vuln | CVE-2021-41277 | **yes** | critical | real | 2026-11-20 | scanner | 2026-11-21 |
 | `metabase-0.58.23-cve-2026-72898` | web-apps | — | vuln | CVE-2026-72898 | **yes** | critical | real | 2026-11-21 | unset | 2026-11-21 |
