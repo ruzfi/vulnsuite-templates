@@ -37,6 +37,7 @@ Verified is `metadata.verification`: **no** means the contract is statically val
 | `django-debug-enabled` | web-apps | — | misconfig | VS-MISCONF-DJANGO-DEBUG | no | medium | real | 2026-11-20 | unset | 2026-11-20 |
 | `exposed-git-repository` | web-apps | — | exposure | VS-EXPOSED-GIT | no | high | real | 2026-11-20 | unset | 2026-10-26 |
 | `flask-werkzeug-debugger` | web-apps | — | misconfig | VS-MISCONF-FLASK-DEBUG | no | high | real | 2026-11-20 | unset | 2026-11-17 |
+| `geoserver-2.23.5-cve-2024-36401` | web-apps | — | vuln | CVE-2024-36401, GHSA-6jj6-gm7p-fcvv | **yes** | critical | real | 2026-11-21 | scanner | 2026-11-21 |
 | `golang-1.27.2-cve-2026-111943-emudhra-compromised-ca` | web-apps | — | vuln | CVE-2026-111943 | no | medium | real | 2026-11-20 | scanner | 2026-11-20 |
 | `grafana-8.3.0-cve-2021-43798` | web-apps | — | vuln | CVE-2021-43798 | **yes** | high | real | 2026-11-20 | scanner | 2026-09-29 |
 | `graphql-introspection-enabled` | web-apps | — | misconfig | VS-MISCONF-GQL-INTRO | no | low | real | 2026-11-20 | custom-only | 2026-09-29 |
