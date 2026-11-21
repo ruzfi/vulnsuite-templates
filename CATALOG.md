@@ -2,7 +2,7 @@
 
 # Catalog
 
-115 target(s). Regenerate with `python3 scripts/gen_catalog.py`.
+116 target(s). Regenerate with `python3 scripts/gen_catalog.py`.
 
 KEV is derived from `data/cisa-kev.txt` (CISA Known Exploited Vulnerabilities), refreshed by the cisa-kev-sync workflow; `?` means the catalog has not been synced yet.
 
@@ -113,6 +113,7 @@ Verified is `metadata.verification`: **no** means the contract is statically val
 | `apache-mod-status-exposure` | web-servers | — | misconfig, exposure | VS-EXPOSED-APACHE-STATUS | no | low | real | 2026-11-20 | unset | 2026-11-17 |
 | `bash-4.3-cgi-cve-2014-6271` | web-servers | — | vuln | CVE-2014-6271 | **yes** | critical | real | 2026-11-20 | scanner | 2026-11-21 |
 | `goahead-3.6.4-cve-2017-17562` | web-servers | — | vuln | CVE-2017-17562 | **yes** | high | real | 2026-11-21 | scanner | 2026-11-21 |
+| `jboss-as-6.1.0-http-invoker-cve-2017-12149` | web-servers | — | vuln | CVE-2017-12149 | **yes** | critical | real | 2026-11-21 | unset | 2026-11-21 |
 | `nginx-1.31.8-http2-conn-cve-2026-123633` | web-servers | `nginx2root-h2-conn` · mainline-1-31 ★ | vuln | CVE-2026-123633 | no | critical | real | 2026-11-20 | custom-only | 2026-11-20 |
 | `nginx-1.30.6-http2-conn-cve-2026-123633` | web-servers | `nginx2root-h2-conn` · stable-1-30 | vuln | CVE-2026-123633 | no | critical | real | 2026-11-20 | custom-only | 2026-11-20 |
 | `nginx-1.31.8-http2-cve-2026-123007` | web-servers | `nginx2root-h2-window` · mainline-1-31 ★ | vuln | CVE-2026-123007 | no | critical | real | 2026-11-20 | unset | 2026-11-20 |
