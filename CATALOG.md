@@ -113,9 +113,9 @@ Verified is `metadata.verification`: **no** means the contract is statically val
 | `spring-framework-5.3.17-cve-2022-22965` | web-apps | — | vuln | CVE-2022-22965 | **yes** | critical | real | 2026-11-21 | scanner | 2026-11-21 |
 | `systeminformation-5.3.0-cve-2021-21315` | web-apps | — | vuln | CVE-2021-21315, GHSA-2m8v-572m-ff2v | **yes** | high | real | 2026-11-21 | scanner | 2026-11-21 |
 | `webmin-1.920-cve-2019-15107` | web-apps | — | vuln | CVE-2019-15107 | **yes** | critical | real | 2026-11-20 | scanner | 2026-11-21 |
-| `wordpress-cve-2026-60137-wp-query-sqli` | web-apps | — | vuln | CVE-2026-60137 | **yes** | medium | real | 2026-11-20 | custom-only | 2026-11-20 |
-| `wordpress-cve-2026-63030-batch-rce` | web-apps | — | vuln | CVE-2026-63030 | **yes** | critical | real | 2026-11-20 | scanner | 2026-11-20 |
-| `wordpress-cve-2026-87902-page-template-traversal` | web-apps | — | vuln | CVE-2026-87902 | **yes** | critical | real | 2026-11-20 | scanner | 2026-11-18 |
+| `wordpress-cve-2026-60137-wp-query-sqli` | web-apps | — | vuln | CVE-2026-60137 | **yes** | medium | real | 2026-11-21 | custom-only | 2026-11-21 |
+| `wordpress-cve-2026-63030-batch-rce` | web-apps | — | vuln | CVE-2026-63030 | **yes** | critical | real | 2026-11-21 | scanner | 2026-11-21 |
+| `wordpress-cve-2026-87902-page-template-traversal` | web-apps | — | vuln | CVE-2026-87902 | **yes** | critical | real | 2026-11-21 | scanner | 2026-11-21 |
 | `wordpress-duplicator-1.3.26-cve-2020-11738` | web-apps | — | vuln | CVE-2020-11738 | **yes** | high | real | 2026-11-21 | scanner | 2026-11-21 |
 | `wp-file-manager-6.8-cve-2020-25213` | web-apps | — | vuln | CVE-2020-25213 | **yes** | critical | real | 2026-11-21 | scanner | 2026-11-21 |
 | `xstream-1.4.17-cve-2021-39144` | web-apps | — | vuln | CVE-2021-39144, GHSA-j9h8-phrw-h4fh | **yes** | high | real | 2026-11-21 | scanner | 2026-11-21 |
