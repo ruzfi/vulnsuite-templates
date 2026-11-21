@@ -2,7 +2,7 @@
 
 # Catalog
 
-86 target(s). Regenerate with `python3 scripts/gen_catalog.py`.
+87 target(s). Regenerate with `python3 scripts/gen_catalog.py`.
 
 KEV is derived from `data/cisa-kev.txt` (CISA Known Exploited Vulnerabilities), refreshed by the cisa-kev-sync workflow; `?` means the catalog has not been synced yet.
 
@@ -35,6 +35,7 @@ Verified is `metadata.verification`: **no** means the contract is statically val
 | `adminer-4.7.8-cve-2021-21311` | web-apps | — | vuln | CVE-2021-21311 | **yes** | high | real | 2026-11-20 | unset | 2026-11-21 |
 | `apache-flink-1.11.2-cve-2020-17519` | web-apps | — | vuln | CVE-2020-17519 | **yes** | critical | real | 2026-11-20 | scanner | 2026-11-20 |
 | `django-debug-enabled` | web-apps | — | misconfig | VS-MISCONF-DJANGO-DEBUG | no | medium | real | 2026-11-20 | unset | 2026-11-20 |
+| `drupal-8.5.0-cve-2018-7600` | web-apps | — | vuln | CVE-2018-7600 | **yes** | critical | real | 2026-11-21 | scanner | 2026-11-21 |
 | `exposed-git-repository` | web-apps | — | exposure | VS-EXPOSED-GIT | no | high | real | 2026-11-20 | unset | 2026-10-26 |
 | `flask-werkzeug-debugger` | web-apps | — | misconfig | VS-MISCONF-FLASK-DEBUG | no | high | real | 2026-11-20 | unset | 2026-11-17 |
 | `geoserver-2.23.5-cve-2024-36401` | web-apps | — | vuln | CVE-2024-36401, GHSA-6jj6-gm7p-fcvv | **yes** | critical | real | 2026-11-21 | scanner | 2026-11-21 |
