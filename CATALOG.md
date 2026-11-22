@@ -2,7 +2,7 @@
 
 # Catalog
 
-160 target(s). Regenerate with `python3 scripts/gen_catalog.py`.
+161 target(s). Regenerate with `python3 scripts/gen_catalog.py`.
 
 KEV is derived from `data/cisa-kev.txt` (CISA Known Exploited Vulnerabilities), refreshed by the cisa-kev-sync workflow; `?` means the catalog has not been synced yet.
 
@@ -47,6 +47,7 @@ Verified is `metadata.verification`: **no** means the contract is statically val
 | `apache-axis-1.4.1-snapshot-cve-2026-90436` | web-apps | — | vuln | CVE-2026-90436 | **yes** | critical | real | 2026-11-21 | custom-only | 2026-11-21 |
 | `apache-flink-1.11.2-cve-2020-17519` | web-apps | — | vuln | CVE-2020-17519 | **yes** | critical | real | 2026-11-20 | scanner | 2026-11-20 |
 | `apache-ofbiz-18.12.14-cve-2024-38856` | web-apps | — | vuln | CVE-2024-38856 | **yes** | high | real | 2026-11-21 | scanner | 2026-11-21 |
+| `apache-roller-6.1.5-cve-2026-129448` | web-apps | — | vuln | CVE-2026-129448, CVE-2026-82384 | **yes** | critical | real | 2026-11-22 | custom-only | 2026-11-21 |
 | `apache-shiro-1.2.4-cve-2016-4437` | web-apps | — | vuln | CVE-2016-4437 | **yes** | critical | real | 2026-11-21 | scanner | 2026-11-21 |
 | `apache-spark-3.2.1-cve-2022-33891` | web-apps | — | vuln | CVE-2022-33891 | **yes** | high | real | 2026-11-21 | unset | 2026-11-21 |
 | `apache-superset-2.0.1-cve-2023-27524` | web-apps | — | vuln | CVE-2023-27524 | **yes** | high | real | 2026-11-21 | unset | 2026-11-21 |
