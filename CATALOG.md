@@ -161,8 +161,8 @@ Verified is `metadata.verification`: **no** means the contract is statically val
 | `nginx-emudhra-compromised-ca-exposure` | web-servers | — | exposure | VS-EXPOSED-EMUDHRA-CA | no | medium | real | 2026-11-21 | scanner | 2026-11-21 |
 | `nginx-1.31.8-http2-conn-cve-2026-123633` | web-servers | `nginx2root-h2-conn` · mainline-1-31 ★ | vuln | CVE-2026-123633 | no | critical | real | 2026-11-20 | custom-only | 2026-11-20 |
 | `nginx-1.30.6-http2-conn-cve-2026-123633` | web-servers | `nginx2root-h2-conn` · stable-1-30 | vuln | CVE-2026-123633 | no | critical | real | 2026-11-20 | custom-only | 2026-11-20 |
-| `nginx-1.31.8-http2-cve-2026-123007` | web-servers | `nginx2root-h2-window` · mainline-1-31 ★ | vuln | CVE-2026-123007 | no | critical | real | 2026-11-20 | unset | 2026-11-20 |
-| `nginx-1.30.6-http2-cve-2026-123007` | web-servers | `nginx2root-h2-window` · stable-1-30 | vuln | CVE-2026-123007 | no | critical | real | 2026-11-20 | unset | 2026-11-20 |
+| `nginx-1.31.8-http2-cve-2026-123007` | web-servers | `nginx2root-h2-window` · mainline-1-31 ★ | vuln | CVE-2026-123007 | no | critical | real | 2026-11-27 | unset | 2026-11-20 |
+| `nginx-1.30.6-http2-cve-2026-123007` | web-servers | `nginx2root-h2-window` · stable-1-30 | vuln | CVE-2026-123007 | no | critical | real | 2026-11-27 | unset | 2026-11-20 |
 | `nginx-1.31.8-http3-cve-2026-121810` | web-servers | `nginx2root-h3` · mainline-1-31 ★ | vuln | CVE-2026-121810 | no | critical | real | 2026-11-20 | custom-only | 2026-11-20 |
 | `nginx-1.30.6-http3-cve-2026-121810` | web-servers | `nginx2root-h3` · stable-1-30 | vuln | CVE-2026-121810 | no | critical | real | 2026-11-20 | custom-only | 2026-11-20 |
 | `nginx-1.31.8-mail-cve-2026-113425` | web-servers | `nginx2root-mail` · mainline-1-31 ★ | vuln | CVE-2026-113425 | no | critical | real | 2026-11-20 | custom-only | 2026-11-20 |
